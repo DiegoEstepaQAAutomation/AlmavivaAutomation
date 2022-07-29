@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+
+	<listeners>
+		<listener
+			class-name="com.demoautomatizacion.test.utils.Listeners.TestListener" />
+	</listeners>
+
+	<test name="Login">
+		<classes>
+			<class name="com.demoautomatizacion.test.LoginTest" />
+		</classes>
+	</test>
+
+	<!-- MÓDULO SEGURIDAD -->
+	<test name="Usuarios">
+		<classes>
+			<class name="com.demoautomatizacion.test.UsuariosTest" />
+		</classes>
+	</test>
+
+	<test name="Roles">
+		<classes>
+			<class name="com.demoautomatizacion.test.RolesTest" />
+		</classes>
+	</test>
+
+	<test name="Perfiles">
+		<classes>
+			<class name="com.demoautomatizacion.test.PerfilesTest" />
+		</classes>
+	</test>
+
+	<test name="Log Auditoria">
+		<classes>
+			<class name="com.demoautomatizacion.test.LogAuditoriaTest" />
+		</classes>
+	</test>
+	<!-- FIN MÓDULO SEGURIDAD -->
+
+
+	<!-- MÓDULO PARAMETRIZACIÓN -->
+	<test name="Bodegas">
+		<classes>
+			<class name="com.bodegas.test.Bodegas" />
+		</classes>
+	</test>
+
+	<test name="TiposMercanciaTest">
+		<classes>
+			<class name="com.demoautomatizacion.test.TiposMercanciaTest" />
+		</classes>
+	</test>
+	<!-- FIN MÓDULO PARAMETRIZACIÓN -->
+
+	<!-- MÓDULO CLIENTE -->
+	<test name="Gestión">
+		<classes>
+			<class name="com.demoautomatizacion.test.GestionTest" />
+		</classes>
+	</test>
+
+	<test name="Cupo">
+		<classes>
+			<class name="com.demoautomatizacion.test.CupoTest" />
+		</classes>
+	</test>
+	<!-- FIN MÓDULO CLIENTE -->
+	
+	<!-- MÓDULO TÍTULO -->
+	<test name="Expedir">
+		<classes>
+			<class name="com.demoautomatizacion.test.ExpedirTest" />
+		</classes>
+	</test>
+	
+		<test name="Anular Título">
+		<classes>
+			<class name="com.demoautomatizacion.test.AnularTituloTest" />
+		</classes>
+	</test>
+
+	<!-- FIN MÓDULO TÍTULO -->
+
+	<!-- MÓDULO GENERAR REPORTE -->
+	<test name="Generar Reporte">
+		<classes>
+			<class name="com.demoautomatizacion.test.GenerarReporteTest" />
+		</classes>
+	</test>
+	<!-- FIN MÓDULO GENERAR REPORTE -->
+</suite>

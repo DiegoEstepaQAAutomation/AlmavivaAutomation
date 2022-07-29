@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="DemoAutomatizacion Test Suite" verbose="1" thread-count="1" configfailurepolicy="continue">
+    <listeners>
+        <listener class-name="com.demoautomatizacion.test.utils.Listeners.TestListener"/>
+    </listeners>
+    
+    
+    <test name="Login" parallel="methods">
+    <classes>
+       <class name="com.demoautomatizacion.test.LoginTest"/>
+    </classes>
+	</test>
+    
+    
+    <test name="Usuarios" parallel="methods">
+    <classes>
+       <class name="com.demoautomatizacion.test.UsuariosTest"/>
+    </classes>
+	</test>
+
+
+    <test name="Roles" parallel="methods">
+    <classes>
+       <class name="com.demoautomatizacion.test.RolesTest"/>
+    </classes>
+	</test>
+	
+	
+	<test name="Perfiles" parallel="methods">
+    <classes>
+       <class name="com.demoautomatizacion.test.PerfilesTest"/>
+    </classes>
+	</test>
+	
+	
+	<test name="Unidad Medida" parallel="methods">
+    <classes>
+       <class name="com.demoautomatizacion.test.UnidadesMedidaTest"/>
+    </classes>
+	</test>
+	
+	
+	<test name="Tipos de Mercancias" parallel="methods">
+    <classes>
+       <class name="com.demoautomatizacion.test.MercanciaTest"/>
+    </classes>
+	</test>
+	
+	
+	<test name="Cliente" parallel="methods">
+    <classes>
+       <class name="com.demoautomatizacion.test.ClientesTest"/>
+    </classes>
+	</test>
+
+
+    <test name="Bodegas" parallel="methods">
+    <classes>
+       <class name="com.bodegas.test.Bodegas1"/>
+    </classes>
+	</test>
+	
+	
+	<test name="Log Auditoria" parallel="methods">
+    <classes>
+       <class name="LogAuditoriaTest.LogAuditoria6"/>
+    </classes>
+	</test>
+	
+	
+	<test name="Cupo" parallel="methods">
+    <classes>
+       <class name="com.demoautomatizacion.test.CuposTest"/>
+    </classes>
+	</test>
+	
+	
+	<test name="Convenio" parallel="methods">
+    <classes>
+       <class name="com.demoautomatizacion.test.ConveniosTest"/>
+    </classes>
+	</test>
+	
+	
+</suite>
