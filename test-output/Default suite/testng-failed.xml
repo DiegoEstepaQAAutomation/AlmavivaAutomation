@@ -5,8 +5,8 @@
     <classes>
       <class name="com.demoautomatizacion.test.ExpedirTest">
         <methods>
+          <include name="PruebaBaseDatos"/>
           <include name="inicializar"/>
-          <include name="modificarExpedir"/>
           <include name="tearDown"/>
         </methods>
       </class> <!-- com.demoautomatizacion.test.ExpedirTest -->

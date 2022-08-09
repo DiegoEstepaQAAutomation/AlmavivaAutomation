@@ -7,11 +7,14 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -28,6 +31,7 @@ import com.itextpdf.text.DocumentException;
 
 import io.qameta.allure.Attachment;
 import utilities.GenerarReportePdf;
+import utilities.WriteExcelFile;
 
 public class BasePage {
 
@@ -93,10 +97,6 @@ public class BasePage {
 
     }
 
-
-	
-	
-	
 	//METODO I CLICK Y SENKEY
 
     public By localizadorVariable(By locator, String valor) throws Exception {
@@ -292,6 +292,45 @@ public class BasePage {
 		return row;
 	}
 	
+	// METODO PARA BUSCAR UN ELEMENTO EN UNA GRILLA  DE EXCEL
+	public String searchElementGridExcel(By tableResult, File folderPath, String steps)
+			throws Exception {
+		String row = null;
+		ArrayList<WebElement> resultado = (ArrayList<WebElement>) driver.findElement(tableResult)
+				.findElements(By.tagName("tr"));
+		for (Iterator<WebElement> iterator = resultado.iterator(); iterator.hasNext();) {
+			WebElement campo = (WebElement) iterator.next();
+			row = campo.getText();
+			System.out.println(row);
+		}
+	
+		waitInMs(2000);
+		captureScreen(folderPath, steps);
+		return row;
+	}
+	
+	// METODO PARA BUSCAR UN ELEMENTO EN UNA GRILLA  DE EXCEL 2
+		public String searchElementGridExcel2(By tableResult, File folderPath, String steps)
+				throws Exception {
+			String row = null;
+			ArrayList<WebElement> resultado = (ArrayList<WebElement>) driver.findElement(tableResult)
+					.findElements(By.tagName("thead"));
+			for (Iterator<WebElement> iterator = resultado.iterator(); iterator.hasNext();) {
+				WebElement campo = (WebElement) iterator.next();
+				row = campo.getText();
+				String[] prueba = row.split(row);
+				System.out.println(Arrays.toString(prueba));
+				WriteExcelFile.writeExcel("./Data/Prueba.xlsx", "Hoja1", prueba);
+				
+				
+				//System.out.println(row);
+			}
+		
+			waitInMs(2000);
+			captureScreen(folderPath, steps);
+			return row;
+		}
+	
 	
 	
 	public String searchElementGrid1(By tableResult, String searchValue, File folderPath, String steps)
@@ -441,8 +480,6 @@ public class BasePage {
 		GenerarReportePdf.createBody(steps, imagePath);// INSTALAR LOCALIZADOR DE IMAGEN PDF
 		deleteFile(imagePath);// ELIMNAR IMAGEN CREADA
 	}
-
-	
 	
 	// CAPTURA DE PANTALLA
 	public static void captureScreenA(File folderPath, String steps) throws Exception {
@@ -777,6 +814,5 @@ public class BasePage {
 	{
 		driver. findElement(elemenLocation).sendKeys(Keys.F5);
 	}
-	
-	
+
 }

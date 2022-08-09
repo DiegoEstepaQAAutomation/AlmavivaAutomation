@@ -3,10 +3,13 @@ package com.demoautomatizacion.test;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Properties;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import com.Titulo.Pages.CreacionTitulos;
 import com.demoautomatizacion.BaseTest;
 import com.demoautomatizacion.Pages.BasePage;
 import com.demoautomatizacion.test.utils.Listeners.TestListener;
@@ -528,6 +531,7 @@ public class ExpedirTest extends BaseTest {
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"));
+		
 		recording.startRecording("", folderPath);
 		
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
@@ -595,20 +599,191 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"), 
 				getProperties().getProperty("TituloNoEditable"), getProperties().getProperty("Prorroga"),
 				getProperties().getProperty("lblbonoprenda"), getProperties().getProperty("LapsoTiempo"),
-				getProperties().getProperty("infogeneraltitulo"),getProperties().getProperty("Mercancias") );  
+				getProperties().getProperty("infogeneraltitulo"),getProperties().getProperty("Mercancias"));  
 		
 		
 		GenerarReportePdf.closeTemplate("");
 	}
+	/////HU16
+	
+	@Test(priority = 1, description = "Coincidir")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Coincidir")
+    @Story("Coincidir")
+    public void LpnDtlnum() throws Exception {
 
+        File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
+                getProperties().getProperty("path"));
 
+        login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+                getProperties().getProperty("password"));
+
+        home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"));
+
+        expedir.LpnDtlnumCoincidan(folderPath, getProperties().getProperty("TipoDeBodega"), getProperties().getProperty("estadoA"),
+        		getProperties().getProperty("Mercancias"));
+        
+
+        GenerarReportePdf.closeTemplate("");
+
+    }
+	
+	/////HU16 continuacion
+	
+	@Test(priority = 1, description = "BaseDatos")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("BaseDatos")
+    @Story("BaseDatos")
+    public void LpnDtlnum1() throws Exception {
+
+        File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
+                getProperties().getProperty("path"));
+        
+        
+        ArrayList<Object> consultaPruebaBD = consultaBD("SELECT "
+                +getProperties().getProperty("campoIv.lodnum")+","
+                +getProperties().getProperty("campoIh.dtlnum")+","
+                +getProperties().getProperty("campoIv.prtnum")+","
+                +getProperties().getProperty("campoIv.untqty")
+                +" FROM "+getProperties().getProperty("tablaInvhld")
+                +" INNER JOIN "+getProperties().getProperty("tablaInventory_view")+" on "+getProperties().getProperty("tablaIh.dtlnum")
+                +" = "+getProperties().getProperty("campoIv.dtlnum")
+                +" INNER JOIN "+getProperties().getProperty("tablaClient_grp_client")+" on "+getProperties().getProperty("tablaIv.prt_client_id")
+                +" = "+getProperties().getProperty("campoCgc.client_id")
+                +" WHERE "+getProperties().getProperty("campoIh.wh_id")+" = '"+getProperties().getProperty("num1")+"'"
+                +" AND "+getProperties().getProperty("campoIh.hldnum")+" = '"+getProperties().getProperty("num2")+"'"
+                +" AND "+getProperties().getProperty("campoCgc.client_grp")+" = '"+getProperties().getProperty("num3")+"'"
+                           
+				);
+		
+		String dataBDD = consultaPruebaBD.toString();
+		 
+		System.out.print(dataBDD);
+		
+		
+		
+		/*
+		ArrayList<Object> consultaPruebaBD2 = consultaBD2("SELECT "
+				+" FROM "+getProperties().getProperty("tbl_Mercancias_wms")
+				+" WHERE "+getProperties().getProperty("campoMwms_id_titulo")+" = '"+getProperties().getProperty("num4")+"'"
+				
+				);
+		
+		String dataBDD2 = consultaPruebaBD2.toString();
+		
+		System.out.print(dataBDD2);
+		*/
+		
+
+        login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+                getProperties().getProperty("password"));
+
+        home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"));
+
+        expedir.LpnDtlnumCoincidan1(folderPath, getProperties().getProperty("TipoDeBodega"), getProperties().getProperty("estadoA"),
+        		getProperties().getProperty("Mercancias"),getProperties().getProperty("Lista"),getProperties().getProperty("Lpm"),dataBDD + " Datos LPN de la base de datos",
+        		getProperties().getProperty("SubModuloExpedir"),//dataBDD2 + " Datos LPN de la base de datos",
+        		getProperties().getProperty("Lista1"));
+        
+       
+
+        GenerarReportePdf.closeTemplate("");
+
+    }
+	
+
+	@Test(priority = 1, description = "BaseDatos")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("BaseDatos")
+    @Story("BaseDatos")
+    public void PruebaBaseDatos(String nameTest) throws Exception {
+		
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
+                getProperties().getProperty("path"));
+		
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+	               getProperties().getProperty("password"));
+
+		ArrayList<Object> consultaPruebaBD = consultaBD("SELECT "
+                +getProperties().getProperty("campoIv.lodnum")+","
+                +getProperties().getProperty("campoIh.dtlnum")+","
+                +getProperties().getProperty("campoIv.prtnum")+","
+                +getProperties().getProperty("campoIv.untqty")
+                +" FROM "+getProperties().getProperty("tablaInvhld")
+                +" INNER JOIN "+getProperties().getProperty("tablaInventory_view")+" on "+getProperties().getProperty("tablaIh.dtlnum")
+                +" = "+getProperties().getProperty("campoIv.dtlnum")
+                +" INNER JOIN "+getProperties().getProperty("tablaClient_grp_client")+" on "+getProperties().getProperty("tablaIv.prt_client_id")
+                +" = "+getProperties().getProperty("campoCgc.client_id")
+                +" WHERE "+getProperties().getProperty("campoIh.wh_id")+" = '"+getProperties().getProperty("num1")+"'"
+                +" AND "+getProperties().getProperty("campoIh.hldnum")+" = '"+getProperties().getProperty("num2")+"'"
+                +" AND "+getProperties().getProperty("campoCgc.client_grp")+" = '"+getProperties().getProperty("num3")+"'"
+                           
+				);
+		
+		String Prueba = consultaPruebaBD.toString();
+		 
+		System.out.print(Prueba);
+		
+		GenerarReportePdf.closeTemplate("");
+    }
+	
+	/*
+	select
+	iv.lodnum,
+	        ih.dtlnum,
+	        iv.prtnum,
+	        iv.untqty
+	   from invhld ih
+	  inner join inventory_view iv on ih.dtlnum = iv.dtlnum
+	  inner join client_grp_client cgc on iv.prt_client_id = cgc.client_id
+	  where ih.wh_id = '1507101'
+	    and ih.hldnum = '1726'
+	    and cgc.client_grp = '9004625119';
+       */
 	
 	
-	
-	
-	
-	
-	
-	
-	
+	@SuppressWarnings("static-access")
+	@Test(priority = 1, description = "Modificar expedir")
+	@Severity(SeverityLevel.NORMAL)
+	@Description("Módulo Expedir")
+	@Story("Modificación de expedir")
+	public void ValidacionHU07() throws Exception {
+		
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
+				getProperties().getProperty("path"));
+		
+		recording.startRecording("", folderPath);
+
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
+
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"));
+		
+	     
+		expedir.ValidacionExpedirFormulario1_556552(folderPath, getProperties().getProperty("Empresa2"), 
+				getProperties().getProperty("InfGTitulo"), getProperties().getProperty("NumeroTitulo"),
+				getProperties().getProperty("SubModuloExpedir"));
+				
+				
+		creaciontitulos.ValidacionExpedirFormulario(folderPath, getProperties().getProperty("Empresa2"), 
+				getProperties().getProperty("InfGTitulo"),getProperties().getProperty("Titulo"),
+				getProperties().getProperty("NumeroTitulo"),
+				getProperties().getProperty("Plazo"), getProperties().getProperty("Poliza"),
+				getProperties().getProperty("Tipomerca"), getProperties().getProperty("Mercancias"),
+				getProperties().getProperty("tarifas"),getProperties().getProperty("ingreso"),
+				getProperties().getProperty("OficnaExpedicion"),getProperties().getProperty("oficinaAlmacenamiento"),
+				getProperties().getProperty("CodigoSapExp"),getProperties().getProperty("CodigoSapAlm"),
+				getProperties().getProperty("aplicar"),getProperties().getProperty("SubModuloExpedir"));
+				
+		 	
+		
+		expedir.ValidacionExpedirDivisionIngresos(folderPath, getProperties().getProperty("InfGTitulo"), 
+				getProperties().getProperty("ingreso"), getProperties().getProperty("aplicar"),
+				getProperties().getProperty("SubModuloExpedir"), getProperties().getProperty("OficnaExpedicion"),
+				getProperties().getProperty("oficinaAlmacenamiento"),getProperties().getProperty("estadoA"));
+	    
+		recording.stopRecording();
+		
+		GenerarReportePdf.closeTemplate("");
+      }	
 }
