@@ -17,7 +17,7 @@ public class GenerarReporteMap extends BasePage {
 	protected By lblFechaFin = By.xpath("//input[contains(@formcontrolname,'fecFin')]");
 	protected By btnDescargar = By.xpath("//*[@id='contenido']/app-generar-reporte/div/div/div/button[contains(text(),'Descargar')]");
 	protected By reporteExitoso = By.xpath("//div[@id='toast-container']/div/div");
-	protected By lblTipoReporte2 = By.xpath("//*[@id='contenido']/app-generar-reporte/div/form/div[1]/div/select");
+	
 	protected By AlertaExitoso = By.xpath("//*[@id='toast-container']");
 	
 	

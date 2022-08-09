@@ -41,21 +41,47 @@ public class ExpedirMap extends BasePage {
 	protected By btnGuardarLiberacion = By.xpath("//*[@id='contenido']/main-titulos/app-liberacion-mercancia/div/accordion/accordion-group[2]/div/div[2]/div/app-modificacion-autorizaciones/div[3]/div/button");
 	protected By btnDetalleMercancia = By.xpath("//*[@id='contenido']/main-titulos/app-liberacion-mercancia/div/accordion/accordion-group[3]/div/div[1]/div/div/button");
 	
-	
 	protected By btnAutorizacionPendiente = By.xpath("//*[@id='contenido']/main-titulos/app-liberacion-mercancia/div/accordion/accordion-group[2]/div/div[1]/div/div/button");
-	
+	protected By DetalleMercancia2 = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[2]/div/div[1]/div/div/button");
 	protected By btnVisualizarAutorizacionPendiente = By.xpath("/*[@id='tbClientes']/tbody/tr[1]/td[5]/a");
 	protected By chxConfirmarLiberacion = By.xpath("//*[@id='flexCheckCheckedSi']");
 	protected By btnConfirmarLiberacion = By.xpath("//body/modal-container/div/div/app-detalleautorizacion/div/div[1]/button");
 	protected By btnExpedirReal = By.xpath("/html/body/app-root/div/app-sidebar/nav/ul/li[4]/div/ul/li[1]/div/a");
 	
+	//Roles y seguridad
+	protected By GridSeguridad = By.xpath("//*[@id='tbRoles']/tbody/tr"); 
+	protected By txtBusquedaUsuario = By.xpath("//*[@id='terminoBusqueda']");
+	protected By GridPerfil = By.xpath("//*[@id='contenido']/perfiles-perfiles/ng-component/div/div[3]/table/tbody/tr[5]");
+	protected By btnModificarPerfil = By.xpath("//body/app-root/div/div/div/perfiles-perfiles/ng-component/div/div[3]/table/tbody/tr/td[4]/div/a[1]");
+	protected By btnRolVisualizar = By.xpath("//*[@id='contenido']/perfiles-perfiles/ng-component/div/form/accordion/accordion-group/div/div[1]/div/div/button/div");
+	protected By GridRol = By.xpath("//*[@id='contenido']/perfiles-perfiles/ng-component/div/form/accordion/accordion-group/div/div[2]/div/div[2]/div/table/tbody/tr");
+	protected By GridRoles = By.xpath("//*[@id=\"tbRoles\"]/tbody/tr");
+	protected By TituloModulo = By.xpath("//*[@id='sidebar']/ul/li[4]/div/a");
+	protected By SeccionModuloExpedir = By.xpath("//*[@id='sidebar']/ul/li[4]/div/ul/li[1]/div/a");
+	protected By GridDePerfiles= By.xpath("//*[@id='contenido']/perfiles-perfiles/ng-component/div/div[3]/table/tbody/tr");
 	
+	
+	
+	//Reversar aplicaciones 
+	
+	protected By ValorTituloReversable = By.xpath("//*[@id='tbClientes']/tbody/tr[1]/td[2]");
+	protected By btnVisualizarReversion = By.xpath("//*[@id='tbClientes']/tbody/tr[1]/td[5]/a");
+	protected By btnVisualizarReversion2 = By.xpath("//*[@id='tbClientes']/tbody/tr[1]/td[5]/a");
+	protected By chxReversar = By.xpath("//*[@id='flexCheckChecked']");
+	
+	protected By btnReversar = By.xpath("//body/modal-container/div/div/app-detallereversionliberaciones/div/div[2]/div[2]/div/button");
+	protected By GridTitulo = By.xpath("//*[@id='tbClientes']/tbody/tr");
+	protected By btnAceptarReversion = By.xpath("//body/div[2]/div/div[3]/button[1]");
+	
+	protected By btnAcceptReversion = By.xpath("//body/div[2]/div/div[3]/button[1]");
+	protected By BodegaOpcionTransito =  By.xpath("//*[@id='desde']");
+	//
 	
 	protected By btnVerBonoPrenda = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[3]/div/div[1]/div/div/button");
 	
 	protected By RazonSocial = By.xpath("//*[@id='criterio']/option[2]");
 	
-	//Admin usuario
+	//Admin usuario 
 	
 	protected By GridUsuario = By.xpath("//*[@id='contenido']/app-main/app-home/div/div[3]/table/tbody/tr");
 	
@@ -82,8 +108,6 @@ public class ExpedirMap extends BasePage {
 	protected By lblTipoBodegaCliente = By.xpath("//*[@id='contenido']/app-main/app-formulario/div/form/accordion/accordion-group/div/div/div/div/button[contains(text(),'Tipo de Bodega')]");
 	
 	// Información General del Título
-	
-	protected By btnInformacionGeneralTitulo = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[1]/div/div[1]/div/div/button");
 	protected By lblOficinaResponsable = By.id("oficinaResponsableSelect");
 	protected By lblTipoBodega = By.id("tipoBodega");
 	protected By lblBodega = By.id("bodegaSelect");
@@ -224,10 +248,9 @@ public class ExpedirMap extends BasePage {
 	protected By ImpresionA = By.xpath("//body/modal-container/div/div/app-impresion-titulo/div/div[2]/div[3]/div[2]/div/button[1]");
 	protected By ImpresionCDM = By.xpath("//body/modal-container/div/div/app-impresion-titulo/div/div[2]/div[2]/div[2]/div/button[1]");
 	protected By ImpresionBonoprenda = By.xpath("//body/modal-container/div/div/app-impresion-titulo/div/div[2]/div[1]/div[2]/div/button[1]");
-	// cara B
-	protected By ImpresionBonoprendaB = By.xpath("/html/body/modal-container/div/div/app-impresion-titulo/div/div[2]/div[1]/div[2]/div/button[2]");
-	protected By ImpresionCDMB = By.xpath("/html/body/modal-container/div/div/app-impresion-titulo/div/div[2]/div[2]/div[2]/div/button[2]");
-	protected By ImpresionB = By.xpath("/html/body/modal-container/div/div/app-impresion-titulo/div/div[2]/div[3]/div[2]/div/button[2]");
+	
+	
+	
 	
 	
 	protected By btnModificarcliente = By.xpath("//*[@id='tbClientes']/tbody/tr/td[9]/div/div[1]/a");
@@ -292,6 +315,7 @@ public class ExpedirMap extends BasePage {
 	protected By lblModulos = By.xpath("//*[@id='sidebar']/ul/li/div/a[contains(text(),'{0}')]");
 	
 	protected By SearchUsuary = By.xpath("//*[@id='nombre']");
+	protected By SearchRole = By.xpath("//*[@id='termino']");
 	
 	//Expedir y editar mercancia
 	protected By txtCodigoTitulo = By.id("titulo");
@@ -326,108 +350,175 @@ public class ExpedirMap extends BasePage {
 	protected By btnSafe = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[2]/div/button[1]");
 	protected By btnAplicar = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[2]/div/button[2]");
 	
+	protected By btnAceptarCambios = By.xpath("//body/div[2]/div/div[3]/button[1]");
+	
+	protected By Plazos = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[4]/div/div[1]/div/div/button");
+	protected By Poliza = By.xpath("//*[@id=\"contenido\"]/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[5]/div/div[1]/div/div/button");
+	protected By TipoMercancia = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[6]/div/div[1]/div/div/button");
+	protected By Mercancia = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[1]/div/div/button");
+	protected By Tarifa = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[8]/div/div[1]/div/div/button");
+	protected By DivisionIngreso = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[1]/div/div/button");
+	protected By btnVisualizarRolesExistentes = By.xpath("//*[@id='tbRoles']/tbody/tr/td[4]/div/a[1]");
+	protected By btnCriterioTitulo = By.xpath("//*[@id='criterio']");
+	protected By btnRefreshTitulosPorfecha = By.xpath("//*[@id='tbClientes']/thead/tr/th[1]/i");
+	protected By UltimoRegistroCreado = By.xpath("//*[@id='tbClientes']/tbody/tr[1]/td[1]");
+	protected By PaginacionNueva = By.xpath("//*[@id='contenido']/main-titulos/titulos-home/div/div[4]/div/div/ngb-pagination/ul/li[9]/a");
+	
 	
 	//body/div[3]/div/div[3]/button[1]
 	
-  //  Titulo Expedir
-	protected By btnNit2 = By.xpath("//*[@id='criterio']");
-	protected By btnNit = By.xpath("//*[@id='criterio']/option[2]");
-	protected By btnSelecClaro = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/busqueda-cliente/form/div[2]/ngb-typeahead-window/button/ngb-highlight");
-	protected By txtNumeroTitulo = By.xpath("//*[@id='tituloDisabled']");
+	//protected By Cargue = By.xpath("//input[contains(@name,'fileCsv')]");
+	
+	
+	//creacion de formulario Expedir 
+
+	protected By lblOficinaResponsable1 = By.xpath("//*[@id='oficinaResponsableSelect']"); 
+
+	protected By lblOficinaResponsable2 = By.xpath("//*[@id='oficinaResponsableSelect']/option[3]"); 
+
+	protected By lblTipoBodega1 = By.xpath("//*[@id='tipoBodega']"); 
+
+	protected By lblTipoBodega2 = By.xpath("//*[@id='tipoBodega']/option[4]"); 
+
+	protected By lblBodega1 = By.xpath("//*[@id='bodegaSelect']"); 
+
+	protected By lblBodega2 = By.xpath("//*[@id='bodegaSelect']/option[2]"); 
+
+	protected By lblTipoTitulo1 = By.xpath("//*[@id='tipoTituloSelect']"); 
+
+	protected By lblTipoTitulo2 = By.xpath("//*[@id='tipoTituloSelect']/option[2]"); 
+
+	protected By lblTipoOperacion1 = By.xpath("//*[@id='tipoOperacion']"); 
+
+	protected By lblTipoOperacion2 = By.xpath("//*[@id='tipoOperacion']/option[2]"); 
+
+	protected By lblDivisionIngreso1 = By.xpath("//*[@id='divisionIngreso']"); 
+
+	protected By lblDivisionIngreso2 = By.xpath("//*[@id='divisionIngreso']/option[1]"); 
+
+	protected By lblDivisionIngreso3 = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[1]/div/div[2]/div/div/div[12]/select/option[2]"); 
+
+	protected By btnInformacionGeneralTitulo = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[1]/div/div[1]/div/div/button"); 
+
+	protected By btnPlazo = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[4]/div/div[1]/div/div/button"); 
+
+	protected By txtPlazoCertificadoDias = By.xpath("//*[@id='plazoCertificadoDeposito']"); 
+
+	protected By txtPlazoContratoDias = By.xpath("//*[@id='plazoContratoDeposito']"); 
+	
+	protected By txtNumeroTitulo = By.xpath("//*[@id='tituloDisabled']"); 
+	
+	protected By btnNit2 = By.xpath("//*[@id='criterio']"); 
+
+	protected By btnNit = By.xpath("//*[@id='criterio']/option[2]"); 
+	
+	protected By btnSelecClaro = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/busqueda-cliente/form/div[2]/ngb-typeahead-window/button/ngb-highlight"); 
+
+	 
+
+	protected By btnPoliza = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[5]/div/div[1]/div/div/button"); 
+
+	protected By btnPoliza1 = By.xpath("//*[@id='polizaSelect']"); 
+
+	protected By btnPoliza2 = By.xpath("//*[@id='polizaSelect']/option[3]"); 
+
+	 
+
+	protected By btnTipoMercancia = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[6]/div/div[1]/div/div/button"); 
+
+	protected By btnTipoMercancia1 = By.xpath("//*[@id='tipoMercancia']"); 
+
+	protected By btnTipoMercancia2 = By.xpath("//*[@id='tipoMercancia']/option[5]"); 
+
+	protected By txtDescripcionMercancia = By.xpath("//*[@id='timeDescripcion']"); 
+
+	protected By txtmerma = By.xpath("//*[@id='merma']"); 
+
+	protected By btnAplicadaCalidad1 = By.xpath("//*[@id='aplicaCondicionCalidad']"); 
+
+	protected By btnAplicadaCalidad2 = By.xpath("//*[@id='aplicaCondicionCalidad']/option[1]"); 
+
+	protected By btnMercanciaDesignada1 = By.xpath("//*[@id='mercanciaGenericaDesignada']"); 
+
+	protected By btnMercanciaDesignada2 = By.xpath("//*[@id='mercanciaGenericaDesignada']/option[1]"); 
+
+	protected By txtObservaciones1 = By.xpath("//*[@id='observaciones']"); 
+
+	 
+
+	protected By btnMercancias = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[1]/div/div/button"); 
+
+	protected By btnTipoCargue1 = By.xpath("//*[@id='tipoCargue']"); 
+
+	protected By btnTipoCargue2 = By.xpath("//*[@id='tipoCargue']/option[3]"); 
+
+	protected By btnCrearMercancia = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div"); 
+
+	protected By txtDetalleMercancia1 = By.xpath("//*[@id='detalleMercancia']"); 
+
+	 
+
+	protected By btnTarifas = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[8]/div/div[1]/div/div/button"); 
+
+	protected By btnMaterialSap = By.xpath("//*[@id='materialERPSelect']"); 
+
+	protected By btnMaterialSap2 = By.xpath("//*[@id='materialERPSelect']/option[2]"); 
+
+	 
+
+	protected By btnDivisionIngreso = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[1]/div/div/button"); 
+
+	protected By btnPorcentajeEx = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[3]/input"); 
+
+	protected By btnPorcentajeAlm = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[4]/input"); 
+
+	 
+
+	protected By btnCodigoSapExp = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[5]/textarea"); 
+
+	protected By btnCodigoSapAlm = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[6]/textarea"); 
+
+	// cara B
+	protected By ImpresionBonoprendaB = By.xpath("/html/body/modal-container/div/div/app-impresion-titulo/div/div[2]/div[1]/div[2]/div/button[2]");
+	protected By ImpresionCDMB = By.xpath("/html/body/modal-container/div/div/app-impresion-titulo/div/div[2]/div[2]/div[2]/div/button[2]");
+	protected By ImpresionB = By.xpath("/html/body/modal-container/div/div/app-impresion-titulo/div/div[2]/div[3]/div[2]/div/button[2]");
+
 	protected By txtOficinaExpedicion = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[1]/label");
 	protected By txtOficinaAlmacenamiento = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[2]/label");
 	
+	protected By txtCodigoSapExp = By.xpath("//*[@id='codigoSapExpedicion']");
 	
 	protected By btnIngreso = By.xpath("//*[@id='divisionIngreso']");
-	
+
 	
 	// HU16
 	
-	//protected By txtNitRazonSocial = By.id("termino");
+		//protected By txtNitRazonSocial = By.id("termino");
 
-	
-	protected By FrameofGridClient1 = By.xpath("//*[@id='tbClientes']/tbody/tr");
-	protected By FrameofGridList = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[1]/table/thead/tr");
-	protected By FrameofGridList1 = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[1]/table/tbody/tr[4]");
-	protected By FrameofGridExcel = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[1]/table");
+		
+		protected By FrameofGridClient1 = By.xpath("//*[@id='tbClientes']/tbody/tr");
+		protected By FrameofGridList = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[1]/table/thead/tr");
+		protected By FrameofGridList1 = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[1]/table/tbody/tr[4]");
+		protected By FrameofGridExcel = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[1]/table");
 
-	//protected By lblModificarHistorico = By.xpath("//*[@id='tbClientes']/tbody/tr[1]/td[9]/div/a[1]");
-	
-	
-	protected By btnSelectFiltro = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[2]/div/div/select");
-	protected By btnFiltro = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[2]/div/div/select/option[4]");
-	protected By btnFiltro2 = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[2]/div/div/select");
-	//protected By FrameofGridClient1 = By.xpath("//*[@id='tbClientes']/tbody/tr");
+		//protected By lblModificarHistorico = By.xpath("//*[@id='tbClientes']/tbody/tr[1]/td[9]/div/a[1]");
+		
+		
+		protected By btnSelectFiltro = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[2]/div/div/select");
+		protected By btnFiltro = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[2]/div/div/select/option[4]");
+		protected By btnFiltro2 = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[2]/div/div/select");
+		//protected By FrameofGridClient1 = By.xpath("//*[@id='tbClientes']/tbody/tr");
 
 
-	
-	
-	//creacion de formulario Expedir
-	protected By lblOficinaResponsable1 = By.xpath("//*[@id='oficinaResponsableSelect']");
-	protected By lblOficinaResponsable2 = By.xpath("//*[@id='oficinaResponsableSelect']/option[3]");
-	protected By lblTipoBodega1 = By.xpath("//*[@id='tipoBodega']");
-	protected By lblTipoBodega2 = By.xpath("//*[@id='tipoBodega']/option[3]");
-	protected By lblBodega1 = By.xpath("//*[@id='bodegaSelect']");
-	protected By lblBodega2 = By.xpath("//*[@id='bodegaSelect']/option[2]");
-	protected By lblTipoTitulo1 = By.xpath("//*[@id='tipoTituloSelect']");
-	protected By lblTipoTitulo2 = By.xpath("//*[@id='tipoTituloSelect']/option[2]");
-	protected By lblTipoOperacion1 = By.xpath("//*[@id='tipoOperacion']");
-	protected By lblTipoOperacion2 = By.xpath("//*[@id='tipoOperacion']/option[2]");
-	protected By lblDivisionIngreso1 = By.xpath("//*[@id='divisionIngreso']");
-	protected By lblDivisionIngreso2 = By.xpath("//*[@id='divisionIngreso']/option[1]");
-	protected By lblDivisionIngreso3 = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[1]/div/div[2]/div/div/div[12]/select/option[2]");
-	
-	protected By btnPlazo = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[4]/div/div[1]/div/div/button");
-	protected By txtPlazoCertificadoDias = By.xpath("//*[@id='plazoCertificadoDeposito']");
-	protected By txtPlazoContratoDias = By.xpath("//*[@id='plazoContratoDeposito']");
-	
-	protected By btnPoliza = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[5]/div/div[1]/div/div/button");
-	protected By btnPoliza1 = By.xpath("//*[@id='polizaSelect']");
-	protected By btnPoliza2 = By.xpath("//*[@id='polizaSelect']/option[3]");
-	
-	protected By btnTipoMercancia = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[6]/div/div[1]/div/div/button");
-	protected By btnTipoMercancia1 = By.xpath("//*[@id='tipoMercancia']");
-	protected By btnTipoMercancia2 = By.xpath("//*[@id='tipoMercancia']/option[5]");
-	protected By txtDescripcionMercancia = By.xpath("//*[@id='timeDescripcion']");
-	protected By txtmerma = By.xpath("//*[@id='merma']");
-	protected By btnAplicadaCalidad1 = By.xpath("//*[@id='aplicaCondicionCalidad']");
-	protected By btnAplicadaCalidad2 = By.xpath("//*[@id='aplicaCondicionCalidad']/option[1]");
-	protected By btnMercanciaDesignada1 = By.xpath("//*[@id='mercanciaGenericaDesignada']");
-	protected By btnMercanciaDesignada2 = By.xpath("//*[@id='mercanciaGenericaDesignada']/option[1]");
-	protected By txtObservaciones1 = By.xpath("//*[@id='observaciones']");
-	
-	protected By btnMercancias = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[1]/div/div/button");
-	protected By btnTipoCargue1 = By.xpath("//*[@id='tipoCargue']");
-	protected By btnTipoCargue2 = By.xpath("//*[@id='tipoCargue']/option[3]");
-	protected By btnCrearMercancia = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div");
-	protected By txtDetalleMercancia1 = By.xpath("//*[@id='detalleMercancia']");
-	
-	protected By btnTarifas = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[8]/div/div[1]/div/div/button");
-	protected By btnMaterialSap = By.xpath("//*[@id='materialERPSelect']");
-	protected By btnMaterialSap2 = By.xpath("//*[@id='materialERPSelect']/option[2]");
-	
-	protected By btnDivisionIngreso = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[1]/div/div/button");
-	protected By btnPorcentajeEx = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[3]/input");
-	protected By btnPorcentajeAlm = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[4]/input");
-	protected By lblPorcentajeExp = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[3]/label");
-	protected By lblPorcentajeAlm = By.xpath("//*[@id='contenido'']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[4]/label");
-	
-	protected By btnCodigoSapExp = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[5]/textarea");
-	protected By btnCodigoSapAlm = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[6]/textarea");
-	protected By txtCodigoSapExp = By.xpath("//*[@id='codigoSapExpedicion']");
-	
-	protected By Modal = By.xpath("/html/body/modal-container");
-	
+
 	// hu16
-	
-	protected By btnActualizarLpm = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[3]/div/div/button");
-	protected By btnActualizarCantidades = By.xpath("/html/body/div[2]/div/div[3]/button[1]");
-	protected By lblProductos = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[1]/table/tbody/tr[8]/td[1]");
-	protected By lblCJ = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[1]/table/tbody/tr[8]/td[7]");
-	protected By lblCantidadSaldo = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[1]/table/tbody/tr[8]/td[6]/input");
-	
-	
-	
+		
+		protected By btnActualizarLpm = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[3]/div/div/button");
+		protected By btnActualizarCantidades = By.xpath("/html/body/div[2]/div/div[3]/button[1]");
+		protected By lblProductos = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[1]/table/tbody/tr[8]/td[1]");
+		protected By lblCJ = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[1]/table/tbody/tr[8]/td[7]");
+		protected By lblCantidadSaldo = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[1]/table/tbody/tr[8]/td[6]/input");
+
 	
 	
 }

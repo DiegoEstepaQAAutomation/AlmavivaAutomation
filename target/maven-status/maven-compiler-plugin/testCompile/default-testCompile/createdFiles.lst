@@ -7,9 +7,7 @@ com\demoautomatizacion\test\UsuariosTest.class
 com\demoautomatizacion\test\PerfilesTest.class
 com\demoautomatizacion\test\TiposMercanciaTest.class
 com\demoautomatizacion\test\CupoTest.class
-com\bodegas\test\Bodegas.class
 com\demoautomatizacion\test\LoginTest.class
-com\demoautomatizacion\test\utils\Listeners\TestListener.class
 com\demoautomatizacion\test\LogAuditoriaTest.class
 com\demoautomatizacion\test\ImpresionTituloTest.class
 com\demoautomatizacion\test\ProgramarVistasTest.class
@@ -19,7 +17,6 @@ com\demoautomatizacion\test\LiberacionMercanciaTest.class
 com\demoautomatizacion\test\UnidadesMedidaTest.class
 com\demoautomatizacion\test\RolesTest.class
 com\demoautomatizacion\test\ConvenioTest.class
-com\demoautomatizacion\BaseTest.class
 com\demoautomatizacion\test\NotificacionesTest.class
 com\demoautomatizacion\test\CRVisitasTest.class
 com\demoautomatizacion\test\GestionTest.class

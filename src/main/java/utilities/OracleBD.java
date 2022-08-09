@@ -18,16 +18,17 @@ private Connection conexion;
 	public OracleBD conectar() {
         try {
             Class.forName("oracle.jdbc.OracleDriver");
-            String BaseDeDatos = "jdbc:oracle:thin:@192.168.75.141:1440/wmsalmtmp";
-            //BD JDA	DEVELOP@//192.168.75.141:1440/wmsalmtmp
+            String BaseDeDatos = "jdbc:oracle:thin:@192.168.75.144:1523/almwmprd";
             
-            conexion = DriverManager.getConnection(BaseDeDatos, "DEVELOP","Almaviva07*");
+            conexion = DriverManager.getConnection(BaseDeDatos, "soporte","Almaviva08*");   
+
+
+            //BD DLX	soporte@//192.168.75.144:1523/almwmprd
             
             conexion.setAutoCommit(false);
             
             if (conexion != null) {
                 System.out.println("Conexion exitosa!");
-                
             } else {
                 System.out.println("Conexion fallida!");
             }
@@ -36,7 +37,6 @@ private Connection conexion;
             e.printStackTrace();
         }        return this;
     }
-	
 	
 	public ResultSet consultar(String sql){
         ResultSet resultado = null;
@@ -50,7 +50,6 @@ private Connection conexion;
             return null;
         } 
         return resultado;
-        
     }
 	
 	public void cerrarConexion() throws SQLException{

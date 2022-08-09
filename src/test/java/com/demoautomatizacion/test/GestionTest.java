@@ -181,9 +181,6 @@ public class GestionTest extends BaseTest {
 
 		gestion.consultaCliente(folderPath, getProperties().getProperty("nom50"), getProperties().getProperty("nit"));
 		
-		
-		
-		
 		GenerarReportePdf.closeTemplate("");
 	}
 }

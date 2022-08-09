@@ -1,6 +1,7 @@
 package com.Titulo.Pages;
 
 import java.io.File;
+import java.util.Date;
 
 import org.openqa.selenium.WebDriver;
 
@@ -13,26 +14,38 @@ public class CreacionTitulos extends ExpedirMap {
 	public CreacionTitulos(WebDriver driver) {
 		super(driver);
 		// TODO Auto-generated constructor stub
-	}
+	} 
+	
+	//ADVERTENCIA: POR MOTIVOS DE FUNCIONALIDAD DE LA PAGINA NO SE RECOMIENDA HACER USO EXCESIVO DE ESTE METODO DEBIDO A QUE SOBRECARGA LA PAGINA DE INFORMACION
 	
 	@Step("Ver Titulo Creacion Titulos")
-	public CreacionTitulos ValidacionExpedirFormulario(File folderPath,String Empresa2, String InfGTitulo,
-			String Titulo, String NumeroTitulo, String Plazo, String Poliza, String Tipomerca, String Mercancias,
-			String tarifas,String ingreso,String OficnaExpedicion,String oficinaAlmacenamiento,String CodigoSapExp,
-			String CodigoSapAlm,String aplicar,String SubModuloExpedir) throws Exception {
+	public CreacionTitulos ValidacionExpedirFormulario(File folderPath,String Empresa2, String informacionGeneralE,String Titulo,
+			 String NumeroTitulo, String Plazosf, String etiquetaPoliza, String tipoMercanciaE, String mercanciasE,
+			String tarifasE,String ingreso,String aplicar,String FechaDeCargue) throws Exception {
+		
+		
+		
 		
 		///////////////////3
 		//click(locatorVariable(lblModulos, ModuloT),folderPath,"click en el modulo titulos");
         //click(locatorVariable(lblsecciones, SubModuloExpedir),folderPath,"click en la seccion expedir");
+		
+		click(lblExpedir, folderPath, "Click en expedir");
 		
 		click(btnCrearExpedir, folderPath, "click en crear titulo");
 		click(btnNit2, folderPath, "click en Razon");
 		click(btnNit, folderPath, "click en Razon Social");
 		writeText(txtConsultarNit, Empresa2, folderPath, "Se escribe claro");
 		click(btnSelecClaro, folderPath, "click en Claro");
-		click(locatorVariable(btnInformacionGeneralTitulo, InfGTitulo), folderPath, "Click en InformacionTitulo, se desplega lista ");
+		click(locatorVariable(btnInformacionGeneralTitulo, informacionGeneralE), folderPath, "Click en InformacionTitulo, se desplega lista ");
 		desplazarseVertical(0,500);
+		
+		//String Titulo = null;
 		Titulo = driver.findElement(txtNumeroTitulo).getText();
+		
+		
+		
+		
 		click(lblOficinaResponsable1, folderPath, "click en Oficina");
 		click(lblOficinaResponsable2, folderPath, "click en Direccion General");
 		click(lblTipoBodega1, folderPath, "click en Tipo Bodega");
@@ -46,15 +59,15 @@ public class CreacionTitulos extends ExpedirMap {
 		click(lblTipoOperacion2, folderPath, "click en Incentivo");
 		click(lblDivisionIngreso1, folderPath, "click en Division Ingreso");
 		click(lblDivisionIngreso2, folderPath, "click en si");
-		click(locatorVariable(btnPlazo, Plazo), folderPath, "Click en Plazos ");
+		click(Plazos, folderPath, "Click en Plazos ");
 		desplazarseVertical(0,300);
 		writeText(txtPlazoCertificadoDias, "20", folderPath, "Se escribe Plazos certificado");
 		writeText(txtPlazoContratoDias, "20", folderPath, "Se escribe Plazos contrato");
-		click(locatorVariable(btnPoliza, Poliza), folderPath, "Click en Poliza ");
+		click(locatorVariable(btnPoliza, etiquetaPoliza), folderPath, "Click en Poliza ");
 		desplazarseVertical(0,200);
 		click(btnPoliza1, folderPath, "click en Poliza");
 		click(btnPoliza2, folderPath, "click en Seguros Alfa");
-		click(locatorVariable(btnTipoMercancia, Tipomerca), folderPath, "Click en Tipo de Mercancia ");
+		click(TipoMercancia, folderPath, "Click en Tipo de Mercancia ");
 		desplazarseVertical(0,400);
 		click(btnTipoMercancia1, folderPath, "click en Tipo Mercancia");
 		click(btnTipoMercancia2, folderPath, "click en Aceite");
@@ -65,7 +78,7 @@ public class CreacionTitulos extends ExpedirMap {
 		click(btnMercanciaDesignada1, folderPath, "click en Mercancia Designada");
 		click(btnMercanciaDesignada2, folderPath, "click en SI");
 		writeText(txtObservaciones1, "Prueba", folderPath, "Se escribe Observaciones");
-		click(locatorVariable(btnMercancias, Mercancias), folderPath, "Click en Poliza ");
+		click(Mercancia, folderPath, "Click en Poliza ");
 		desplazarseVertical(0,300);
 		click(btnTipoCargue1, folderPath, "click en Tipo de cargue");
 		click(btnTipoCargue2, folderPath, "click en Individual");
@@ -82,48 +95,98 @@ public class CreacionTitulos extends ExpedirMap {
 		//writeRandomAlp(txtObservacionMercancia, 100);
 		click(btnGuardarMercancia, folderPath, "Click en guardar mercancia");
 		click(btnAceptarMercancias, folderPath, "Click en aceptar mercancia");
-		click(locatorVariable(btnTarifas, tarifas), folderPath, "Click en opciones tarifas");
+		click(Tarifa, folderPath, "Click en opciones tarifas");
 		desplazarseVertical(0,200);
 		writeRandomNum(txtTarifa, 3);
 		writeRandomNum(txtMinima, 2);
 		click(btnMaterialSap, folderPath, "Click en Material Sap");
 		click(btnMaterialSap2, folderPath, "Click en Material Sap luffy");
-		click(locatorVariable(btnDivisionIngreso, ingreso), folderPath, "Click en Division de Ingreso");
+		click(DivisionIngreso, folderPath, "Click en Division de Ingreso");
 		desplazarseVertical(0,400);
-		searchElementGrid(txtOficinaExpedicion, OficnaExpedicion, folderPath, "556553,556558,Se valida Oficina Expedicion");
-		searchElementGrid(txtOficinaAlmacenamiento, oficinaAlmacenamiento, folderPath, "556553,556558,Se valida Oficina Responsable");
-		searchElementGrid(btnCodigoSapExp, CodigoSapExp, folderPath, "556558,556559, Se valida Codigo Sap Oficina Expedicion");
-		searchElementGrid(btnCodigoSapAlm, CodigoSapAlm, folderPath, "556558,556559, Se valida Codigo Sap Oficina Almacenamiento");
-		boolean txtPorcentajeExp = validarElemento(lblPorcentajeExp, 10);
-		boolean txtPorcentajeAlm = validarElemento(lblPorcentajeAlm, 10);
-		ValidacionObjetos(txtPorcentajeExp, txtPorcentajeAlm ,"caso exitoso 556559 se valida Porcentaje Ingreso Expedicion,Porcentaje Ingreso Almacenamiento",folderPath);
 		writeText(btnPorcentajeEx, "50", folderPath, "Se escribe el Porcentaje Expedicion");
 		writeText(btnPorcentajeAlm, "50", folderPath, "Se escribe el Porcentaje Almacenamiento");
-		//searchElementGrid(lblPorcentajeExp , PorcentajeExp, folderPath, "556559,Se valida Porcentaje Ingreso Expedicion");
-		//searchElementGrid(lblPorcentajeAlm, PorcentajeAlm, folderPath, "556559,Se valida Porcentaje Ingreso Almacenamiento");
 		writeRandomAlp(btnCodigoSapExp, 20);
 		writeRandomAlp(btnCodigoSapAlm, 20);
 		click(btnSaveChanges, folderPath, "click en guardar cambios ");
 		click(btnAceptar, folderPath, "click en Aceptar cambios ");
 		
+		String Titulo2 = Titulo;
+		
 		///   aqui termina la creacion de titulo
 		
-		writeText(txtNitCargue, "1795");
-		scrollElementV(folderPath, lblModificarHistorico, "scroll hacia estado de titulo");
-		click(btnModificar, folderPath, "Click en modificar cliente");
+		time(5);
+		
+		String fechaHoy = fechaPdf();
+		
+		
+		
+		click(btnCriterioTitulo, folderPath, "click en criterio de busqueda de titulo");
+		selectElementList(btnCriterioTitulo, FechaDeCargue, folderPath, "selecciona busqueda por fecha");
+		writeText(txtBuscarTitulo, "claro", folderPath, "escritura fecha actual, cambiar el valor de la empresa a conveniencia");
+		
+		//writeText(txtBuscarTitulo, datePlusYear(0), folderPath, "escritura fecha actual"); la pagina no toma todos los titulos de hoy solo los aplicados
+		click(PaginacionNueva, folderPath, "Click en pagina--pagina cambiante revisar el xpath constantemente");
+		
+		click(btnRefreshTitulosPorfecha, folderPath, "click en refrescar al ultimo creado");
+		click(btnRefreshTitulosPorfecha, folderPath, "click en refrescar al ultimo creado");
+		
+		String NuevoTitulo= driver.findElement(UltimoRegistroCreado).getText();;
+		
+		
+		
+		
+		
+		//click(btnCriterioTitulo, folderPath, "click en criterio de busqueda de titulo");
+		//selectElementList(btnCriterioTitulo, "Título", folderPath, fechaHoy);
+		
+		click(locatorVariable(lblsecciones, "Liberación"),folderPath,"click en la seccion perfil");
+		
+		//clear(txtBuscarTitulo, folderPath, "limpia de texto existente");
+		writeText(TxtTituloLiberacion, NuevoTitulo, folderPath, "escritura fecha actual");
+		
+		
+		//scrollElementV(folderPath, lblModificarHistorico, "scroll hacia estado de titulo");
+		//click(btnModificar, folderPath, "Click en modificar cliente");
+		
+		/*
 		click(locatorVariable(btnInformacionGeneralTitulo, InfGTitulo), folderPath, "Click en InformacionTitulo, se desplega lista ");
-		desplazarseVertical(0,600);
+		desplazarseVertical(0,500);
 		click(lblDivisionIngreso1, folderPath, "click en Division Ingreso");
 		click(lblDivisionIngreso3, folderPath, "click en NO");
 		click(locatorVariable(btnDivisionIngreso, ingreso), folderPath, "Click en Division de Ingreso");
-		desplazarseVertical(0,300);
-		click(locatorVariable(btnAplicar, aplicar), folderPath, "Click en Aplicar");
+		*/
+		
+		desplazarseVertical(0,200);
+		click(btnAplicar, folderPath, "Click en Aplicar");
 		click(btnAceptar, folderPath, "click en Aceptar cambios ");
 		boolean alertaCreadaAplicada = validarElemento(alertaLiberacion, 10);
-        ValidacionObjeto(alertaCreadaAplicada, "Validacion de aplicacion caso 556552 ", folderPath);
-        click(locatorVariable(lblsecciones, SubModuloExpedir),folderPath,"click en la seccion expedir");
+        ValidacionObjeto(alertaCreadaAplicada, "Validacion de aplicacion caso: ", folderPath);
+		
+		
 	
 		return this;
-	}
+	}  
+	
+
+
+
+
+
 
 }
+	 
+
+
+	
+	
+	
+	
+
+
+
+
+
+
+ 
+
+

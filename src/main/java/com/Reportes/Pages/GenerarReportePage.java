@@ -29,8 +29,7 @@ public class GenerarReportePage extends GenerarReporteMap {
 		fechaI = timeStamp;
 		fechaF = timeStamp;
 
-		//listRandom(lblTipoReporte, folderPath, "Se toma un Reporte aleatorio");
-		selectElementList(lblTipoReporte2, "Cupos");
+		listRandom(lblTipoReporte, folderPath, "Se toma un Reporte aleatorio");
 		writeText(lblFechaInicio, fechaI, folderPath, "Se ingresa fecha inicial");
 		writeText(lblFechaFin, fechaF, folderPath, "Se ingresa fecha final");
 

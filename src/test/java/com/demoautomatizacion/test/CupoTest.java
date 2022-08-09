@@ -131,46 +131,4 @@ public class CupoTest extends BaseTest {
 
 		GenerarReportePdf.closeTemplate("");
 	}
-
-/////////
-
-	@SuppressWarnings("static-access")
-	@Test(priority = 4, description = "Validar que en el modulo de cupos en la grilla modalidad de cupo se visualize")
-	@Severity(SeverityLevel.NORMAL)
-	@Description("Módulo Cupo")
-	@Story("Validar Grilla")
-	public void consultarCupoGrilla() throws Exception {
-
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"));
-
-		// recording.startRecording("", folderPath);
-
-		login(getProperties().getProperty("nameTestVerCupo"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
-
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"));
-
-		cupo.validarGrilla_548478(folderPath, getProperties().getProperty("Razon"),
-				getProperties().getProperty("Empresa"), getProperties().getProperty("Empresa2"),
-				getProperties().getProperty("Saldo"), getProperties().getProperty("ModuloT"),
-				getProperties().getProperty("SubModuloExpedir"), getProperties().getProperty("Numero"),
-				getProperties().getProperty("Estado"), getProperties().getProperty("ModuloC"),
-				getProperties().getProperty("SubModuloCupo"), getProperties().getProperty("particular"),
-				getProperties().getProperty("SubModuloAutorizarMercancia"), getProperties().getProperty("Comida"),
-				getProperties().getProperty("CupoDisponible"), getProperties().getProperty("SaldoUtilizado"),
-				getProperties().getProperty("ValorParticular"), getProperties().getProperty("ValorParticularArrendado"),
-				getProperties().getProperty("Propia"), getProperties().getProperty("Transito"),
-				getProperties().getProperty("ModificarNumero"), getProperties().getProperty("ModuloG"),
-				getProperties().getProperty("SubModuloReporte"));
-
-		generarReporte.reportes(folderPath, getProperties().getProperty("FechaI"),
-				getProperties().getProperty("FechaF"));
-		
-		login.cerrarSesion(folderPath);
-		
-		// recording.stopRecording();
-
-		GenerarReportePdf.closeTemplate("");
-	}
 }

@@ -3,7 +3,6 @@ package com.demoautomatizacion;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import utilities.MyScreenRecorder;
 import utilities.OracleBD;
-import utilities.OracleBD2;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -53,7 +52,9 @@ public class BaseTest {
 	public RolesPage roles;
 	public PerfilesPage perfiles;
 	public LogAuditoriaPage logAuditoria;
-
+	public NotificacionesPage notificacionespage;
+	
+	
 	// M�dulo Parametrizaci�n
 	public BodegasPage bodega;
 	public UmedidasPage medidas;
@@ -65,7 +66,6 @@ public class BaseTest {
 
 	// M�dulo T�tulo
 	public ExpedirPage expedir;
-	public CreacionTitulos creaciontitulos;
 	public AnularTituloPage anularTitulo;
 	public ProrrogarPage prorroga;
 	public ImpresionPage Impresion;
@@ -74,7 +74,7 @@ public class BaseTest {
 	public ProgramarVisitasPage ProgramarVisitas;
 	public GenerarReportePage generarReporte;
 	public LiberacionPage liberacion;
-	//public consultaPruebaBD consultaBD;
+	public CreacionTitulos creaciontitulos;
 
 	// M�dulo Visitas
 	public ConsultarRegistroVisitaPage consultarRegistro;
@@ -109,6 +109,11 @@ public class BaseTest {
 		perfiles = new PerfilesPage(driver);
 		logAuditoria = new LogAuditoriaPage(driver);
 
+
+		//notificaciones
+		notificacionespage= new NotificacionesPage(driver);
+		
+		
 		// M�dulo Parametrización
 		medidas = new UmedidasPage(driver);
 		tiposMercancia = new TiposMercanciasPage(driver);
@@ -120,7 +125,6 @@ public class BaseTest {
 
 		// M�dulo T�tulo
 		expedir = new ExpedirPage(driver);
-		creaciontitulos = new CreacionTitulos(driver);
 		anularTitulo = new AnularTituloPage(driver);
 		prorroga = new ProrrogarPage(driver);
 		Impresion = new ImpresionPage(driver);
@@ -129,7 +133,8 @@ public class BaseTest {
 		ProgramarVisitas = new ProgramarVisitasPage(driver);
 		generarReporte = new GenerarReportePage(driver);
 		liberacion = new LiberacionPage(driver);
-	
+		creaciontitulos = new CreacionTitulos(driver);
+		
 
 		// M�dulo Visitas
 		consultarRegistro = new ConsultarRegistroVisitaPage(driver);
@@ -161,46 +166,11 @@ public class BaseTest {
 			conexion.cerrarConexion();
 			
 		} catch (Exception e) {
-			System.out.println("error de consulta");
+			System.out.println("error de conexion");
 			throw new RuntimeException(e.getMessage());
 		}
 		return datos;
 	}
-	
-	/////////////////7 base de datos 2
-	
-	public ArrayList<Object> consultaBD2(String sql) {
-
-		ArrayList<Object> datos = new ArrayList<Object>();
-
-		try {
-			OracleBD2 conexion1 = new OracleBD2().conectar();
-
-			if (conexion1 != null) {
-
-				ResultSet resultado = conexion1.consultar(sql);
-				ResultSetMetaData metadata = resultado.getMetaData();
-				int columnas = metadata.getColumnCount();
-				
-				while (resultado.next()) {
-					Object dato = new Object[columnas];
-					for (int i = 1; i <= columnas; i++) {
-						dato = resultado.getObject(i);
-						//System.out.println(resultado.getString(i));
-						datos.add(dato);
-					}
-				}
-			}
-			
-			conexion1.cerrarConexion();
-			
-		} catch (Exception e) {
-			System.out.println("error de consulta");
-			throw new RuntimeException(e.getMessage());
-		}
-		return datos;
-	}
-
 
 	
 

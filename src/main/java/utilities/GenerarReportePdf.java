@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -127,7 +126,7 @@ public class GenerarReportePdf {
 			imgContador = 0;
 		}
 	}
-	
+
 	public static void createErrorBody(String steps, String imagePath, String errorMessage)
 			throws DocumentException, MalformedURLException, IOException {
 
