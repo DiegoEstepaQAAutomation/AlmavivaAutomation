@@ -13,13 +13,16 @@ public class ProrrogarPage extends ProrrogarMap {
 	
 	String Prorrogas = "546953, 546954";
 
+	//INSTANCIA DEL DRIVER
 	public ProrrogarPage(WebDriver driver) {
 		super(driver);
 	}
 
+	//PASO A PASO DEL FORMULARIO DE PRORROGA
 	@Step("proceso de prorroga")
 	public ProrrogarPage prorrogas(File folderPath) throws Exception {
 
+		//SE INGRESA AL FORMULARIO DE PRORROGA Y SE VALIDAN COMO HABILITADOS LOS CAMPOS DEL FORMULARIO
 		scrollElementV(folderPath, NumberProrroga, "Se desplaza hacia el localizador codigo");
 		String codigo = readText(NumberProrroga, folderPath, "Escritura");
 
@@ -41,6 +44,7 @@ public class ProrrogarPage extends ProrrogarMap {
 		click(OptionDetalleMercancia, folderPath, "Se da click en informacion basica de titulo");
 		desplazarseVertical(0, 140);
 
+		//VALIDACIONES DE CAMPOS HABILITADOS
 		isEnabled(lblValorInicial, folderPath, "Campo Valor inicial No editable");
 		isEnabled(lblMercanciaInicial, folderPath, "Campo Mercancia inicial No editable");
 		isEnabled(lblValorMercanciaTitulo, folderPath, "Campo Titulo de Mercancia No editable");
@@ -65,10 +69,12 @@ public class ProrrogarPage extends ProrrogarMap {
 	
 	
 	
+	//EJECUCION DEL HU24 DE PRORROGAS(2 CASOS)
 	@Step("proceso de prorroga")
 	public ProrrogarPage prorrogasHU24(File folderPath,String TituloModificarProrroga) throws Exception 
 	{
 		
+		//PASO A PASO DE PRORROGAS DE UN TITULO
 		writeText(txtNitCargue, TituloModificarProrroga, folderPath, "Se escribe el titulo a buscar");
 		
 		scrollElementH(lblModificarHistorico);
@@ -83,6 +89,8 @@ public class ProrrogarPage extends ProrrogarMap {
 		
 		click(CertificadoDepositoMercancia, folderPath, "Click sobre bono");
 		
+		//VALORES NUMERICOS RANDOM EN PLAZOS
+		
 		writeRandomNum(txtplazoDeposito, 2);
 		
 		writeRandomNum(txtplazoCertificado, 2);
@@ -92,7 +100,7 @@ public class ProrrogarPage extends ProrrogarMap {
 		
 		scrollElementV(folderPath, btnGuardarProrroga, "Se desplaza hasta el boton guardar ");
 		
-		
+		//ESTE PASO CREA UN MENSAJE CON LOS CASOS EJECUTADOS EN EL INFORME FINAL
 		screenshot(folderPath ,"Estos son los casos: " + Prorrogas);
 		
 				

@@ -28,14 +28,14 @@ public class NotificacionesPage extends NotificacionesMap {
 	
 	
 	
-	
+	//Paso a paso del proceso de asociar una notificacion
 	
 	@Step("Bono de Prenda")
 	public NotificacionesPage Notificacion_557159(File folderPath,String DatoFaltante,
 			String ModuloCliente,String Submodulo,String FechaDeCargue,String estadoA,String Encabezado)
 			throws Exception {
 
-		
+		//se selecciona un tipo de notificacion, se asigna a una persona y se confirma y acepta
 		click(lblNotificaciones2, folderPath, "click en menu desplegable de notificaciones");
 		selectElementList(lblNotificaciones2, DatoFaltante, folderPath, "Seleccion de dato faltante");
 		click(btnAgregarNuevo, folderPath, "click en agregar nueva notificacion");
@@ -45,7 +45,7 @@ public class NotificacionesPage extends NotificacionesMap {
 		click(btnConfirm, folderPath, "click en confirmar");
 		click(btnConfirmAcept, folderPath, "click en confirmar");
 		
-		
+		//Se recurre a cliente perfil  y se busca razon social y luego cupo
 		click(locatorVariable(lblModulos, ModuloCliente),folderPath,"click en la seccion perfil");
 		click(locatorVariable(lblsecciones, Submodulo),folderPath,"click en la seccion perfil");
 		
@@ -54,14 +54,16 @@ public class NotificacionesPage extends NotificacionesMap {
 		writeText(txtNitRazonSocial, "claro");
 		
 		click(ModificarCupo, folderPath, "click en modificar");
-		
+		//Se valida mediante metodo busqueda en grilla que el titulo tenga fecha de vencimiento
 		searchElementGrid(GridCupo, Encabezado, folderPath, "Busqueda de fecha vencimiento,Caso exitoso 557156,557157,557158,557159");
+		//Se valida el check box de dias 
 		boolean DiasCupo = validarElemento(DaysBox, 0);
 		ValidacionObjeto(DiasCupo, "valida caja de dias/cupo, Caso exitoso 557150,557151,557152,557153,557154,557155", folderPath);
 		
 		//boolean AlertaCreada = validarElemento(alertaLiberacion, 10);
 		//ValidacionObjeto(AlertaCreada, "validacion de asignacion", folderPath);
 		
+		//se busca el mismo titulo y se valida su estado como aplicado
 		click(locatorVariable(lblModulos, " Título "),folderPath,"click en la seccion perfil");
 		click(locatorVariable(lblsecciones, "Expedir"),folderPath,"click en la seccion perfil");
 				

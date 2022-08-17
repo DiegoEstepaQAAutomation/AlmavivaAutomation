@@ -28,11 +28,13 @@ import utilities.GenerarReportePdf;
 public class Bodegas extends BaseTest {
 	public Properties fileprops = new Properties();
 
+	//PROPIEDADES UTILIZADAS
 	public Properties getProperties() throws Exception {
 		fileprops.load(new FileInputStream(new File("src/test/resources/test.properties").getAbsolutePath()));
 		return fileprops;
 	}
 
+	//LOGIN DE PAGINA ALMAVIVA
 	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderBodega"),
@@ -50,11 +52,13 @@ public class Bodegas extends BaseTest {
 				folderPath);
 	}
 
+	//PASO A PASO DE CREACION DE UNA BODEGA
 	@Test(priority = 0, description = "Validar que Permita la creación de la información de bodegas pertenecientes a Almaviva y/o particulares autorizadas")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Validar que Permita la creación de la información de bodegas pertenecientes a Almaviva y/o particulares autorizadas")
 	@Story("Validar que Permita la creación de la información de bodegas pertenecientes a Almaviva y/o particulares autorizadas")
 	public void AlmavivaBodegas1() throws Exception {
+		//VALIDAR ESTOS PASOS EN EXPEDIR TEST EN EL METODO CREAR EXPEDIR
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderBodega"),
 				getProperties().getProperty("path"));
 
@@ -63,6 +67,7 @@ public class Bodegas extends BaseTest {
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloP"), getProperties().getProperty("SubModuloB"));
 
+		//EJECUCION DE LOS CASOS DE BODEGA
 		bodega.Parametrizacion(folderPath)
 		
 				.fillFormulary(folderPath, getProperties().getProperty("CodigoBodeg"),

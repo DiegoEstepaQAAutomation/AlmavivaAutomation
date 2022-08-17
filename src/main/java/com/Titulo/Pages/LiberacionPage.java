@@ -11,46 +11,52 @@ public class LiberacionPage extends LiberacionMap {
 	boolean val;
 	int t = 15;
 
+	//INSTANCIA DE DRIVER 
 	public LiberacionPage(WebDriver driver) {
 		super(driver);
 	}
 
+	//PASO A PASO PARA VALIDAR UNA LIBERACION DE TITULO
 	@Step("Liberacion")
 	public LiberacionPage consultarLiberacion(File folderPath) throws Exception {
 		
+		//FORMULARIO DE CONSULTAR UNA LIBERACION
 		scrollElementV(folderPath, NumberProrroga, "Se desplaza hacia el localizador codigo");
 		String codigo = readText(NumberProrroga, folderPath, "Escritura");
 		
 		click(lblLiberacion, folderPath, "");
 		writeText(txtCodigoTitulo, codigo, folderPath, "Escribe el codigo de liberacion");
-		click(lblBusquedaLiberacion, folderPath, "Seleccion de numero liberación");
+		click(lblBusquedaLiberacion, folderPath, "Seleccion de numero liberaciï¿½n");
 		
-		click(locatorVariable(lblDesplegables, " Información General del Título "), folderPath, "Se ingresa a Información General del Título");
+		click(locatorVariable(lblDesplegables, " Informaciï¿½n General del Tï¿½tulo "), folderPath, "Se ingresa a Informaciï¿½n General del Tï¿½tulo");
 
+		//SE VERIFICA SI LOS CAMPOS DEL FORMULARIO DE CONSULTAR LIBERACION ESTAN HABILITADOS O ENABLED
 		isEnabled(lblNit, folderPath, "Campo Nit No editable");
-		isEnabled(lblNombreRazonSocial, folderPath, "Campo Nombre razón social No editable");
-		isEnabled(lblDireccion, folderPath, "Campo Dirección No editable");
+		isEnabled(lblNombreRazonSocial, folderPath, "Campo Nombre razï¿½n social No editable");
+		isEnabled(lblDireccion, folderPath, "Campo Direcciï¿½n No editable");
 		isEnabled(lblCiudad, folderPath, "Campo Ciudad No editable");
-		isEnabled(lblFechaExpedicion, folderPath, "Campo Fecha Expedición No editable");
-		isEnabled(lblOficinaExpedicion, folderPath, "Campo Oficina Expedición No editable");
+		isEnabled(lblFechaExpedicion, folderPath, "Campo Fecha Expediciï¿½n No editable");
+		isEnabled(lblOficinaExpedicion, folderPath, "Campo Oficina Expediciï¿½n No editable");
 		isEnabled(lblOficinaResponsable, folderPath, "Campo Oficina responsable de almacenamiento No editable");
 		isEnabled(lblTipoBodega, folderPath, "Campo Tipo bodega No editable");
 		
-		click(locatorVariable(lblDesplegables, " Información General del Título "), folderPath, "Se ingresa a Información General del Título");
+		//SECCIONES DEL TIULO COMO AUTORIZACIONES E INFORMACION GENERAL
+		click(locatorVariable(lblDesplegables, " Informaciï¿½n General del Tï¿½tulo "), folderPath, "Se ingresa a Informaciï¿½n General del Tï¿½tulo");
 
-		click(locatorVariable(lblDesplegables, " Autorizaciones pendientes "), folderPath, "Se ingresa a Información General del Título");
-		click(locatorVariable(lblDesplegables, " Autorizaciones pendientes "), folderPath, "Se ingresa a Información General del Título");
+		click(locatorVariable(lblDesplegables, " Autorizaciones pendientes "), folderPath, "Se ingresa a Informaciï¿½n General del Tï¿½tulo");
+		click(locatorVariable(lblDesplegables, " Autorizaciones pendientes "), folderPath, "Se ingresa a Informaciï¿½n General del Tï¿½tulo");
 		
-		click(locatorVariable(lblDesplegables, " Detalle de mercancía "), folderPath, "Se ingresa a Información General del Título");
+		click(locatorVariable(lblDesplegables, " Detalle de mercancï¿½a "), folderPath, "Se ingresa a Informaciï¿½n General del Tï¿½tulo");
 		desplazarseVertical(0, 320);
 		
+		//SE VALIDAN CAMPOS DE DETALLE MERCANCIA
 		isEnabled(lblValorInicialCredito, folderPath, "Campo Valor inicial de credito No editable");
 		isEnabled(lblCantidadInicial, folderPath, "Campo Cantidad inicial mercancia No editable");
-		isEnabled(lblValorInicialMercancia, folderPath, "Campo Valor inicial mercancía del título No editable");
-		isEnabled(lblValorSaldo, folderPath, "Campo Valor saldo de mercancía en título No editable");
-		isEnabled(lblPorcentajeRelacionCredito, folderPath, "Campo % de Relación crédito/mercancía No editable");
-		isEnabled(lblSaldoCredito, folderPath, "Campo Saldo del credíto No editable");
-		isEnabled(lblSaldoTitulo, folderPath, "Campo Saldo del título No editable");
+		isEnabled(lblValorInicialMercancia, folderPath, "Campo Valor inicial mercancï¿½a del tï¿½tulo No editable");
+		isEnabled(lblValorSaldo, folderPath, "Campo Valor saldo de mercancï¿½a en tï¿½tulo No editable");
+		isEnabled(lblPorcentajeRelacionCredito, folderPath, "Campo % de Relaciï¿½n crï¿½dito/mercancï¿½a No editable");
+		isEnabled(lblSaldoCredito, folderPath, "Campo Saldo del credï¿½to No editable");
+		isEnabled(lblSaldoTitulo, folderPath, "Campo Saldo del tï¿½tulo No editable");
 		isEnabled(lblTotalLiberaciones, folderPath, "Campo Total de liberaciones ejecutadas No editable");
 		
 		desplazarseVertical(0, 340);

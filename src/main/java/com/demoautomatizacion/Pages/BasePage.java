@@ -38,7 +38,7 @@ public class BasePage {
 		this.driver = driver;
 		wait = new WebDriverWait(driver, 20);
 	}
-	
+	//Desplazamiento vertical por coordenada
 	public void desplazarseVertical(int x, int y) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(" + x + "," + y + ")");
@@ -68,10 +68,10 @@ public class BasePage {
         return texto;
 
     }
-    
+    //Metodo screenshot
     @Attachment(value = "Screenshot", type = "image/png")
 
-    public  byte[] screenshot(File rutaCarpeta, String accion) throws IOException, DocumentException {
+    public  byte[] screenshot(File rutaCarpeta, String accion,String Evidencia) throws IOException, DocumentException {
 
         String hora = horaSistema();
 
@@ -96,7 +96,7 @@ public class BasePage {
 
     
     // METODO PARA BUSCAR UN ELEMENTO EN UNA GRILLA  DE EXCEL
-    public String searchElementGridExcel(By tableResult, File folderPath, String steps)
+    public String searchElementGridExcel(By tableResult, File folderPath, String steps,String Evidencia)
             throws Exception {
         String row = null;
         ArrayList<WebElement> resultado = (ArrayList<WebElement>) driver.findElement(tableResult)
@@ -109,7 +109,7 @@ public class BasePage {
         }
 
         waitInMs(2000);
-        captureScreen(folderPath, steps);
+        captureScreen(folderPath, steps,Evidencia);
         return row;
     }
     
@@ -131,13 +131,14 @@ public class BasePage {
 	}
 
 	// METODO QUE DEVUELVE EL TEXTO DE UN ELEMENTO
-	public String readText(By elementLocation, File folderPath, String steps) throws Exception {
+	public String readText(By elementLocation, File folderPath, String steps,String Evidencia) throws Exception {
 		String readText = null;
 		try {
+			//TOMA EL TEXTO DE UN LOCALIZADOR
 			visibilityOfElementLocated(elementLocation);
 			readText = driver.findElement(elementLocation).getText();
 			waitInMs(2000);
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString());
 		}
@@ -154,12 +155,12 @@ public class BasePage {
 	}
 
 	// METODO PARA ESCRIBIR EN UN ELEMENTO
-	public void writeText(By elementLocation, String text, File folderPath, String steps) throws Exception {
+	public void writeText(By elementLocation, String text, File folderPath, String steps,String Evidencia) throws Exception {
 		try {
 			visibilityOfElementLocated(elementLocation);
 			driver.findElement(elementLocation).sendKeys(text);
 			waitInMs(2000);
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString());
 		}
@@ -181,13 +182,13 @@ public class BasePage {
 	
 
 	// METODO PARA DEVOLVER UN ELEMENTO
-	public WebElement getElement(By elementLocation, File folderPath, String steps) throws Exception {
+	public WebElement getElement(By elementLocation, File folderPath, String steps,String Evidencia) throws Exception {
 		WebElement element = null;
 		try {
 			visibilityOfElementLocated(elementLocation);
 			element = driver.findElement(elementLocation);
 			waitInMs(2000);
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
 			return element;
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString());
@@ -196,16 +197,25 @@ public class BasePage {
 	}
 
 	// METODO PARA DAR CLICK EN UN ELEMENTO
-	public void click(By elementLocation, File folderPath, String steps) throws Exception {
+	public void click(By elementLocation, File folderPath, String steps,String Evidencia) throws Exception {
 		try {
 			visibilityOfElementLocated(elementLocation);
 			driver.findElement(elementLocation).click();
 			waitInMs(2000);
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString());
 		}
 	}
+	
+	
+	public void click2(By elementLocation) throws Exception {
+		//visibilityOfElementLocated(elementLocation);
+		driver.findElement(elementLocation).click();
+		waitInMs(2000);
+}
+
+	
 	
 	public void click(By elementLocation) throws Exception {
 			//visibilityOfElementLocated(elementLocation);
@@ -214,24 +224,24 @@ public class BasePage {
 	}
 
 	// METODO ENTER SUBMIN
-	public void submit(By elementLocation, File folderPath, String steps) throws Exception {
+	public void submit(By elementLocation, File folderPath, String steps,String Evidencia) throws Exception {
 		try {
 			visibilityOfElementLocated(elementLocation);
 			driver.findElement(elementLocation).submit();
 			waitInMs(2000);
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString());
 		}
 	}
 
 	// METODO PARA LIMPIAR UN CAMPO
-	public void clear(By elementLocation, File folderPath, String steps) throws Exception {
+	public void clear(By elementLocation, File folderPath, String steps,String Evidencia) throws Exception {
 		try {
 			visibilityOfElementLocated(elementLocation);
 			driver.findElement(elementLocation).clear();
 			waitInMs(2000);
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString());
 		}
@@ -246,12 +256,12 @@ public class BasePage {
 	}
 
 	// METODO PARA COMPROBAR SI UN EMLEMENTO SE ENCUENTRA
-	public boolean displayed(By elementLocation, File folderPath, String steps) throws Exception {
+	public boolean displayed(By elementLocation, File folderPath, String steps,String Evidencia) throws Exception {
 		try {
 			visibilityOfElementLocated(elementLocation);
 			boolean displayed = driver.findElement(elementLocation).isDisplayed();
 			waitInMs(2000);
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
 			return displayed;
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString());
@@ -273,14 +283,14 @@ public class BasePage {
 	}
 
 	// METODO PARA SELECCIONAR UN ELEMENTO DE UNA LISTA
-	public void selectElementList(By elementLocation, String valorLista, File folderPath, String steps)
+	public void selectElementList(By elementLocation, String valorLista, File folderPath, String steps,String Evidencia)
 			throws Exception {
 		try {
 			visibilityOfElementLocated(elementLocation);
 			Select lista = new Select(driver.findElement(elementLocation));
 			lista.selectByVisibleText(valorLista);
 			waitInMs(2000);
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString());
 		}
@@ -294,7 +304,7 @@ public class BasePage {
 	}
 
 	// METODO PARA BUSCAR UN ELEMENTO EN UNA GRILLA
-	public String searchElementGrid(By tableResult, String searchValue, File folderPath, String steps)
+	public String searchElementGrid(By tableResult, String searchValue, File folderPath, String steps,String Evidencia)
 			throws Exception {
 		String row = null;
 		ArrayList<WebElement> resultado = (ArrayList<WebElement>) driver.findElement(tableResult)
@@ -307,13 +317,13 @@ public class BasePage {
 			}
 		}
 		waitInMs(2000);
-		captureScreen(folderPath, steps);
+		captureScreen(folderPath, steps,Evidencia);
 		return row;
 	}
 	
 	
 	
-	public String searchElementGrid1(By tableResult, String searchValue, File folderPath, String steps)
+	public String searchElementGrid1(By tableResult, String searchValue, String steps)
 			throws Exception {
 		String row = null;
 		ArrayList<WebElement> resultado = (ArrayList<WebElement>) driver.findElement(tableResult)
@@ -322,11 +332,11 @@ public class BasePage {
 			WebElement campo = (WebElement) iterator.next();
 			row = campo.getText();
 			if (row.equals(searchValue)) {
-				captureScreen(folderPath, steps);
+				
 			}
 		}
 		waitInMs(2000);
-		captureScreen(folderPath, steps);
+		
 		return row;
 	}
 
@@ -334,7 +344,7 @@ public class BasePage {
 	
 	
 	// METODO PARA DAR CLICK AL ELEMENTO DENTRO DE UNA GRILLA
-	public void clickElementGrid(By tableResult, String searchValue, File folderPath, String steps) throws Exception {
+	public void clickElementGrid(By tableResult, String searchValue, File folderPath, String steps,String Evidencia) throws Exception {
 		ArrayList<WebElement> resultado = (ArrayList<WebElement>) driver.findElement(tableResult)
 				.findElements(By.tagName("td"));
 		for (Iterator<WebElement> iterator = resultado.iterator(); iterator.hasNext();) {
@@ -346,26 +356,41 @@ public class BasePage {
 			}
 		}
 		waitInMs(2000);
-		captureScreen(folderPath, steps);
+		captureScreen(folderPath, steps,Evidencia);
 	}
 
 	// METODO PARA CONTAR LA CANTIDAD DE FILAS
-	public int numberRows(By tableResult, File folderPath, String steps) throws Exception {
+	public int numberRows(By tableResult, File folderPath, String steps,String Evidencia) throws Exception {
 		ArrayList<WebElement> resultado = (ArrayList<WebElement>) driver.findElement(tableResult)
 				.findElements(By.tagName("tr"));
 		waitInMs(2000);
-		captureScreen(folderPath, steps);
+		captureScreen(folderPath, steps,Evidencia);
 		return resultado.size() - 2;
 	}
 
 	// METODO DE SCROLL HACIA UN LOCALIZADOR VERTICAL
-	public void scrollElementV(File folderPath, By locator, String steps) throws DocumentException {
+	public void scrollElementV(File folderPath, By locator, String steps,String Evidencia) throws DocumentException {
 		try {
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			WebElement element = driver.findElement(locator);
 			executor.executeScript("arguments[0].scrollIntoView(true);", element);
 			waitInMs(2000);
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
+		} catch (Exception e) {
+
+			GenerarReportePdf.closeTemplate(e.toString());
+		}
+	}
+
+	
+	// METODO DE SCROLL HACIA UN LOCALIZADOR VERTICAL
+	public void scrollElementV2( By locator, String steps) throws DocumentException {
+		try {
+			JavascriptExecutor executor = (JavascriptExecutor) driver;
+			WebElement element = driver.findElement(locator);
+			executor.executeScript("arguments[0].scrollIntoView(true);", element);
+			waitInMs(2000);
+			
 		} catch (Exception e) {
 
 			GenerarReportePdf.closeTemplate(e.toString());
@@ -373,12 +398,12 @@ public class BasePage {
 	}
 
 	// METODO DE SCROLL HACIA UN LOCALIZADOR HORIZONTAL
-	public void scrollElementH(File folderPath, By locator, String steps) throws DocumentException {
+	public void scrollElementH(File folderPath, By locator, String steps,String Evidencia) throws DocumentException {
 		try {
 			WebElement element = driver.findElement(locator);
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollLeft = arguments[0].offsetWidth", element);
 			waitInMs(2000);
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 
 			GenerarReportePdf.closeTemplate(e.toString());
@@ -452,7 +477,7 @@ public class BasePage {
 	}
 
 	// CAPTURA DE PANTALLA
-	public void captureScreen(File folderPath, String steps) throws Exception {
+	public void captureScreen(File folderPath, String steps,String Evidencia) throws Exception {
 		String hora = horaSistema();
 		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		FileUtils.copyFile(scrFile, new File(folderPath + "\\" + hora + ".png"));
@@ -505,7 +530,7 @@ public class BasePage {
 	}
 
 	// METODO PARA CREAR CARPETA PARA CAPTURA
-	public static File createFolder(String nameFolder, String path) {
+	public static File createFolder(String nameFolder, String path,String Evidencia) {
 		String fecha = fechaSistema();
 		String nomCarpeta = nameFolder + " " + fecha;
 		File directorio = new File(path + nomCarpeta);
@@ -528,21 +553,21 @@ public class BasePage {
 
 
 	// METODO PARA CARGAR UN ARCHIVO DESDE LA MAQUINA
-	public void fileUpload(By elementLocation, String archive, File folderPath, String steps) throws Exception {
+	public void fileUpload(By elementLocation, String archive, File folderPath, String steps,String Evidencia) throws Exception {
 		try {
 			visibilityOfElementLocated(elementLocation);
 			File file = new File(archive);
 			WebElement ruta = driver.findElement(elementLocation);
 			ruta.sendKeys(file.getAbsolutePath());
 			waitInMs(2000);
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString());
 		}
 	}
 	
 	
-	
+	// METODO PARA CARGAR UN ARCHIVO DESDE LA MAQUINA
 	public void fileUpFull(By elementLocation, String archive) throws Exception {
 			//	visibilityOfElementLocated(elementLocation);
 			File file = new File(archive);
@@ -555,27 +580,31 @@ public class BasePage {
 
 	
 	
-
-	public void acceptAlert(File folderPath, String steps) throws Exception {
+	//Metodo para aceptar una alerta
+	public void acceptAlert(File folderPath, String steps,String Evidencia) throws Exception {
 		driver.switchTo().alert().accept();
 		waitInMs(2000);
-		captureScreen(folderPath, steps);
+		captureScreen(folderPath, steps,Evidencia);
 	}
 
+	//Metodo para cancelar una alerta
 	public void cancelAlert() {
 		driver.switchTo().alert().dismiss();
 		waitInMs(2000);
 	}
 
+	//Metodo para escribir una alerta
 	public void writeAlert(String text) {
 		driver.switchTo().alert().sendKeys(text);
 		waitInMs(2000);
 	}
 
+	//Metodo para dar entera una alerta
 	public void enter(By elementLocation) throws IOException {
 		driver.findElement(elementLocation).sendKeys(Keys.ENTER);
 	}
 
+	//Metodo para medir el tamaño de un elemento
 	public void ByPixel() {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		driver.manage().window().maximize();
@@ -583,7 +612,7 @@ public class BasePage {
 	}
 
 	// SALTO DE PAGINA
-	public void jumpPage(File folderPath, String steps) throws DocumentException {
+	public void jumpPage(File folderPath, String steps,String Evidencia) throws DocumentException {
 		try {
 			driver.switchTo().defaultContent();
 			driver.switchTo().window(driver.getWindowHandle());
@@ -591,21 +620,21 @@ public class BasePage {
 			driver.switchTo().window((String) parentHandle[1]);
 			driver.manage().window().maximize();
 			waitInMs(2000);
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString());
 		}
 	}
 
 	// CAMBIO DE VENTANA
-	public void changeWindows(File folderPath, String steps) throws DocumentException {
+	public void changeWindows(File folderPath, String steps,String Evidencia) throws DocumentException {
 		try {
 			ArrayList<String> ventana = new ArrayList<String>(driver.getWindowHandles());
 			driver.switchTo().window((String) ventana.get(1));
 			driver.close();
 			driver.switchTo().window((String) ventana.get(0));
 			waitInMs(2000);
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString());
 		}
@@ -619,19 +648,19 @@ public class BasePage {
 	}
 
 	// METODO ETIQUETA
-	public void etiquetas(By elementLocation, File folderPath, String steps) throws DocumentException {
+	public void etiquetas(By elementLocation, File folderPath, String steps,String Evidencia) throws DocumentException {
 		try {
 			Actions action = new Actions(driver);
 			WebElement element = driver.findElement(elementLocation);
 			action.moveToElement(element).perform();
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString());
 		}
 	}
 
 	// METODO LISTA RANDOM
-	public void listRandom(By elementLocation, File folderPath, String steps) throws DocumentException {
+	public void listRandom(By elementLocation, File folderPath, String steps,String Evidencia) throws DocumentException {
 		try {
 			WebElement Drplistdown = driver.findElement(elementLocation);
 			Select objSel = new Select(Drplistdown);
@@ -641,11 +670,13 @@ public class BasePage {
 			int iSelect = num.nextInt(iCnt);
 			objSel.selectByIndex(iSelect);
 			printConsole(Drplistdown.getAttribute("value"));
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString());
 		}
 	}
+	
+	//Metodo sin screenshot de lista random
 	
 	public void listRandom(By elementLocation) throws DocumentException {
 			WebElement Drplistdown = driver.findElement(elementLocation);
@@ -658,7 +689,7 @@ public class BasePage {
 			printConsole(Drplistdown.getAttribute("value"));
 	}
 
-	// METODO VALIDACIÓN
+	// METODO VALIDACIÓN devuelve una respuesta booleana de falso o verdadero que se puede usar para validar objetos
 	public static boolean validarElemento(By elementLocation, int time) {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, time);
@@ -669,6 +700,7 @@ public class BasePage {
 		}
 	}
 	
+	//Metodos de validacion no usables
 	public static boolean validarElementoA(By elementLocation, int time,File folderPath,String steps) {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, time);
@@ -685,7 +717,7 @@ public class BasePage {
 	
 	
 	
-	
+	//Metodos de validacion no usables
 
 	public boolean validarElementos(Object[] x, int time) {
 		boolean val = true;
@@ -705,6 +737,7 @@ public class BasePage {
 		return driver.findElement(elementLocation);
 	}
 
+	//Metodo para saber si un elemento esta seleccionado
 	public boolean isSelected(By elementLocation, File folderPath, String steps) throws DocumentException {
 		try {
 			visibilityOfElementLocated(elementLocation);
@@ -717,12 +750,15 @@ public class BasePage {
 		return false;
 	}
 
-	public boolean isEnabled(By elementLocation, File folderPath, String steps) throws DocumentException {
+	//Metodo para saber si un campo esta habilitado de ser asi retorna un enabled
+	public boolean isEnabled(By elementLocation, File folderPath, String steps,String Evidencia) throws DocumentException {
 		try {
 			visibilityOfElementLocated(elementLocation);
+			//esta habilitado o is enabled  de un elemento localizador 
 			boolean enabled = driver.findElement(elementLocation).isEnabled();
 			waitInMs(2000);
-			captureScreen(folderPath, steps);
+			captureScreen(folderPath, steps,Evidencia);
+			//Retorna enabled
 			return enabled;
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString());
@@ -730,6 +766,7 @@ public class BasePage {
 		return false;
 	}
 	
+	//Metodo de escritura de una fecha mas la cantidad de años deseados
 	public String datePlusYear(int year) {
 		LocalDate lastAprilDay = LocalDate.now();
         LocalDate firstMay = lastAprilDay.plusYears(year);
@@ -738,6 +775,7 @@ public class BasePage {
         System.out.println("Fecha: " + formatDate);
 		return formatDate;
 	}
+	//Metodo de escritura de un valor random numerico
 	
 	public void writeRandomNum(By elementLocation, int num) {
 		String acta = RandomStringUtils.randomNumeric(num);
@@ -745,52 +783,58 @@ public class BasePage {
 		waitInMs(1000);
 	}
 	
+	//Metodo de escribir un valor random alfanumerico
 	public void writeRandomAlp(By elementLocation, int num) {
 		String acta = RandomStringUtils.randomAlphabetic(num).toLowerCase();
 		driver.findElement(elementLocation).sendKeys(acta);
 	}
 	
+	//Metodo de darle escape a la pagina
 	public void escape() {
 		Actions action = new Actions(driver);
 		action.sendKeys(Keys.ESCAPE).build().perform();
 	}
 	
-	public void ValidacionObjetos(boolean valor1, boolean valor2, String caso, File folderPath ) throws IOException, DocumentException 
+	//Se valida varios objetos que sea existente al convertirlo en un valor booleano de true o false
+	public void ValidacionObjetos(boolean valor1, boolean valor2, String caso, File folderPath,String Evidencia ) throws IOException, DocumentException 
 	
 	{
 		
-	
+	//##Ver el metodo validar objeto, se validan varios objetos pero se usa la misma mecanica de validar objeto
 		
 		if(valor1 == true  && valor2 == true )
 			
 		{
-			screenshot(folderPath ,"La validacion es exitosa  para el caso " + caso );			
+			screenshot(folderPath ,"La validacion es exitosa  para el caso " + caso,Evidencia );			
 		}
 		else 
 		{
-			screenshot(folderPath ,"La validacion no es exitosa para los casos ejecutados " );
+			screenshot(folderPath ,"La validacion no es exitosa para los casos ejecutados ",Evidencia );
 					
 		}
 	}
 	
+	//Se valida un objeto que sea existente al convertirlo en un valor booleano de true o false 
 	
-	public void ValidacionObjeto(boolean valor1, String caso, File folderPath ) throws IOException, DocumentException 
+	public void ValidacionObjeto(boolean valor1, String caso, File folderPath,String Evidencia ) throws IOException, DocumentException 
 	
 	{
-		
+		//Si el objeto booleano es verdadero imprimira en evidencias caso exitoso
 		if(valor1 == true  )
 			
 		{
-			screenshot(folderPath ,"La validacion es exitosa  para el caso " + caso );			
+			screenshot(folderPath ,"La validacion es exitosa  para el caso " + caso,Evidencia );			
 		}
+		//En caso contrario imprimira otro mensaje
 		else 
 		{
-			screenshot(folderPath ,"La validacion no es exitosa el elemento a validar no esta presente " );
+			screenshot(folderPath ,"La validacion no es exitosa el elemento a validar no esta presente ",Evidencia );
 					
 		}
 		
 			
 	}
+	//Metodo de recargar pagina
 	
 	public void RecargarPagina(By elemenLocation) 
 	{

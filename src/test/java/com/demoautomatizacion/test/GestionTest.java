@@ -68,6 +68,7 @@ public class GestionTest extends BaseTest {
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"));
 
+		//LLAMADO DE VARIOS METODOS QUE ESTAN ASOCIADOS AL SUBMODULO DE GESTION 
 		gestion.obligatoriedadCamposDatosC(folderPath, getProperties().getProperty("datosContacto"))
 
 				.obligatoriedadCamposPoliza(folderPath, getProperties().getProperty("informacionPolizas"))

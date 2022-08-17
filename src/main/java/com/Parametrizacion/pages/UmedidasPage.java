@@ -18,6 +18,7 @@ public class UmedidasPage extends UmedidaMap {
 	boolean val;
 	int t = 15;
 
+	//Validacion del submodulo de unidad de medida
 	@Step("Revision")
 	public UmedidasPage validacion(File folderPath) throws Exception {
 
@@ -41,6 +42,7 @@ public class UmedidasPage extends UmedidaMap {
 		}
 		return this;
 	}
+	//Creacion de unidad de medida
 
 	@Step("Validadr el modulo Crear Unidad de Medida")
 	public UmedidasPage crearModulo(File folderPath, String CodBodega, String Resume) throws Exception {
@@ -54,6 +56,7 @@ public class UmedidasPage extends UmedidaMap {
 		return this;
 	}
 
+	//Busqueda de unidad de medida
 	@Step("Modificar/Consultar Unidad medida")
 	public UmedidasPage busqueda(File folderPath, String Umedida, String Resume) throws Exception {
 

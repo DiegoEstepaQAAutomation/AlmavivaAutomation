@@ -21,12 +21,13 @@ public class LoginTest extends BaseTest {
 
 	public Properties fileprops = new Properties();
 	
-	
+	//LLAMADO DE LAS PROPIEDADES DE LOGIN
 	public Properties getProperties() throws Exception {
 		fileprops.load(new FileInputStream(new File("src/test/resources/test.properties").getAbsolutePath()));
 		return fileprops;
 	}
 
+	//ESTE METODO LLAMA LAS PROPIEDADES QUE PERMITEN EL LOGUEO EN ALMAVIVA
 	@Test(priority = 0, description = "Login Portal Almaviva")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Ingresar Portal Almaviva")

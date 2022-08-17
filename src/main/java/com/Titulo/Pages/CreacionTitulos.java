@@ -30,6 +30,7 @@ public class CreacionTitulos extends ExpedirMap {
 		//click(locatorVariable(lblModulos, ModuloT),folderPath,"click en el modulo titulos");
         //click(locatorVariable(lblsecciones, SubModuloExpedir),folderPath,"click en la seccion expedir");
 		
+		//INGRESO A CREAR TITULO, SELECCION DE NOMBRE DE EMPRESA
 		click(lblExpedir, folderPath, "Click en expedir");
 		
 		click(btnCrearExpedir, folderPath, "click en crear titulo");
@@ -41,10 +42,10 @@ public class CreacionTitulos extends ExpedirMap {
 		desplazarseVertical(0,500);
 		
 		//String Titulo = null;
-		Titulo = driver.findElement(txtNumeroTitulo).getText();
+		//Titulo = driver.findElement(txtNumeroTitulo).getText();
 		
-		
-		
+		Titulo=readText(txtNumeroTitulo, folderPath, "Se toma valor de texto");
+		//FORMULARIO COMPLETO DE CREAR TITULO
 		
 		click(lblOficinaResponsable1, folderPath, "click en Oficina");
 		click(lblOficinaResponsable2, folderPath, "click en Direccion General");
@@ -87,6 +88,7 @@ public class CreacionTitulos extends ExpedirMap {
 		writeText(txtDetalleMercancia1, "Aceite rojo", folderPath, "Se escribe detalle mercancia");
 		listRandom(lblUnidadMedida, folderPath, "Se selecciona valor random de la lista");
 		listRandom(lblUnidadMedidaSuper, folderPath, "Se selecciona valor random de la lista");
+		//ESCRITURA DE VALOR RANDOM NUMERICO
 		writeRandomNum(txtValorConversion, 1);
 		writeRandomNum(txtCantidad, 3);
 		writeRandomNum(txtValorUnitario, 3);
@@ -105,11 +107,13 @@ public class CreacionTitulos extends ExpedirMap {
 		desplazarseVertical(0,400);
 		writeText(btnPorcentajeEx, "50", folderPath, "Se escribe el Porcentaje Expedicion");
 		writeText(btnPorcentajeAlm, "50", folderPath, "Se escribe el Porcentaje Almacenamiento");
+		//ESCRITURA DE VALOR RANDOM ALFABETICO
 		writeRandomAlp(btnCodigoSapExp, 20);
 		writeRandomAlp(btnCodigoSapAlm, 20);
 		click(btnSaveChanges, folderPath, "click en guardar cambios ");
 		click(btnAceptar, folderPath, "click en Aceptar cambios ");
 		
+		//SI LA PAGINA NO OLVIDARA LOS VALORES TOMADOS AL CAMBIAR SE PODRIAN USAR ESTAS VARIABLES
 		String Titulo2 = Titulo;
 		
 		///   aqui termina la creacion de titulo
@@ -120,16 +124,19 @@ public class CreacionTitulos extends ExpedirMap {
 		
 		
 		
+		//BUSQUEDA EN ULTIMO TITULO CREADO BUSCARLO POR FECHA ES INUTIL PORQUE LA PAGINA SOLO GUARDA AHI TITULOS APLICADOS
 		click(btnCriterioTitulo, folderPath, "click en criterio de busqueda de titulo");
 		selectElementList(btnCriterioTitulo, FechaDeCargue, folderPath, "selecciona busqueda por fecha");
 		writeText(txtBuscarTitulo, "claro", folderPath, "escritura fecha actual, cambiar el valor de la empresa a conveniencia");
 		
-		//writeText(txtBuscarTitulo, datePlusYear(0), folderPath, "escritura fecha actual"); la pagina no toma todos los titulos de hoy solo los aplicados
+		//writeText(txtBuscarTitulo, datePlusYear(0), folderPath, "escritura fecha actual"); 
+		//la pagina no toma todos los titulos de hoy solo los aplicados
 		click(PaginacionNueva, folderPath, "Click en pagina--pagina cambiante revisar el xpath constantemente");
 		
 		click(btnRefreshTitulosPorfecha, folderPath, "click en refrescar al ultimo creado");
 		click(btnRefreshTitulosPorfecha, folderPath, "click en refrescar al ultimo creado");
 		
+		//SE TOMA TEXTO DE ULTIMO TITULO VISIBLE
 		String NuevoTitulo= driver.findElement(UltimoRegistroCreado).getText();;
 		
 		
@@ -139,6 +146,7 @@ public class CreacionTitulos extends ExpedirMap {
 		//click(btnCriterioTitulo, folderPath, "click en criterio de busqueda de titulo");
 		//selectElementList(btnCriterioTitulo, "Título", folderPath, fechaHoy);
 		
+		//SE CONSULTA EL ULTIMO TITULO CREADO
 		click(locatorVariable(lblsecciones, "Liberación"),folderPath,"click en la seccion perfil");
 		
 		//clear(txtBuscarTitulo, folderPath, "limpia de texto existente");
@@ -159,6 +167,7 @@ public class CreacionTitulos extends ExpedirMap {
 		desplazarseVertical(0,200);
 		click(btnAplicar, folderPath, "Click en Aplicar");
 		click(btnAceptar, folderPath, "click en Aceptar cambios ");
+		//SE VALIDA QUE EL TITULO SEA APLICADO(usar solo si es necesario aplicarlo hay que racionalizar el espacio de la aplicacion)
 		boolean alertaCreadaAplicada = validarElemento(alertaLiberacion, 10);
         ValidacionObjeto(alertaCreadaAplicada, "Validacion de aplicacion caso: ", folderPath);
 		

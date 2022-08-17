@@ -18,10 +18,12 @@ public class RolesPage extends RolesMap {
 	boolean val;
 	int t = 15;
 
+	//INSTANCIA DEL NAVEGADOR
 	public RolesPage(WebDriver driver) {
 		super(driver);
 	}
 	
+	//PASO A PASO DE VALIDACION DE CAMPOS DE ROLES
 	@Step("Obligatoriedad de campos")
 	public RolesPage obligatoriedadCampos(File folderPath) throws Exception {
 		
@@ -29,6 +31,7 @@ public class RolesPage extends RolesMap {
 		x[0] = lblNombreRolObligatorio;
 		x[1] = lblDescripcionRolObligatorio;
 		
+		//SE CREA UN ROL CON UN ESTADO
 		click(btnCrearRol, folderPath, "Se ingresa a crear Rol");
 		click(txtNombreRol, folderPath, "Obligatoriedad campo Nombre Rol");
 		click(txtDescripcionRol, folderPath, "Obligatoriedad campo Descripci贸n de Rol");
@@ -45,12 +48,15 @@ public class RolesPage extends RolesMap {
 		return this;
 	}
 	
+	//PASO A PASO DE VALIDACIONES DE CAMPOS DE HASTA 100 CARACTERES 
 	@Step("Campos con 100 Caracteres")
 	public RolesPage caracteres100(File folderPath, String nombre, String descripcion, String nom100, String desc100) throws Exception {
 
+		//SE ENVIA A VARIABLES TIPO STRING EL TAMA脩O MAXIMO DE 2 LOCALIZADORES DE CAMPO
 		String nom = driver.findElement(By.xpath("//input[contains(@formcontrolname,'roleNombre')]")).getAttribute("maxlength");
 		String desc = driver.findElement(By.xpath("//textarea[contains(@formcontrolname,'descripcion')]")).getAttribute("maxlength");
 		
+		//SE VALIDAN CONTRA DOS PROPERTIES QUE TIENEN EL NUMERO 100 POR TANTO SI EL MAXLENGTH ES MAYOR A 100 LA VALIDACION FALLARA
 		if (nom.contains(nom100) && desc.contains(desc100)) {
 			printConsole("Los campos contienen el maximo de 100 caracteres");
 		}
@@ -59,17 +65,21 @@ public class RolesPage extends RolesMap {
 			Assert.fail("Error en la validaci贸n, los campos no contienen el maximo de 100 caracteres");
 		}
 		
+		//SE ESCRIBE UN ROL Y UNA DESCRIPCION
 		writeText(txtNombreRol, nombre, folderPath, "Se ingresa el dato Nombre con 100 Caracteres");
 		writeText(txtDescripcionRol, descripcion, folderPath, "Se ingresa el dato Descripci贸n de Rol con 100 Caracteres");
 		return this;
 	}
 	
+	//PASO A PASO DE CREAR UN ROL
 	@Step("Crear rol")
 	public RolesPage crearRol(File folderPath, String nombre, String descripcion, String estado, String permiso) throws Exception {
 		
+		// SE CREA VARIABLE TIPO STRING DE LA FECHA ACTUAL EN FORMATO DE HORA/SEGUNDO
 		String timeStamp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
 		String nombreR = nombre + timeStamp;
 
+		//SE DIGITAN LOS CAMPOS DE ROL Y SE LE ASIGNA UN ESTADO
 		printConsole("Nombre Rol: " + nombreR);
 		etiquetas(btnCrearRol, folderPath, "Etiqueta Crear rol");
 		click(btnCrearRol, folderPath, "Se ingresa a crear Rol");
@@ -83,6 +93,7 @@ public class RolesPage extends RolesMap {
 		return this;
 	}
 	
+	//CANCELA REGISTRO ROL
 	@Step("Cancelar registro Rol")
 	public RolesPage cancelarRol(File folderPath) throws Exception {
 
@@ -90,6 +101,7 @@ public class RolesPage extends RolesMap {
 		return this;
 	}
 	
+	//GUARDA REGISTRO ROL
 	@Step("Guardar registro Rol")
 	public RolesPage guardarRol(File folderPath) throws Exception {
 
@@ -97,6 +109,7 @@ public class RolesPage extends RolesMap {
 		return this;
 	}
 	
+	//ACEPTA REGISTRO ROL
 	@Step("Aceptar registro Rol")
 	public RolesPage aceptarRol(File folderPath) throws Exception {
 		
@@ -107,18 +120,21 @@ public class RolesPage extends RolesMap {
 		if (Boolean.TRUE.equals(val)) {
 			// El registro se ha guardado
 		} else {
-			GenerarReportePdf.closeTemplate("Error en la validaci髇, el registro no se creo correctamente");
-			Assert.fail("Error en la validaci髇, el registro no se creo correctamente");
+			GenerarReportePdf.closeTemplate("Error en la validaci锟絥, el registro no se creo correctamente");
+			Assert.fail("Error en la validaci锟絥, el registro no se creo correctamente");
 		}
 		return this;
 	}
 	
+	//PASO A PASO DE MODIFICAR UN ROL
 	@Step("Modificar Rol")
 	public RolesPage modificarRol(File folderPath, String descripcion, String estado) throws Exception {
 
+		//SE INGRESA A MODIFICAR ROL SE CAMBIAN LOS REGISTROS Y SE GUARDA 
 		scrollElementH(folderPath, btnModificarRol, "Se desplaza hasta la opci贸n Modificar rol");
 		etiquetas(btnModificarRol, folderPath, "Etiqueta Modificar rol");
 		click(btnModificarRol, folderPath, "Se ingresa a modificar Rol");
+		//SE VERIFICA QUE EL CAMPO NOMBRE DE ROL ESTE ENABLED O HABILITADO
 		isEnabled(txtNombreRol, folderPath, "Campo Nombre Rol No editable");
 		clear(txtDescripcionRol, folderPath, "Se borra el dato anterior de Descripci贸n de Rol");
 		writeText(txtDescripcionRol, descripcion, folderPath, "Se ingresa el dato Descripci贸n de Rol");
@@ -127,19 +143,23 @@ public class RolesPage extends RolesMap {
 		return this;
 	}
 	
+	//PASO A PASO PARA VISUALIZAR UN ROL
 	@Step("Ver rol")
 	public RolesPage verRol(File folderPath) throws Exception {
 		
+		//SE DA CLICK EN VISUALIZAR ROL
 		scrollElementH(folderPath, btnVerRol, "Se desplaza hasta la opci贸n Ver rol");
 		etiquetas(btnVerRol, folderPath, "Etiqueta Ver rol");
 		click(btnVerRol, folderPath, "Se ingresa a ver rol");
 		
+		//SE UTILIZA ISENABLED PARA VERIFICAR QUE LOS CAMPOS ESTEN HABILITADOS,EL METODO ISENABLED RETORNA UN ENABLED 
 		isEnabled(txtNombreRol, folderPath, "Campo Nombre Rol No editable");
 		isEnabled(txtDescripcionRol, folderPath, "Campo Descripci贸n de Rol No editable");
 		isEnabled(lblEstado, folderPath, "Campo Estado No editable");
 		return this;
 	}
 	
+	//BOTON DE CONSULTAR TOL
 	@Step("Botones consultar rol")
 	public RolesPage botonesRol(File folderPath) throws Exception {
 
@@ -149,6 +169,7 @@ public class RolesPage extends RolesMap {
 
 		val = validarElementos(x, t);
 
+		//CLICK EN BOTON DE VER TODOS JUNTO A UNA VALIDACION, SI TRAE LA INFORMACION CORRECTA IMPRIMIRA UN MENSAJE
 		if (Boolean.TRUE.equals(val)) {
 			click(btnVerTodos, folderPath, "Se selecciona la opci贸n Ver Todos");
 			waitInMs(3000);
@@ -165,12 +186,14 @@ public class RolesPage extends RolesMap {
 		return this;
 	}
 
+	//PASO A PASO DE CONSULTAR UN ROL
 	@Step("Consultar rol")
 	public RolesPage consultaRol(File folderPath, String nom50, String nombreRol) throws Exception {
 
+		//SE BUSCA UN VALOR ALFABETICO RANDOM
 		String nombre = RandomStringUtils.randomAlphabetic(50).toLowerCase();
 		String nom = driver.findElement(By.xpath("//input[contains(@formcontrolname,'terminoBusqueda')]")).getAttribute("maxlength");
-
+		//SE CONSULTA UN ROL DEL VALOR RANDOM CREADO
 		if (nom.contains(nom50)) {
 			printConsole("Los campos contienen el maximo de 50 caracteres");
 			writeText(consultarRol, nombre, folderPath, "Se ingresa texto de 50 caracteres");

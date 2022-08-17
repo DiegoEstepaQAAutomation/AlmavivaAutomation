@@ -15,9 +15,11 @@ public class AnularTituloPage extends AnularTituloMap {
 		super(driver);
 	}
 
+	//PASO A PASO DE ANULAR TITULOS
 	@Step("Anular título")
 	public AnularTituloPage anularTitulo(File folderPath, String codigo) throws Exception {
 
+		//FORMULARIO DE ANULAR TITULO
 		writeText(txtBuscarTitulo, codigo, folderPath, "Se Escribe el titulo que se va a anular");
 		click(seleccionarTituloBuscar, folderPath, "Se da click en buscar el titulo");
 		click(btnAnularTitulo, folderPath, "Click en anular titulo");

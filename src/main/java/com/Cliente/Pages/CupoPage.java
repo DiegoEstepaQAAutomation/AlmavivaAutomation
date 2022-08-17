@@ -18,9 +18,11 @@ public class CupoPage extends CupoMap {
 		super(driver);
 	}
 
+	//Paso a paso de crear un cupo
 	@Step("Crear cupo")
 	public CupoPage crearCupo(File folderPath, String nitC) throws Exception {
 
+		//Se crea un cupo nuevo, se ingresa un nit, se da la tecla enter y se dirige hacia el nuevo cupo para hacerlo visible
 		click(btnCrearCupo, folderPath, "Se ingresa a crear Cupo");
 		writeText(txtNit, nitC, folderPath, "Se digita en el campo Nit");
 		enter(txtNit);
@@ -28,24 +30,29 @@ public class CupoPage extends CupoMap {
 		return this;
 	}
 
+	//Se digita cada una de las opciones de cupo
 	@Step("Modalidades cupo")
 	public CupoPage modalidadesCupo() throws Exception {
 
+		//Se digita un cupo con bodega propia
 		writeRandomNum(txtCupoAPropia, 15);
 		writeText(txtFechaAPropia, datePlusYear(1));
 		writeRandomNum(txtDiasCAPropia, 2);
 		writeRandomAlp(txtNumeroAPropia, 11);
-
+		
+		//Se digita un cupo con bodega particular
 		writeRandomNum(txtCupoAParticular, 15);
 		writeText(txtFechaAParticular, datePlusYear(2));
 		writeRandomNum(txtDiasCAParticular, 2);
 		writeRandomAlp(txtNumeroAParticular, 11);
 
+		//Se digita un cupo con bodega particular arrendado
 		writeRandomNum(txtCupoAParticularA, 15);
 		writeText(txtFechaAParticularA, datePlusYear(3));
 		writeRandomNum(txtDiasCAParticularA, 2);
 		writeRandomAlp(txtNumeroAParticularA, 11);
-
+		
+		//Se digita un cupo con bodega de transito 
 		writeRandomNum(txtCupoATransito, 15);
 		writeText(txtFechaATransito, datePlusYear(4));
 		writeRandomNum(txtDiasCATransito, 2);
@@ -56,22 +63,29 @@ public class CupoPage extends CupoMap {
 	@Step("Mercancía")
 	public CupoPage mercancia(String mercancia) throws Exception {
 
+		
+		//Opcion mercancia dentro del titulo(En desuso porque hay un metodo de creacion automatica de titulos
 		click(locatorVariable(lblOpciones, mercancia));
 		click(btnCrearMercancia);
+		//Lista random de tipo de mercancia y unidad de mercancia 
 		listRandom(lblTipoMercancia);
 		listRandom(lblUnidadMedida);
 		click(btnGuardarMercancia);
 		click(locatorVariable(lblOpciones, mercancia));
+		
 		return this;
 	}
 
+	//Paso a paso de crear un acreedor 
 	@Step("Acreedor")
 	public CupoPage acreedor(File folderPath, String acreedor) throws Exception {
 
+		//Se crea el acreedor
 		click(locatorVariable(lblOpciones, acreedor));
 		click(btnCrearAcreedor);
 		click(btnGuardarAcreedor);
-
+		
+		//se asocia un nuevo acreedor y se acepta 
 		try {
 			click(locatorVariable(lblOpciones, acreedor));
 		} catch (Exception e) {
@@ -81,9 +95,12 @@ public class CupoPage extends CupoMap {
 		return this;
 	}
 	
+	//Paso a paso de modificar un cupo ya existente 
 	@Step("Modificar cupo")
 	public CupoPage modificarCupo(File folderPath, String mercancia, String acreedor) throws Exception {
 
+		//Se dirige hacia el boton modificar cupo, se ingresa en mercancia , se seleccionan los valores de mercancia y medida de forma random
+		
 		scrollElementH(folderPath, btnModificarCupo, "Se desplaza hasta la opción Modificar cupo");
 		etiquetas(btnModificarCupo, folderPath, "Etiqueta Modificar cupo");
 		click(btnModificarCupo, folderPath, "Se ingresa a modificar Cupo");
@@ -94,32 +111,44 @@ public class CupoPage extends CupoMap {
 		listRandom(lblTipoMercancia, folderPath, "Se elije una opción de tipo de mercancia random");
 		listRandom(lblUnidadMedida, folderPath, "Se elije una opción de unidad de medida random");
 		click(btnGuardarMercancia, folderPath, "Se guarda la información");
+		
 		click(locatorVariable(lblOpciones, mercancia), folderPath, "Se cierra a la opción Mercancia");
+		//Se ingresa a acreedor y se guarda el nuevo acreedor
 		
 		click(locatorVariable(lblOpciones, acreedor), folderPath, "Se ingresa a la opción Acreedor");
 		click(btnCrearAcreedor, folderPath, "Se ingresa a crear Acreedor");
+		
+		//Tiempos de espera largos porque la pagina toma bastante tiempo para guardar los cambios
 		waitInMs(4000);
 		click(btnGuardarAcreedor, folderPath, "Se guarda la información");
 		waitInMs(50000);
 
+		//Se acepta el nuevo acreedor
 		try {
 			click(locatorVariable(lblOpciones, acreedor), folderPath, "Se cierra a la opción Acreedor");
 		} catch (Exception e) {
 			click(btnAceptarAcreedorYaAsociado, folderPath, "Se acpeta el pop-up");
 			click(locatorVariable(lblOpciones, acreedor), folderPath, "Se cierra a la opción Acreedor");
 		}
+		
+		//Subimos en la pagina y se ejecuta el metodo modalidades de cupo
 		scrollUp();
 		modalidadesCupo();
 		return this;
 	}
 	
+	//El paso a paso del ver cupo 
+	
 	@Step("Ver cupo")
 	public CupoPage verCupo(File folderPath) throws Exception {
+		
+		//Validaciones al visualizar cupo, se da click en visualizar cupo
 		
 		scrollElementH(folderPath, btnVerCupo, "Se desplaza hasta la opción Ver cupo");
 		etiquetas(btnVerCupo, folderPath, "Etiqueta Ver cupo");
 		click(btnVerCupo, folderPath, "Se ingresa a ver Cupo");
 
+		//Se valida si esta enabled o habilitado el campo en cupo con bodega propia
 		waitInMs(15000);
 		scrollElementV(folderPath, lblCupoAlternativo, "Se desplaza hasta Modalidades de Cupo");
 		isEnabled(txtCupoAPropia, folderPath, "Campo Cupo Aprobado No editable");
@@ -127,16 +156,19 @@ public class CupoPage extends CupoMap {
 		isEnabled(txtDiasCAPropia, folderPath, "Campo Días Cupo No editable");
 		isEnabled(txtNumeroAPropia, folderPath, "Campo No. Acta de Aprobación No editable");
 		
+		//Se valida si esta enabled o habilitado el campo en cupo con bodega particular
 		isEnabled(txtCupoAParticular, folderPath, "Campo Cupo Aprobado No editable");
 		isEnabled(txtFechaAParticular, folderPath, "Campo Fecha de Aprobación No editable");
 		isEnabled(txtDiasCAParticular, folderPath, "Campo Días Cupo No editable");
 		isEnabled(txtNumeroAParticular, folderPath, "Campo No. Acta de Aprobación No editable");
 		
+		//Se valida si esta enabled o habilitado el campo en cupo con bodega particular arrendada
 		isEnabled(txtCupoAParticularA, folderPath, "Campo Cupo Aprobado No editable");
 		isEnabled(txtFechaAParticularA, folderPath, "Campo Fecha de Aprobación No editable");
 		isEnabled(txtFechaAParticularA, folderPath, "Campo Días Cupo No editable");
 		isEnabled(txtNumeroAParticularA, folderPath, "Campo No. Acta de Aprobación No editable");
 		
+		//Se valida si esta enabled o habilitado el campo en cupo con bodega en transito
 		isEnabled(txtCupoATransito, folderPath, "Campo Cupo Aprobado No editable");
 		isEnabled(txtFechaATransito, folderPath, "Campo Fecha de Aprobación No editable");
 		isEnabled(txtDiasCATransito, folderPath, "Campo Días Cupo No editable");
@@ -144,12 +176,15 @@ public class CupoPage extends CupoMap {
 		return this;
 	}
 	
+	//Consulta de cupo
 	@Step("Consultar cupo")
 	public CupoPage consultaCupo(File folderPath, String nom50, String criterio, String nit) throws Exception {
 
+		//Se digita un valor alfabetico random en minuscula y se toma el atributo de maxlegth o tamaño maximo
 		String nitt = RandomStringUtils.randomAlphabetic(50).toLowerCase();
 		String n = driver.findElement(By.xpath("//input[contains(@formcontrolname,'termino')]")).getAttribute("maxlength");
 
+		//Se hace una validacion si el campo tiene maximo 50 caracteres
 		if (n.contains(nom50)) {
 			printConsole("Los campos contienen el maximo de 50 caracteres");
 			writeText(txtConsultarNit, nitt, folderPath, "Se ingresa texto de 50 caracteres");

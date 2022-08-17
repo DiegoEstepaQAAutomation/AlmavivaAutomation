@@ -18,13 +18,13 @@ import java.util.Properties;
 
 public class ConsultarRegistroVisitaTest extends BaseTest {
 	public Properties fileprops = new Properties();
-
+	//PROPIEDADES DEL TEST
 	public Properties getProperties() throws Exception {
 		fileprops.load(new FileInputStream(new File("src/test/resources/test.properties").getAbsolutePath()));
 		fileprops.load(new FileInputStream(new File("src/test/resources/Visitas.properties").getAbsolutePath()));
 		return fileprops;
 	}
-
+	//LOGIN CON INICIO DE GENERACION DE REPORTE
 	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
@@ -35,7 +35,7 @@ public class ConsultarRegistroVisitaTest extends BaseTest {
 				getProperties().getProperty("urlPrivada"));
 
 		GenerarReportePdf.setImgContador(0);
-
+		//ESTE METODO SE ENCARGA DEL LOGIN DE LAS URL DE ALMAVIVA Y LAS CREDENCIALES DE ACCESO
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.privacidadIp(folderPath);
 		home.irPortal(getProperties().getProperty("url"));
@@ -58,7 +58,7 @@ public class ConsultarRegistroVisitaTest extends BaseTest {
 				getProperties().getProperty("password"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"));
-
+		//Consulta del registro de visita
 		consultarRegistro.consultarRegistroV(folderPath);
 		
 		GenerarReportePdf.closeTemplate("");

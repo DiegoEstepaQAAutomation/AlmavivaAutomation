@@ -20,6 +20,7 @@ public class TiposMercanciasPage extends TipoMercanciaMap {
 		super(driver);
 	}
 
+	//Paso a paso de validaciones de bodega
 	@Step("Validaciones")
 	public TiposMercanciasPage validaciones(File folderPath) throws Exception {
 
@@ -28,6 +29,7 @@ public class TiposMercanciasPage extends TipoMercanciaMap {
 		x[0] = lblCodigoDeMercanciaObligatorio;
 		x[1] = lblNombreDeMercanciaObligatorio;
 
+		//validaciones en tipo de bodega
 		click(btnCrearTipoDeMercancia, folderPath, "Adiciona tipo de mercancia");
 		click(txtCodigoDeMercanciaCrear, folderPath, "Se da click en campo codigo mercancia");
 		click(txtNombreDeMercancia, folderPath, "Se da click en el campo nombre de mercancia");
@@ -43,10 +45,12 @@ public class TiposMercanciasPage extends TipoMercanciaMap {
 		return this;
 	}
 
+	//Busqueda de bodega por codigo
 	@Step("Codigo Buscar")
 	public TiposMercanciasPage CodigoBuscar(File folderPath, String codigoMercanciaCrear, String nombreMercanciaCrear)
 			throws Exception {
 
+		//Se busca una bodega por codigo
 		click(btnCrearTipoDeMercancia, folderPath, "Adiciona tipo de mercancia");
 		writeText(txtCodigoDeMercanciaCrear, codigoMercanciaCrear, folderPath, "Se digita codigo de mercancia");
 		writeText(txtNombreDeMercancia, nombreMercanciaCrear, folderPath, codigoMercanciaCrear);
@@ -58,6 +62,7 @@ public class TiposMercanciasPage extends TipoMercanciaMap {
 		return this;
 	}
 
+	//Busqueda general de bodega
 	@Step("Busqueda General")
 	public TiposMercanciasPage Busqueda(File folderPath, String tipos, String codigo, String estado) throws Exception {
 

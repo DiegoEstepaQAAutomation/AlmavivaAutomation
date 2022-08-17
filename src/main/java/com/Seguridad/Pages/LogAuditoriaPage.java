@@ -22,15 +22,19 @@ public class LogAuditoriaPage extends LogAuditoriaMap {
 		super(driver);
 	}
 
+	//Se almacena lista de usuarios paso a paso
 	@Step("Lista de Usuarios")
 	public String[] almacenarListaVector(File folderPath) throws Exception {
 
+		//Se declaran una variable integer y una variable string con dispocision a arreglo o lista
 		Integer i = 0;
 		String[] usuario;
 
+		//Se coloca en la variable list user todos los elementos de la tabla de usuarios
 		List<WebElement> listUser = driver.findElements(TblListaUsuarios);
 		waitInMs(2000);
 
+		//Se crea un bucle que esta basado en el tamaño de la lista y la toma de valores de texto
 		usuario = new String[listUser.size()];
 		for (i = 0; i < listUser.size(); i++) {
 			usuario[i] = listUser.get(i).getText();
@@ -38,18 +42,22 @@ public class LogAuditoriaPage extends LogAuditoriaMap {
 		return usuario;
 	}
 
+	//Usuarios en log auditoria
 	@Step("Usuarios en Log-Auditoria")
 	public void usuariosLog(File folderPath, String[] usuarios) throws Exception {
 
+		//Se hace el paso a paso de usuarios en log auditoria, se crea una variable integer
 		Integer i = 0;
 
 		click(lblLogAuditoria);
 		click(btnBuscarUsuario);
 		waitInMs(2000);
 
+		//Se toma la variable integer y se envia con el tamaño de texto en un ciclo
 		for (i = 0; i < usuarios.length; i++) {
 			String usuarios1 = usuarios[i];
 
+			//Se valida cada elemento que surge del ciclo en un ciclo de validacion
 			waitInMs(1000);
 			clear(txtBuscarUsuarioLog, folderPath, "Se elimina el texto digitado anteriormente");
 			writeText(txtBuscarUsuarioLog, usuarios1, folderPath, "Se ingresa el usuario: " + usuarios1);
@@ -70,9 +78,11 @@ public class LogAuditoriaPage extends LogAuditoriaMap {
 	public LogAuditoriaPage filtroFechasLog(File folderPath, String mesD, String anualD, String diaD, String mesH,
 			String anualH, String diaH) throws Exception {
 
+		//Se busca por fecha el log o informe de auditoria, se envia a una variable tipo string la fecha actual solo que tomando unicamente el dia
 		String timeStamp = new SimpleDateFormat("dd").format(Calendar.getInstance().getTime());
 		diaH = timeStamp;
 
+		//paso a paso de filtracion de auditoria por fecha
 		click(calendarioFechaDesde, folderPath, "Se ingresa a calendario Fecha desde");
 		selectElementList(lblMesFecha, mesD, folderPath, "Se selecciona el mes de Fecha desde");
 		selectElementList(lblAnualFecha, anualD, folderPath, "Se selecciona el año de Fecha desde");
@@ -84,6 +94,7 @@ public class LogAuditoriaPage extends LogAuditoriaMap {
 		selectElementList(lblAnualFecha, anualH, folderPath, "Se selecciona el año de Fecha hasta");
 		waitInMs(1000);
 		click(locatorVariable(lblDiaFecha, diaH), folderPath, "Se selecciona el día de Fecha hasta");
+		//se valida mediante un imprimir en consola la fecha en formato dia
 		printConsole("Día actual: " + timeStamp);
 		click(btnBuscarLog, folderPath, "Se selecciona la opción Buscar");
 		waitInMs(5000);
@@ -99,6 +110,7 @@ public class LogAuditoriaPage extends LogAuditoriaMap {
 		return this;
 	}
 
+	//Botones de auditoria
 	@Step("Botones Log Auditoría")
 	public LogAuditoriaPage botonesLog(File folderPath) throws Exception {
 

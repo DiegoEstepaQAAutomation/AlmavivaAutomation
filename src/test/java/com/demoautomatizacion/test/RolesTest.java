@@ -68,7 +68,7 @@ public class RolesTest extends BaseTest{
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloR"));
 
 		roles.obligatoriedadCampos(folderPath)
-				
+		//EJECUCION DE CASOS DE TAMAÑO DE TEXTO O CARACTERES		
 		.caracteres100(folderPath, getProperties().getProperty("nombre100"),
 						getProperties().getProperty("descripcion100"),
 						getProperties().getProperty("nom100"),

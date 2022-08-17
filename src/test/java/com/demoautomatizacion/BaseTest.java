@@ -37,8 +37,10 @@ import com.Cliente.Pages.CupoPage;
 import com.Cliente.Pages.GestionPage;
 import com.ConsultaRegistroVisita.Pages.CRVisitasPage;
 
+//ESTA ES UNA CLASE QUE GUARDA TODAS LAS INSTANCIAS DE TODOS LOS OBJETOS EXISTENTES
 public class BaseTest {
 
+	//INSTANCIA DE WEBDRIVER
 	public WebDriver driver;
 
 	public HomePage home;
@@ -83,9 +85,11 @@ public class BaseTest {
 		return driver;
 	}
 
+	//INICIALIZA LOS OBJETOS CON UN DRIVER RESPECTIVO
 	@BeforeMethod
 	public void inicializar() {
 
+		//CONFIGURA EL COMO SE VA A ABRIR EL NAVEGADOR
 		WebDriverManager.chromedriver().setup();
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--window-size=1920,1080");
@@ -94,6 +98,7 @@ public class BaseTest {
 		options.addArguments("--no-sandbox");
 		options.addArguments("--disable-notifications");
 		// options.addArguments("--headless");
+		//MAXIMIZA LA PAGINA DEL NAVEGADOR
 		driver = new ChromeDriver(options);
 		driver.manage().window().maximize();
 
@@ -140,19 +145,20 @@ public class BaseTest {
 		consultarRegistro = new ConsultarRegistroVisitaPage(driver);
 	}
 	
+	//INSTANCIA DE CONEXION DE BASE DE DATOS
 	public ArrayList<Object> consultaBD(String sql) {
 
 		ArrayList<Object> datos = new ArrayList<Object>();
-
+		//CREA UNA INSTANCIA DE LA CLASE ORACLEBD QUE CONTIENE LA CONEXION A BASE DE DATOS
 		try {
 			OracleBD conexion = new OracleBD().conectar();
-
+			//SI LA CONEXION ES DIFERENTE A NULO REALIZARA LA CONSULTA QUE ESTA LLAMADA EN EL METODO CONSULTAR CON EL STRING QUE ES LA CONSULTA QUE SE LE ENVIA
 			if (conexion != null) {
 
 				ResultSet resultado = conexion.consultar(sql);
 				ResultSetMetaData metadata = resultado.getMetaData();
 				int columnas = metadata.getColumnCount();
-				
+				//MEDIANTE UN CICLO SE AÑADE EL RESULTADO DE CADA COLUMNA 
 				while (resultado.next()) {
 					Object dato = new Object[columnas];
 					for (int i = 1; i <= columnas; i++) {
@@ -164,7 +170,7 @@ public class BaseTest {
 			}
 			
 			conexion.cerrarConexion();
-			
+		//SE RETORNA DATOS QUE ES LA METADATA DEL RESULTADO DE LA CONSULTA 	
 		} catch (Exception e) {
 			System.out.println("error de conexion");
 			throw new RuntimeException(e.getMessage());
@@ -174,6 +180,8 @@ public class BaseTest {
 
 	
 
+	
+	//CIERRE DE INSTANCIA UNIVERSAL
 	@AfterMethod
 	public void tearDown() {
 		if (driver != null) {

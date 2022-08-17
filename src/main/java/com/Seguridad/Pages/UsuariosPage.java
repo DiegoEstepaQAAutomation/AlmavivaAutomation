@@ -18,10 +18,12 @@ public class UsuariosPage extends UsuariosMap {
 	boolean val;
 	int t = 15;
 
+	//INSTANCIA DE DRIVER
 	public UsuariosPage(WebDriver driver) {
 		super(driver);
 	}
-
+	
+	//PASO A PASO PARA VERIFICAR OBLIGATORIEDAD DE CAMPOS
 	@Step("Obligatoriedad de campos")
 	public UsuariosPage obligatoriedadCampos(File folderPath) throws Exception {
 
@@ -34,6 +36,7 @@ public class UsuariosPage extends UsuariosMap {
 		x[5] = lblEmailUsuarioObligatorio;
 		x[6] = lblPerfilObligatorio;
 
+		//SE VERIFICA LA OBLIGATORIEDAD DE TODOS LOS CAMPOS DE USUARIO
 		click(btnCrearUsuario, folderPath, "Se ingresa a crear Usuario");
 		click(txtUsuarioDominio, folderPath, "Obligatoriedad campo Usuario dominio");
 		click(txtNombres, folderPath, "Obligatoriedad campo Nombres");
@@ -55,15 +58,18 @@ public class UsuariosPage extends UsuariosMap {
 		return this;
 	}
 
+	//CAMPOS CON 50 CARACTERES EN EL SUBMODULO DE USUARIO
 	@Step("Campos con 50 Caracteres")
 	public UsuariosPage caracteres50(File folderPath, String nombres, String apellidos, String cargo, String email,
 			String nom50, String apell50, String car50, String mail50) throws Exception {
 
+		//SE TOMA EL ATRIBUTO DE TAMA脩O MAXIMO DE TEXTO
 		String nom = driver.findElement(By.xpath("//input[contains(@formcontrolname,'usuaNombres')]")).getAttribute("maxlength");
 		String apell = driver.findElement(By.xpath("//input[contains(@formcontrolname,'usuaApellidos')]")).getAttribute("maxlength");
 		String car = driver.findElement(By.xpath("//input[contains(@formcontrolname,'usuaCargo')]")).getAttribute("maxlength");
 		String mail = driver.findElement(By.xpath("//input[contains(@formcontrolname,'usuaCorreo')]")).getAttribute("maxlength");
 
+		//SE VALIDA CONTRA LAS PROPERTIES RESPECTIVAS
 		if (nom.equals(nom50) && apell.equals(apell50) && car.equals(car50) && mail.equals(mail50)) {
 			printConsole("Los campos contienen el maximo de 50 caracteres");
 		} else {
@@ -71,10 +77,13 @@ public class UsuariosPage extends UsuariosMap {
 			Assert.fail("Error en la validaci贸n, los campos no contienen el maximo de 50 caracteres");
 		}
 
+		//SE CREAN DOS VARIABLES RANDOM PARA EL CAMPO CORREO
 		String emailUsuario = RandomStringUtils.randomAlphabetic(13).toLowerCase();
 		String emailUs = RandomStringUtils.randomNumeric(13);
+		//SE GUARDAN LOS VALORES NUMBERICO Y ALFABETICO EN UNA SOLA VARIABLE CONCATENADA
 		String emailU = emailUsuario + emailUs + email;
 
+		//SE ESCRIBE FINALMENTE LA VARIABLE CONCATENADA EN EMAIL USUARIO
 		printConsole("Email de Usuario: " + emailU);
 		scrollElementV(folderPath, txtNombres, "Se desplaza hasta la opci贸n Nombres");
 		writeText(txtNombres, nombres, folderPath, "Se ingresa el dato Nombres con 50 Caracteres");
@@ -90,13 +99,15 @@ public class UsuariosPage extends UsuariosMap {
 			String cargo, String oficina, String email, String perfil, String estado, String busqueda, String codigo)
 			throws Exception {
 
+		//GUARDAR EN UNA VARIABLE STRING LA FECHA ACTUAL EN FORMATO HORA
 		String timeStamp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
 		String usuarioD = usuarioDominio + timeStamp;
-
+		//EXPLICACION EN METODO CARACTERES50, DOS VARIABLES ALFABETICA Y NUMERICA
 		String emailUsuario = RandomStringUtils.randomAlphabetic(5).toLowerCase();
 		String emailUs = RandomStringUtils.randomNumeric(4);
 		String emailU = emailUsuario + emailUs + email;
 
+		//FORMULARIO PARA CREAR USUARIO CON VARIABLE CONCATENADA AL FINAL EN EMAIL USUARIO
 		printConsole("Usuario dominio: " + usuarioD + " Email de Usuario: " + emailU);
 		etiquetas(btnCrearUsuario, folderPath, "Etiqueta Crear usuario");
 		click(btnCrearUsuario, folderPath, "Se ingresa a crear Usuario");
@@ -124,6 +135,7 @@ public class UsuariosPage extends UsuariosMap {
 		return this;
 	}
 
+	//CICLO PARA ELEGIR OFICINA DE USUARIO
 	@Step("Ciclo elegir oficina Usuario")
 	public UsuariosPage cicloAgregarOficina(File folderPath) throws Exception {
 
@@ -135,6 +147,7 @@ public class UsuariosPage extends UsuariosMap {
 		return this;
 	}
 
+	//GUARDAR USUARIO
 	@Step("Guardar registro Usuario")
 	public UsuariosPage guardarUsuario(File folderPath) throws Exception {
 
@@ -142,6 +155,7 @@ public class UsuariosPage extends UsuariosMap {
 		return this;
 	}
 
+	//CANCELAR REGISTRO DE USUARIO
 	@Step("Cancelar registro Usuario")
 	public UsuariosPage cancelarUsuario(File folderPath) throws Exception {
 
@@ -149,6 +163,7 @@ public class UsuariosPage extends UsuariosMap {
 		return this;
 	}
 
+	//ACEPTAR USUARIO
 	@Step("Aceptar registro Usuario")
 	public UsuariosPage aceptarUsuario(File folderPath) throws Exception {
 
@@ -158,21 +173,24 @@ public class UsuariosPage extends UsuariosMap {
 
 		if (Boolean.TRUE.equals(val)) {
 		} else {
-			GenerarReportePdf.closeTemplate("Error en la validaci髇, el registro no se creo correctamente");
-			Assert.fail("Error en la validaci髇, el registro no se creo correctamente");
+			GenerarReportePdf.closeTemplate("Error en la validaci锟絥, el registro no se creo correctamente");
+			Assert.fail("Error en la validaci锟絥, el registro no se creo correctamente");
 		}
 		return this;
 	}
 
+	//MODIFICAR USUARIO PASO A PASO
 	@Step("Modificar usuario")
 	public UsuariosPage modificarUsuario(File folderPath, String nombres, String apellidos, String cargo,
 			String oficina, String email, String perfil, String estado, String busqueda, String codigo)
 			throws Exception {
 
+		//MIRAR LA EXPLICACION DE VARIABLES DEL METODO CARACTERES50
 		String emailUsuario = RandomStringUtils.randomAlphabetic(5).toLowerCase();
 		String emailUs = RandomStringUtils.randomNumeric(4);
 		String emailU = emailUsuario + emailUs + email;
 
+		//FORMULARIO DE MODIFICAR USUARIO
 		printConsole("Email de Usuario: " + emailU);
 		scrollElementH(folderPath, btnModificarUsuario, "Se desplaza hasta la opci贸n Modificar usuario");
 		etiquetas(btnModificarUsuario, folderPath, "Etiqueta Modificar usuario");
@@ -198,6 +216,7 @@ public class UsuariosPage extends UsuariosMap {
 			click(btnQuitarOficina, folderPath, "Se elimina oficina: " + (i + 1));
 		}
 
+		//CREAR OFICINA FORMULARIO COMPLETO
 		waitInMs(2000);
 		click(btnCrearOficina, folderPath, "Se ingresa a crear Oficinas");
 		selectElementList(lblOpcionBusqueda, busqueda, folderPath, "Se selecciona Busqueda");
@@ -213,10 +232,12 @@ public class UsuariosPage extends UsuariosMap {
 	@Step("Ver usuario")
 	public UsuariosPage verUsuario(File folderPath) throws Exception {
 
+		//VER USUARIO
 		scrollElementH(folderPath, btnVerUsuario, "Se desplaza hasta la opci贸n Ver usuario");
 		etiquetas(btnVerUsuario, folderPath, "Etiqueta Ver usuario");
 		click(btnVerUsuario, folderPath, "Se ingresa a ver Usuario");
 
+		//VALIDACIONES DE ENABLED EN LA OPCION VER USUARIO
 		isEnabled(txtUsuarioDominio, folderPath, "Campo Usuario Dominio No editable");
 		isEnabled(txtNombres, folderPath, "Campo Nombres No editable");
 		isEnabled(txtApellidos, folderPath, "Campo Apellidos No editable");
@@ -228,6 +249,7 @@ public class UsuariosPage extends UsuariosMap {
 		return this;
 	}
 
+	//CONSULTAR UN USUARIO EN ESPECIFICO
 	@Step("Botones consultar usuario")
 	public UsuariosPage botonesUsuario(File folderPath) throws Exception {
 
@@ -238,6 +260,7 @@ public class UsuariosPage extends UsuariosMap {
 
 		val = validarElementos(x, t);
 
+		//VER USUARIO
 		if (Boolean.TRUE.equals(val)) {
 			click(btnVerTodos, folderPath, "Se selecciona la opci贸n Ver Todos");
 			waitInMs(3000);
@@ -254,9 +277,11 @@ public class UsuariosPage extends UsuariosMap {
 		return this;
 	}
 
+	//CONSULTAR UN USUARIO EN ESPECIFICO
 	@Step("Consultar usuario")
 	public UsuariosPage consultaUsuario(File folderPath, String nom50, String nombres) throws Exception {
 
+		//FORMULARIO DE CONSULTA DE UN USUARIO EN ESPECIFIO
 		String nombre = RandomStringUtils.randomAlphabetic(50).toLowerCase();
 		String nom = driver.findElement(By.xpath("//input[contains(@formcontrolname,'nombre')]")).getAttribute("maxlength");
 

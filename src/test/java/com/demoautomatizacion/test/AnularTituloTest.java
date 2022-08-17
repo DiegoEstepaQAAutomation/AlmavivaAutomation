@@ -24,13 +24,14 @@ import utilities.GenerarReportePdf;
 
 public class AnularTituloTest extends BaseTest {
 	public Properties fileprops = new Properties();
-
+	//LLAMADO DE LAS PROPIEDADES UTILIZADAS EN EL TEST
 	public Properties getProperties() throws Exception {
 		fileprops.load(new FileInputStream(new File("src/test/resources/test.properties").getAbsolutePath()));
 		fileprops.load(new FileInputStream(new File("src/test/resources/Titulo.properties").getAbsolutePath()));
 		return fileprops;
 	}
 
+	//METODO LOGIN CON INICIACION DE GENERAR REPORTE
 	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
@@ -65,6 +66,7 @@ public class AnularTituloTest extends BaseTest {
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloAnular"));
 
+		//EJECUCION DEL METODO ANULAR TITULO 
 		anularTitulo.anularTitulo(folderPath, getProperties().getProperty("codigoAnular"));
 		
 		GenerarReportePdf.closeTemplate("");

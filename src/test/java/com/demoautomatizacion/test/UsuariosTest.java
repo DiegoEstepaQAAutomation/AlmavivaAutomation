@@ -24,6 +24,7 @@ import utilities.GenerarReportePdf;
 
 public class UsuariosTest extends BaseTest {
 
+	//INSANCIAS DE PROPIEDADES UTILIZADAS
 	public Properties fileprops = new Properties();
 
 	public Properties getProperties() throws Exception {
@@ -33,6 +34,7 @@ public class UsuariosTest extends BaseTest {
 		return fileprops;
 	}
 
+	//METODO LOGIN A LA PAGINA DE ALMAVIVA
 	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
@@ -67,6 +69,7 @@ public class UsuariosTest extends BaseTest {
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloU"));
 
+		//EJECUCION DE CASOS
 		usuarios.obligatoriedadCampos(folderPath)
 
 				.caracteres50(folderPath, getProperties().getProperty("nombres50"),
@@ -103,6 +106,7 @@ public class UsuariosTest extends BaseTest {
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloU"));
 
+		//EJECUCION DE CASOS
 		usuarios.modificarUsuario(folderPath, getProperties().getProperty("nombres"),
 				getProperties().getProperty("apellidos"), getProperties().getProperty("cargo"),
 				getProperties().getProperty("oficina"), getProperties().getProperty("email"),
@@ -129,6 +133,7 @@ public class UsuariosTest extends BaseTest {
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloU"));
 
+		//EJECUCION DE CASO
 		usuarios.verUsuario(folderPath);
 
 		GenerarReportePdf.closeTemplate("");
@@ -148,6 +153,7 @@ public class UsuariosTest extends BaseTest {
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloU"));
 
+		//EJECUCION DE CASOS
 		usuarios.botonesUsuario(folderPath)
 
 		.consultaUsuario(folderPath, getProperties().getProperty("nom50"),

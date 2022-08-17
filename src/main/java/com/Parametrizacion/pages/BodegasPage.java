@@ -19,6 +19,7 @@ public class BodegasPage extends BodegaMap {
 		super(driver);
 	}
 
+	//Crear bodega 
 	@Step("Ingresar a Parametrizacion")
 	public BodegasPage Parametrizacion(File folderPath) throws Exception {
 
@@ -33,6 +34,7 @@ public class BodegasPage extends BodegaMap {
 		x[6] = Obligatorio7;
 		x[7] = Obligatorio8;
 
+		//Paso a paso de crear bodega con todos los elementos necesarios, funciona basicamente con clicks
 		click(crearBodega, folderPath, "Se da click sobre bodega");
 		click(CodigoB, folderPath, "Se da click sobre la opcion codigo bodega");
 		click(Oficina, folderPath, "Se da click sobre la opcion Oficina");
@@ -56,12 +58,14 @@ public class BodegasPage extends BodegaMap {
 		return this;
 	}
 
+	//Formulario de creacion de bodega 
 	@Step("Ingresar a Parametrizacion")
 	public BodegasPage fillFormulary(File folderPath, String CodigoBodeg, String oficinaBodeg, String Nacion, String Depa,
 			String ZonaUrbana, String Propietario, String Ubicacion, String NumeroTelefonico, 
 			String Opcion1tipo, String Opcion2Tipo, String Opcion3Tipo, String Opcion4Tipo, String EstadoOpcion)
 			throws Exception {
 
+		//Formulario de creacion de bodega, elementos de pais,ciudad,oficina y departamento 
 		click(crearBodega, folderPath, "Se da click sobre bodega");
 		writeText(CodigoB, CodigoBodeg, folderPath, "Se escribe Codigo Bodega");
 		selectElementList(Oficina, oficinaBodeg, folderPath, "Se selecciona la Oficina");
@@ -74,15 +78,17 @@ public class BodegasPage extends BodegaMap {
 		scrollElementV(folderPath, TipoBodega, "Se desplaza hasta la opción Tipo de bodega");
 		selectElementList(lblTipoBodega, Opcion1tipo, folderPath, "Se selecciona tipo de bodega Propia");
 		click(cbxDLX, folderPath, "");
+		//Tipos de bodega
 		selectElementList(lblTipoBodega, Opcion2Tipo, folderPath, "Se selecciona tipo de bodega Particular");
 		selectElementList(lblTipoBodega, Opcion3Tipo, folderPath, "Se selecciona la opcion tipo de bodega Particular Arrendada");
 		selectElementList(lblTipoBodega, Opcion4Tipo, folderPath, "Se selecciona la  opcion tipo de bodega Tránsito");
 		selectElementList(lblEstado, EstadoOpcion, folderPath, "Se selecciona el estado");
+		// Aceptar
+		// Guardar
 		click(Guardar, folderPath, "Se da click sobre Guardar");
 		click(Aceptar, folderPath, "Se da click sobre Aceptar");
 		click(Ver, folderPath, "Se da click sobre Ver");
-		// Aceptar
-		// Guardar
+		
 		return this;
 	}
 }

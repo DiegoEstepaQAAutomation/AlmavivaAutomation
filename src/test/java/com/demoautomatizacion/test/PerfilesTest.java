@@ -67,6 +67,7 @@ public class PerfilesTest extends BaseTest {
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"));
 
+		//EJECUCION DE METODOS ASOCIADOS A CREAR UN PERFIL EN ALMAVIVA
 		perfiles.obligatoriedadCampos(folderPath)
 				
 		.caracteres50100(folderPath, getProperties().getProperty("nombre50"),

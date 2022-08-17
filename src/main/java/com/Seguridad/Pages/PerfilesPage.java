@@ -22,6 +22,7 @@ public class PerfilesPage extends PerfilesMap {
 		super(driver);
 	}
 
+	//paso a paso para validar la obligatoriedad de los campos de perfil,descripcion de perfil y crear perfil
 	@Step("Obligatoriedad de campos")
 	public PerfilesPage obligatoriedadCampos(File folderPath) throws Exception {
 		x = new Object[2];
@@ -44,12 +45,15 @@ public class PerfilesPage extends PerfilesMap {
 		return this;
 	}
 
+	//paso a paso de validacion de un maximo de caracteres en 2 campos
 	@Step("Campos con 50 y 100 Caracteres")
 	public PerfilesPage caracteres50100(File folderPath, String nombre, String descripcion, String nom50, String desc100) throws Exception {
 		
+		//se obtiene el atributo del maximo tamaño de cadena de texto en 2 localizadores
 		String nom = driver.findElement(By.xpath("//input[contains(@id,'nombre')]")).getAttribute("maxlength");
 		String desc = driver.findElement(By.xpath("//textarea[contains(@id,'descripcion')]")).getAttribute("maxlength");
 		
+		//Se envia las variables de maximo de tamaño de texto a ser comparados contra 2 variables de properties que contienen el valor maximo de 50 y 100 caracteres
 		if (nom.equals(nom50) && desc.equals(desc100)) {
 			printConsole("Los campos contienen el maximo de 50 y 100 caracteres");
 		}
@@ -58,6 +62,7 @@ public class PerfilesPage extends PerfilesMap {
 			Assert.fail("Error en la validación, los campos no contienen el maximo de 50 y 100 caracteres");
 		}
 
+		//Se escribe el nombre y la descripcion de perfil
 		writeText(txtNombrePerfil, nombre, folderPath, "Se ingresa el dato Nombre con 50 Caracteres");
 		writeText(txtDescripcionPerfil, descripcion, folderPath, "Se ingresa el dato Descripción de Perfil con 100 Caracteres");
 		return this;
@@ -67,6 +72,7 @@ public class PerfilesPage extends PerfilesMap {
 	public PerfilesPage crearPerfil(File folderPath, String nombre, String descripcion)
 			throws Exception {
 
+		//Se envia a una variable de tipo string la fecha actual en formato de horas minutos y segundos
 		String timeStamp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
 		String nombreR = nombre + timeStamp;
 
@@ -82,6 +88,7 @@ public class PerfilesPage extends PerfilesMap {
 		return this;
 	}
 
+	//Ciclo de agregar un rol a un perfil
 	@Step("Ciclo elegir rol Perfil")
 	public PerfilesPage cicloAgregarRol(File folderPath) throws Exception {
 
@@ -94,6 +101,7 @@ public class PerfilesPage extends PerfilesMap {
 		return this;
 	}
 
+	//cancelar registro de perfil
 	@Step("Cancelar registro Perfil")
 	public PerfilesPage cancelarPerfil(File folderPath) throws Exception {
 
@@ -124,10 +132,12 @@ public class PerfilesPage extends PerfilesMap {
 		return this;
 	}
 
+	//Modificacion de perfil 
 	@Step("Modificar perfil")
 	public PerfilesPage modificarPerfil(File folderPath, String descripcion, String estado)
 			throws Exception {
 
+		//paso a paso de modificar perfil 
 		scrollElementH(folderPath, btnModificarPerfil, "Se desplaza hasta la opción Modificar perfil");
 		etiquetas(btnModificarPerfil, folderPath, "Etiqueta Crear perfil");
 		click(btnModificarPerfil, folderPath, "Se ingresa a crear Perfil");
@@ -147,13 +157,16 @@ public class PerfilesPage extends PerfilesMap {
 		return this;
 	}
 	
+	//Ver perfil
 	@Step("Ver perfil")
 	public PerfilesPage verPerfil(File folderPath) throws Exception {
 		
+		//Se valida la visualizacion de perfil 
 		scrollElementH(folderPath, btnVerPerfil, "Se desplaza hasta la opción Ver perfil");
 		etiquetas(btnVerPerfil, folderPath, "Etiqueta Ver perfil");
 		click(btnVerPerfil, folderPath, "Se ingresa a ver perfil");
 		
+		//Se valida que los campos esten enabled 
 		isEnabled(txtNombrePerfil, folderPath, "Campo Nombre Perfil No editable");
 		isEnabled(txtDescripcionPerfil, folderPath, "Campo Descripción de Perfil No editable");
 		isEnabled(lblEstado, folderPath, "Campo Estado No editable");
@@ -185,12 +198,15 @@ public class PerfilesPage extends PerfilesMap {
 		return this;
 	}
 
+	//Consulta de perfil 
 	@Step("Consultar perfil")
 	public PerfilesPage consultaPerfil(File folderPath, String nom50, String nombrePerfil) throws Exception {
 
+		//Se envia a una variable string un valor random y se digita
 		String nombre = RandomStringUtils.randomAlphabetic(50).toLowerCase();
 		String nom = driver.findElement(By.xpath("//input[contains(@formcontrolname,'terminoBusqueda')]")).getAttribute("maxlength");
 
+		//Se valida si contiene un maximo de 50 caracteres y se escribe 
 		if (nom.contains(nom50)) {
 			printConsole("Los campos contienen el maximo de 50 caracteres");
 			writeText(consultarPerfil, nombre, folderPath, "Se ingresa texto de 50 caracteres");
