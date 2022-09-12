@@ -413,17 +413,11 @@ public class ExpedirMap extends BasePage {
 	protected By btnNit = By.xpath("//*[@id='criterio']/option[2]"); 
 	
 	protected By btnSelecClaro = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/busqueda-cliente/form/div[2]/ngb-typeahead-window/button/ngb-highlight"); 
-
-	 
-
 	protected By btnPoliza = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[5]/div/div[1]/div/div/button"); 
 
 	protected By btnPoliza1 = By.xpath("//*[@id='polizaSelect']"); 
 
 	protected By btnPoliza2 = By.xpath("//*[@id='polizaSelect']/option[3]"); 
-
-	 
-
 	protected By btnTipoMercancia = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[6]/div/div[1]/div/div/button"); 
 
 	protected By btnTipoMercancia1 = By.xpath("//*[@id='tipoMercancia']"); 
@@ -443,9 +437,6 @@ public class ExpedirMap extends BasePage {
 	protected By btnMercanciaDesignada2 = By.xpath("//*[@id='mercanciaGenericaDesignada']/option[1]"); 
 
 	protected By txtObservaciones1 = By.xpath("//*[@id='observaciones']"); 
-
-	 
-
 	protected By btnMercancias = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[1]/div/div/button"); 
 
 	protected By btnTipoCargue1 = By.xpath("//*[@id='tipoCargue']"); 
@@ -456,16 +447,11 @@ public class ExpedirMap extends BasePage {
 
 	protected By txtDetalleMercancia1 = By.xpath("//*[@id='detalleMercancia']"); 
 
-	 
-
 	protected By btnTarifas = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[8]/div/div[1]/div/div/button"); 
 
 	protected By btnMaterialSap = By.xpath("//*[@id='materialERPSelect']"); 
 
 	protected By btnMaterialSap2 = By.xpath("//*[@id='materialERPSelect']/option[2]"); 
-
-	 
-
 	protected By btnDivisionIngreso = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[1]/div/div/button"); 
 
 	protected By btnPorcentajeEx = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[3]/input"); 

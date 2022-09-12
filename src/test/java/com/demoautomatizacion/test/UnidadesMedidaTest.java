@@ -24,6 +24,7 @@ import utilities.GenerarReportePdf;
 public class UnidadesMedidaTest extends BaseTest{
 	public Properties fileprops = new Properties();
 	
+	//INSTANCIA DE PROPIEDADES(ARCHIVO PLANO CON PROPERTIES)
 	public Properties getProperties() throws Exception {
         fileprops.load(new FileInputStream(new File("src/test/resources/test.properties").getAbsolutePath()));
         return fileprops;
@@ -32,19 +33,23 @@ public class UnidadesMedidaTest extends BaseTest{
 	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 		
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
+		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderUnidad"),
 				getProperties().getProperty("path"));
+		//INSTANCIA DE METODOS DE CREACION DE INFORME PDF
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista1"),
 				getProperties().getProperty("url"));
 		GenerarReportePdf.setImgContador(0);
 
+		
+		//METODOS DE INGRESO A PORTAL ALMAVIVA E INGRESO DE CREDENCIALES 
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-				folderPath);
+				folderPath,getProperties().getProperty("Evidencia"));
 	}
 
 	@Test(priority=0, description="Unidades de Medida")
@@ -53,23 +58,27 @@ public class UnidadesMedidaTest extends BaseTest{
     @Story("Unidades de Medida")
     public void ingresarPortalAlmaviva () throws Exception {
 		
+		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderUnidad"),
 				getProperties().getProperty("path"));
 
 		login(getProperties().getProperty("nameTestUnidad"), getProperties().getProperty("usuario"),
 				getProperties().getProperty("password"));
-		
-		home.modulo(folderPath, getProperties().getProperty("ModuloP"), getProperties().getProperty("SubModuloU"));
+		//INGRESO A MODULO,VALIDACIONES Y CIERRE DE PLANTILLA
+		home.modulo(folderPath, getProperties().getProperty("ModuloP"),
+				getProperties().getProperty("SubModuloU"),getProperties().getProperty("Evidencia"));
 
-		medidas.validacion(folderPath) 
+		medidas.validacion(folderPath,getProperties().getProperty("Evidencia")) 
 		
 		.crearModulo(folderPath, 
 		getProperties().getProperty("CodBodega"),
-		getProperties().getProperty("Resume"))
+		getProperties().getProperty("Resume"),
+		getProperties().getProperty("Evidencia"))
 		.busqueda(folderPath, 
 		getProperties().getProperty("Umedida"), 
-		getProperties().getProperty("Resume"));
+		getProperties().getProperty("Resume"),
+		getProperties().getProperty("Evidencia"));
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
     }
 }

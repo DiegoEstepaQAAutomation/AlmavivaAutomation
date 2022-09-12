@@ -26,6 +26,7 @@ import utilities.MyScreenRecorder;
 public class NotificacionesTest extends BaseTest {
 	public Properties fileprops = new Properties();
 
+	//INSTANCIAS DE PROPIEDADES(ARCHIVOS PLANOS)
 	public Properties getProperties() throws Exception {
 		fileprops.load(new FileInputStream(new File("src/test/resources/test.properties").getAbsolutePath()));
 		fileprops.load(new FileInputStream(new File("src/test/resources/Notificaciones.properties").getAbsolutePath()));
@@ -38,24 +39,28 @@ public class NotificacionesTest extends BaseTest {
 		return fileprops;
 	}
 	
+	//METODO PARA LOGIN A PORTAL DE ALMAVIVA
 	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
+		//INSTANCIA DE RUTA DONDE GUARDAMOS NUESTRO INFORME
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"));
 
+		//LLAMADO DE LOS METODOS DE CREAR INFORME PDF
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
 				getProperties().getProperty("urlPrivada"));
 
 		GenerarReportePdf.setImgContador(0);
 
+		//LLAMADO DE CREDENCIALES Y URL DE ALMAVIVA
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-				folderPath);
+				folderPath,getProperties().getProperty("Evidencia"));
 		
 		
 		
@@ -65,7 +70,7 @@ public class NotificacionesTest extends BaseTest {
 	
 	MyScreenRecorder recording;
 
-	
+	//METODO QUE VALIDA NOTIFICACIONES DEL HU25
 	@SuppressWarnings("static-access")
 	@Test(priority = 1, description = "Modificar expedir")
 	@Severity(SeverityLevel.NORMAL)
@@ -73,31 +78,33 @@ public class NotificacionesTest extends BaseTest {
 	@Story("Modificación de expedir")
 	public void ValidacionHU25() throws Exception {
 		
+		//INSTANCIA DE RUTA DE LA CARPETA DONDE GUARDAMOS EL INFORME PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"));
 		
-		recording.startRecording("", folderPath);
+		//INSTANCIA DEL METODO GRABAR PANTALLA Y DE LOGIN
+		recording.startRecording("inicio de grabacion", folderPath);
 
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloN"), getProperties().getProperty("submoduloN"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloN"), getProperties().getProperty("submoduloN"),getProperties().getProperty("Evidencia"));
 		
 		
-		
+		//INSTANCIA DE METODO DE NOTIFICACION
 		notificacionespage.Notificacion_557159(folderPath, getProperties().getProperty("DatoFaltante"), getProperties().getProperty("ModuloCliente"), 
 				getProperties().getProperty("Submodulo"), getProperties().getProperty("FechaDeCargue"), getProperties().getProperty("estadoA"), 
-				getProperties().getProperty("Encabezado"));
+				getProperties().getProperty("Encabezado"),getProperties().getProperty("Evidencia"));
 		
 		
 		
-		
-		login.cerrarSesion(folderPath);
+		//INSTANCIAS DE CERRAR SESION Y PARAR GRABACION
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		
 		recording.stopRecording();
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 
 	

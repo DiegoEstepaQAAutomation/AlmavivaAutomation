@@ -26,6 +26,7 @@ public class RolesTest extends BaseTest{
 	
 	public Properties fileprops = new Properties();
 	
+	//INSTANCIA DE LAS PROPIEDADES(ARCHIVO PLANO)
 	public Properties getProperties() throws Exception {
         
 		fileprops.load(new FileInputStream(new File("src/test/resources/test.properties").getAbsolutePath()));
@@ -34,9 +35,13 @@ public class RolesTest extends BaseTest{
         return fileprops;
     }
 	
+	
+	//METODO PARA LOGUEO A PORTAL DE ALMAVIVA
 	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 
+		//INSTANCIAS DE METODOS DE GENERAR REPORTE
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
+		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION 
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderR"),
 				getProperties().getProperty("path"));
 
@@ -45,44 +50,50 @@ public class RolesTest extends BaseTest{
 
 		GenerarReportePdf.setImgContador(0);
 
+		//INSTANCIAS DE CREDENCIALES Y URLs
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"), folderPath);
+		login.ingresarCredenciales(getProperties().getProperty("usuario2"), 
+				getProperties().getProperty("password"), folderPath,getProperties().getProperty("Evidencia"));
 	}
-
+	
+	
+    //METODO DE CREACION DE ROL
 	@Test(priority = 0, description = "Crear rol")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Roles")
 	@Story("Creación de rol")
 	public void crearRol() throws Exception {
 
+		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION 
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderR"),
 				getProperties().getProperty("path"));
 
 		login(getProperties().getProperty("nameTestCrearRol"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloR"));
+		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloR"),getProperties().getProperty("Evidencia"));
 
-		roles.obligatoriedadCampos(folderPath)
+		roles.obligatoriedadCampos(folderPath,getProperties().getProperty("Evidencia"))
 		//EJECUCION DE CASOS DE TAMAÑO DE TEXTO O CARACTERES		
 		.caracteres100(folderPath, getProperties().getProperty("nombre100"),
 						getProperties().getProperty("descripcion100"),
 						getProperties().getProperty("nom100"),
-						getProperties().getProperty("desc100"))
+						getProperties().getProperty("desc100"),
+						getProperties().getProperty("Evidencia"))
 				
-				.cancelarRol(folderPath)
+				.cancelarRol(folderPath,getProperties().getProperty("Evidencia"))
 
 				.crearRol(folderPath, getProperties().getProperty("nombre"),
 						getProperties().getProperty("descripcion"), getProperties().getProperty("estado"),
-						getProperties().getProperty("permisoSeguridad"))
-		 .guardarRol(folderPath);
+						getProperties().getProperty("permisoSeguridad"),getProperties().getProperty("Evidencia"))
+		 .guardarRol(folderPath,getProperties().getProperty("Evidencia"));
 		 //.aceptarUsuario(folderPath);
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}  
 	
 	@Test(priority = 1, description = "Modificar rol")
@@ -91,20 +102,24 @@ public class RolesTest extends BaseTest{
 	@Story("Modificación de rol")
 	public void modificarRol() throws Exception {
 
+		
+		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderR"),
 				getProperties().getProperty("path"));
 
 		login(getProperties().getProperty("nameTestModificarRol"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloR"));
+		//METODO PARA INGRESAR A  MODULO Y SUBMODULO
+		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloR"),getProperties().getProperty("Evidencia"));
 
+		//METODO PARA MODIFICAR ROL
 		roles.modificarRol(folderPath, getProperties().getProperty("nombre"),
-				getProperties().getProperty("estadoI"));
+				getProperties().getProperty("estadoI"),getProperties().getProperty("Evidencia"));
 
 		 //.aceptarUsuario(folderPath);
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 
 	@Test(priority = 2, description = "Ver rol")
@@ -113,17 +128,22 @@ public class RolesTest extends BaseTest{
 	@Story("Detalle de rol")
 	public void verRol() throws Exception {
 
+		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderR"),
 				getProperties().getProperty("path"));
 
+		//METODO DE LOGIN
 		login(getProperties().getProperty("nameTestVerRol"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloR"));
+		//METODO DE INGRESAR A MODULO Y SUBMODULO
+		home.modulo(folderPath, getProperties().getProperty("Modulo"),
+				getProperties().getProperty("SubModuloR"),getProperties().getProperty("Evidencia"));
 
-		roles.verRol(folderPath);
+		
+		roles.verRol(folderPath,getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 	
 	@Test(priority = 3, description = "Consultar rol")
@@ -131,19 +151,25 @@ public class RolesTest extends BaseTest{
 	@Description("Módulo Roles")
 	@Story("Consulta de rol")
 	public void consultarUsuario() throws Exception {
+		
 
+		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderR"),
 				getProperties().getProperty("path"));
 
+		//METODO DE LOGIN A PORTAL DE ALMAVIVA
 		login(getProperties().getProperty("nameTestConsultarRol"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloR"));
+		//METODO DE INGRESO A MODULOS Y BOTONES DE ROL
+		home.modulo(folderPath, getProperties().getProperty("Modulo"), 
+				getProperties().getProperty("SubModuloR"),getProperties().getProperty("Evidencia"));
 
-		roles.botonesRol(folderPath)
+		roles.botonesRol(folderPath,getProperties().getProperty("Evidencia"))
 
-		.consultaRol(folderPath, getProperties().getProperty("nom50"), getProperties().getProperty("nombreRol"));
+		.consultaRol(folderPath, getProperties().getProperty("nom50"), getProperties().getProperty("nombreRol"),getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("");
+		//CIERRE DE PLANTILLA
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 }

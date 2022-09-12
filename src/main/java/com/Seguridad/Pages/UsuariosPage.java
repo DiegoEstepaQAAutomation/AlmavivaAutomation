@@ -25,7 +25,7 @@ public class UsuariosPage extends UsuariosMap {
 	
 	//PASO A PASO PARA VERIFICAR OBLIGATORIEDAD DE CAMPOS
 	@Step("Obligatoriedad de campos")
-	public UsuariosPage obligatoriedadCampos(File folderPath) throws Exception {
+	public UsuariosPage obligatoriedadCampos(File folderPath,String Evidencia) throws Exception {
 
 		x = new Object[7];
 		x[0] = lblUsuarioDominioObligatorio;
@@ -37,15 +37,15 @@ public class UsuariosPage extends UsuariosMap {
 		x[6] = lblPerfilObligatorio;
 
 		//SE VERIFICA LA OBLIGATORIEDAD DE TODOS LOS CAMPOS DE USUARIO
-		click(btnCrearUsuario, folderPath, "Se ingresa a crear Usuario");
-		click(txtUsuarioDominio, folderPath, "Obligatoriedad campo Usuario dominio");
-		click(txtNombres, folderPath, "Obligatoriedad campo Nombres");
-		click(txtApellidos, folderPath, "Obligatoriedad campo Apellidos");
-		click(txtCargo, folderPath, "Obligatoriedad campo Cargo");
-		click(lblOficina, folderPath, "Obligatoriedad campo Oficina");
-		click(txtEmailUsuario, folderPath, "Obligatoriedad campo Usuario dominio");
-		click(lblPerfil, folderPath, "Obligatoriedad campo Perfil");
-		click(lblEstado, folderPath, "Obligatoriedad campo Estado");
+		click(btnCrearUsuario, folderPath, "Se ingresa a crear Usuario",Evidencia);
+		click(txtUsuarioDominio, folderPath, "Obligatoriedad campo Usuario dominio",Evidencia);
+		click(txtNombres, folderPath, "Obligatoriedad campo Nombres",Evidencia);
+		click(txtApellidos, folderPath, "Obligatoriedad campo Apellidos",Evidencia);
+		click(txtCargo, folderPath, "Obligatoriedad campo Cargo",Evidencia);
+		click(lblOficina, folderPath, "Obligatoriedad campo Oficina",Evidencia);
+		click(txtEmailUsuario, folderPath, "Obligatoriedad campo Usuario dominio",Evidencia);
+		click(lblPerfil, folderPath, "Obligatoriedad campo Perfil",Evidencia);
+		click(lblEstado, folderPath, "Obligatoriedad campo Estado",Evidencia);
 
 		val = validarElementos(x, t);
 
@@ -61,7 +61,7 @@ public class UsuariosPage extends UsuariosMap {
 	//CAMPOS CON 50 CARACTERES EN EL SUBMODULO DE USUARIO
 	@Step("Campos con 50 Caracteres")
 	public UsuariosPage caracteres50(File folderPath, String nombres, String apellidos, String cargo, String email,
-			String nom50, String apell50, String car50, String mail50) throws Exception {
+			String nom50, String apell50, String car50, String mail50,String Evidencia) throws Exception {
 
 		//SE TOMA EL ATRIBUTO DE TAMAÑO MAXIMO DE TEXTO
 		String nom = driver.findElement(By.xpath("//input[contains(@formcontrolname,'usuaNombres')]")).getAttribute("maxlength");
@@ -85,18 +85,18 @@ public class UsuariosPage extends UsuariosMap {
 
 		//SE ESCRIBE FINALMENTE LA VARIABLE CONCATENADA EN EMAIL USUARIO
 		printConsole("Email de Usuario: " + emailU);
-		scrollElementV(folderPath, txtNombres, "Se desplaza hasta la opción Nombres");
-		writeText(txtNombres, nombres, folderPath, "Se ingresa el dato Nombres con 50 Caracteres");
-		scrollElementV(folderPath, txtCargo, "Se desplaza hasta la opción Cargo");
-		writeText(txtApellidos, apellidos, folderPath, "Se ingresa el dato Apellidos con 50 Caracteres");
-		writeText(txtCargo, cargo, folderPath, "Se ingresa el dato Cargo con 50 Caracteres");
-		writeText(txtEmailUsuario, emailU, folderPath, "Se ingresa el dato Email de usuario con 50 Caracteres");
+		scrollElementV(folderPath, txtNombres, "Se desplaza hasta la opción Nombres",Evidencia);
+		writeText(txtNombres, nombres, folderPath, "Se ingresa el dato Nombres con 50 Caracteres",Evidencia);
+		scrollElementV(folderPath, txtCargo, "Se desplaza hasta la opción Cargo",Evidencia);
+		writeText(txtApellidos, apellidos, folderPath, "Se ingresa el dato Apellidos con 50 Caracteres",Evidencia);
+		writeText(txtCargo, cargo, folderPath, "Se ingresa el dato Cargo con 50 Caracteres",Evidencia);
+		writeText(txtEmailUsuario, emailU, folderPath, "Se ingresa el dato Email de usuario con 50 Caracteres",Evidencia);
 		return this;
 	}
 
 	@Step("Crear usuario")
 	public UsuariosPage crearUsuario(File folderPath, String usuarioDominio, String nombres, String apellidos,
-			String cargo, String oficina, String email, String perfil, String estado, String busqueda, String codigo)
+			String cargo, String oficina, String email, String perfil, String estado, String busqueda, String codigo,String Evidencia)
 			throws Exception {
 
 		//GUARDAR EN UNA VARIABLE STRING LA FECHA ACTUAL EN FORMATO HORA
@@ -109,39 +109,40 @@ public class UsuariosPage extends UsuariosMap {
 
 		//FORMULARIO PARA CREAR USUARIO CON VARIABLE CONCATENADA AL FINAL EN EMAIL USUARIO
 		printConsole("Usuario dominio: " + usuarioD + " Email de Usuario: " + emailU);
-		etiquetas(btnCrearUsuario, folderPath, "Etiqueta Crear usuario");
-		click(btnCrearUsuario, folderPath, "Se ingresa a crear Usuario");
-		writeText(txtUsuarioDominio, usuarioD, folderPath, "Se ingresa el dato Usuario dominio");
-		writeText(txtNombres, nombres, folderPath, "Se ingresa el dato Nombres");
-		writeText(txtApellidos, apellidos, folderPath, "Se ingresa el dato Apellidos");
-		writeText(txtCargo, cargo, folderPath, "Se ingresa el dato Cargo");
-		scrollElementV(folderPath, lblOficina, "Se desplaza hasta la opción Oficina");
-		selectElementList(lblOficina, oficina, folderPath, "Se selecciona la Oficina");
-		writeText(txtEmailUsuario, emailU, folderPath, "Se ingresa el dato Email de usuario");
-		selectElementList(lblPerfil, perfil, folderPath, "Se selecciona el Perfil");
-		scrollElementV(folderPath, lblEstado, "Se desplaza hasta la opción Estado");
-		selectElementList(lblEstado, estado, folderPath, "Se selecciona el Estado");
+		etiquetas(btnCrearUsuario, folderPath, "Etiqueta Crear usuario",Evidencia);
+		click(btnCrearUsuario, folderPath, "Se ingresa a crear Usuario",Evidencia);
+		writeText(txtUsuarioDominio, usuarioD, folderPath, "Se ingresa el dato Usuario dominio",Evidencia);
+		writeText(txtNombres, nombres, folderPath, "Se ingresa el dato Nombres",Evidencia);
+		writeText(txtApellidos, apellidos, folderPath, "Se ingresa el dato Apellidos",Evidencia);
+		writeText(txtCargo, cargo, folderPath, "Se ingresa el dato Cargo",Evidencia);
+		scrollElementV(folderPath, lblOficina, "Se desplaza hasta la opción Oficina",Evidencia);
+		selectElementList(lblOficina, oficina, folderPath, "Se selecciona la Oficina",Evidencia);
+		writeText(txtEmailUsuario, emailU, folderPath, "Se ingresa el dato Email de usuario",Evidencia);
+		selectElementList(lblPerfil, perfil, folderPath, "Se selecciona el Perfil",Evidencia);
+		scrollElementV(folderPath, lblEstado, "Se desplaza hasta la opción Estado",Evidencia);
+		selectElementList(lblEstado, estado, folderPath, "Se selecciona el Estado",Evidencia);
 
 		// ASIGNAR OFICINA
-		click(lblAsignarOficinas, folderPath, "Se despliega la opción Asignar Oficinas");
-		click(btnCrearOficina, folderPath, "Se ingresa a crear Oficinas");
-		selectElementList(lblOpcionBusqueda, busqueda, folderPath, "Se selecciona Busqueda");
-		writeText(txtCodigoOficina, codigo, folderPath, "Se ingresa el dato Código Oficina");
-		click(btnBuscarOficina, folderPath, "Se ingresa a Buscar Oficina");
-		click(cbxAccion, folderPath, "Se selecciona el check");
-		click(btnBuscarTodosOficina, folderPath, "Se ingresa a Buscar todas las Oficinas");
-		cicloAgregarOficina(folderPath);
-		click(btnAgregarOficina, folderPath, "Se selecciona Agregar");
+		click(lblAsignarOficinas, folderPath, "Se despliega la opción Asignar Oficinas",Evidencia);
+		click(btnCrearOficina, folderPath, "Se ingresa a crear Oficinas",Evidencia);
+		selectElementList(lblOpcionBusqueda, busqueda, folderPath, "Se selecciona Busqueda",Evidencia);
+		writeText(txtCodigoOficina, codigo, folderPath, "Se ingresa el dato Código Oficina",Evidencia);
+		click(btnBuscarOficina, folderPath, "Se ingresa a Buscar Oficina",Evidencia);
+		click(cbxAccion, folderPath, "Se selecciona el check",Evidencia);
+		click(btnBuscarTodosOficina, folderPath, "Se ingresa a Buscar todas las Oficinas",Evidencia);
+		cicloAgregarOficina(folderPath,Evidencia);
+		click(btnAgregarOficina, folderPath, "Se selecciona Agregar",Evidencia);
 		return this;
 	}
 
 	//CICLO PARA ELEGIR OFICINA DE USUARIO
 	@Step("Ciclo elegir oficina Usuario")
-	public UsuariosPage cicloAgregarOficina(File folderPath) throws Exception {
+	public UsuariosPage cicloAgregarOficina(File folderPath,String Evidencia) throws Exception {
 
+		//Ciclo que agrega la oficina deacuerdo a un xpath diferente para lo que cada ciclo mueve una casilla del xpath
 		for (int i = 1; i <= 3; i++) {
 			click(By.xpath("//body/modal-container/div/div/app-lista-oficinas/div/div[2]/table/tbody/tr[" + i
-					+ "]/td[3]/div/input"), folderPath, "Se agrega oficina: " + i);
+					+ "]/td[3]/div/input"), folderPath, "Se agrega oficina: " + i,Evidencia);
 			waitInMs(1000);
 		}
 		return this;
@@ -149,25 +150,25 @@ public class UsuariosPage extends UsuariosMap {
 
 	//GUARDAR USUARIO
 	@Step("Guardar registro Usuario")
-	public UsuariosPage guardarUsuario(File folderPath) throws Exception {
+	public UsuariosPage guardarUsuario(File folderPath,String Evidencia) throws Exception {
 
-		click(btnGuardarUsuario, folderPath, "Se guarda el registro de Usuario");
+		click(btnGuardarUsuario, folderPath, "Se guarda el registro de Usuario",Evidencia);
 		return this;
 	}
 
 	//CANCELAR REGISTRO DE USUARIO
 	@Step("Cancelar registro Usuario")
-	public UsuariosPage cancelarUsuario(File folderPath) throws Exception {
+	public UsuariosPage cancelarUsuario(File folderPath,String Evidencia) throws Exception {
 
-		click(btnCancelarUsuario, folderPath, "Se cancela el registro de Usuario");
+		click(btnCancelarUsuario, folderPath, "Se cancela el registro de Usuario",Evidencia);
 		return this;
 	}
 
 	//ACEPTAR USUARIO
 	@Step("Aceptar registro Usuario")
-	public UsuariosPage aceptarUsuario(File folderPath) throws Exception {
+	public UsuariosPage aceptarUsuario(File folderPath,String Evidencia) throws Exception {
 
-		click(btnAceptarRegistro, folderPath, "Se acepta el registro de Usuario");
+		click(btnAceptarRegistro, folderPath, "Se acepta el registro de Usuario",Evidencia);
 
 		val = validarElemento(registroExitoso, t);
 
@@ -182,7 +183,7 @@ public class UsuariosPage extends UsuariosMap {
 	//MODIFICAR USUARIO PASO A PASO
 	@Step("Modificar usuario")
 	public UsuariosPage modificarUsuario(File folderPath, String nombres, String apellidos, String cargo,
-			String oficina, String email, String perfil, String estado, String busqueda, String codigo)
+			String oficina, String email, String perfil, String estado, String busqueda, String codigo,String Evidencia)
 			throws Exception {
 
 		//MIRAR LA EXPLICACION DE VARIABLES DEL METODO CARACTERES50
@@ -192,66 +193,66 @@ public class UsuariosPage extends UsuariosMap {
 
 		//FORMULARIO DE MODIFICAR USUARIO
 		printConsole("Email de Usuario: " + emailU);
-		scrollElementH(folderPath, btnModificarUsuario, "Se desplaza hasta la opción Modificar usuario");
-		etiquetas(btnModificarUsuario, folderPath, "Etiqueta Modificar usuario");
-		click(btnModificarUsuario, folderPath, "Se ingresa a modificar Usuario");
-		clear(txtNombres, folderPath, "Se borra el dato anterior de Nombres");
-		clear(txtApellidos, folderPath, "Se borra el dato anterior de Apellidos");
-		clear(txtCargo, folderPath, "Se borra el dato anterior de Cargo");
-		clear(txtEmailUsuario, folderPath, "Se borra el dato anterior de Email de usuario");
-		writeText(txtNombres, nombres, folderPath, "Se ingresa el dato Nombres");
-		writeText(txtApellidos, apellidos, folderPath, "Se ingresa el dato Apellidos");
-		writeText(txtCargo, cargo, folderPath, "Se ingresa el dato Cargo");
-		scrollElementV(folderPath, lblOficina, "Se desplaza hasta la opción Oficina");
-		selectElementList(lblOficina, oficina, folderPath, "Se selecciona la Oficina");
-		writeText(txtEmailUsuario, emailU, folderPath, "Se ingresa el dato Email de usuario");
-		selectElementList(lblPerfil, perfil, folderPath, "Se selecciona el Perfil");
-		scrollElementV(folderPath, lblEstado, "Se desplaza hasta la opción Estado");
-		selectElementList(lblEstado, estado, folderPath, "Se selecciona el Estado");
+		scrollElementH(folderPath, btnModificarUsuario, "Se desplaza hasta la opción Modificar usuario",Evidencia);
+		etiquetas(btnModificarUsuario, folderPath, "Etiqueta Modificar usuario",Evidencia);
+		click(btnModificarUsuario, folderPath, "Se ingresa a modificar Usuario",Evidencia);
+		clear(txtNombres, folderPath, "Se borra el dato anterior de Nombres",Evidencia);
+		clear(txtApellidos, folderPath, "Se borra el dato anterior de Apellidos",Evidencia);
+		clear(txtCargo, folderPath, "Se borra el dato anterior de Cargo",Evidencia);
+		clear(txtEmailUsuario, folderPath, "Se borra el dato anterior de Email de usuario",Evidencia);
+		writeText(txtNombres, nombres, folderPath, "Se ingresa el dato Nombres",Evidencia);
+		writeText(txtApellidos, apellidos, folderPath, "Se ingresa el dato Apellidos",Evidencia);
+		writeText(txtCargo, cargo, folderPath, "Se ingresa el dato Cargo",Evidencia);
+		scrollElementV(folderPath, lblOficina, "Se desplaza hasta la opción Oficina",Evidencia);
+		selectElementList(lblOficina, oficina, folderPath, "Se selecciona la Oficina",Evidencia);
+		writeText(txtEmailUsuario, emailU, folderPath, "Se ingresa el dato Email de usuario",Evidencia);
+		selectElementList(lblPerfil, perfil, folderPath, "Se selecciona el Perfil",Evidencia);
+		scrollElementV(folderPath, lblEstado, "Se desplaza hasta la opción Estado",Evidencia);
+		selectElementList(lblEstado, estado, folderPath, "Se selecciona el Estado",Evidencia);
 
 		// ASIGNAR OFICINA
-		click(lblAsignarOficinas, folderPath, "Se despliega la opción Asignar Oficinas");
+		click(lblAsignarOficinas, folderPath, "Se despliega la opción Asignar Oficinas",Evidencia);
 
 		for (int i = 0; i <= 3; i++) {
-			click(btnQuitarOficina, folderPath, "Se elimina oficina: " + (i + 1));
+			click(btnQuitarOficina, folderPath, "Se elimina oficina: " + (i + 1),Evidencia);
 		}
 
 		//CREAR OFICINA FORMULARIO COMPLETO
 		waitInMs(2000);
-		click(btnCrearOficina, folderPath, "Se ingresa a crear Oficinas");
-		selectElementList(lblOpcionBusqueda, busqueda, folderPath, "Se selecciona Busqueda");
-		writeText(txtCodigoOficina, codigo, folderPath, "Se ingresa el dato Código Oficina");
-		click(btnBuscarOficina, folderPath, "Se ingresa a Buscar Oficina");
-		click(cbxAccion, folderPath, "Se selecciona el check");
-		click(btnBuscarTodosOficina, folderPath, "Se ingresa a Buscar todas las Oficinas");
-		cicloAgregarOficina(folderPath);
-		click(btnAgregarOficina, folderPath, "Se selecciona Agregar");
+		click(btnCrearOficina, folderPath, "Se ingresa a crear Oficinas",Evidencia);
+		selectElementList(lblOpcionBusqueda, busqueda, folderPath, "Se selecciona Busqueda",Evidencia);
+		writeText(txtCodigoOficina, codigo, folderPath, "Se ingresa el dato Código Oficina",Evidencia);
+		click(btnBuscarOficina, folderPath, "Se ingresa a Buscar Oficina",Evidencia);
+		click(cbxAccion, folderPath, "Se selecciona el check",Evidencia);
+		click(btnBuscarTodosOficina, folderPath, "Se ingresa a Buscar todas las Oficinas",Evidencia);
+		cicloAgregarOficina(folderPath,Evidencia);
+		click(btnAgregarOficina, folderPath, "Se selecciona Agregar",Evidencia);
 		return this;
 	}
 
 	@Step("Ver usuario")
-	public UsuariosPage verUsuario(File folderPath) throws Exception {
+	public UsuariosPage verUsuario(File folderPath,String Evidencia) throws Exception {
 
 		//VER USUARIO
-		scrollElementH(folderPath, btnVerUsuario, "Se desplaza hasta la opción Ver usuario");
-		etiquetas(btnVerUsuario, folderPath, "Etiqueta Ver usuario");
-		click(btnVerUsuario, folderPath, "Se ingresa a ver Usuario");
+		scrollElementH(folderPath, btnVerUsuario, "Se desplaza hasta la opción Ver usuario",Evidencia);
+		etiquetas(btnVerUsuario, folderPath, "Etiqueta Ver usuario",Evidencia);
+		click(btnVerUsuario, folderPath, "Se ingresa a ver Usuario",Evidencia);
 
 		//VALIDACIONES DE ENABLED EN LA OPCION VER USUARIO
-		isEnabled(txtUsuarioDominio, folderPath, "Campo Usuario Dominio No editable");
-		isEnabled(txtNombres, folderPath, "Campo Nombres No editable");
-		isEnabled(txtApellidos, folderPath, "Campo Apellidos No editable");
-		isEnabled(txtCargo, folderPath, "Campo Cargo No editable");
-		isEnabled(lblOficina, folderPath, "Campo Oficina No editable");
-		isEnabled(txtEmailUsuario, folderPath, "Campo Email Usuario No editable");
-		isEnabled(lblPerfil, folderPath, "Campo Perfil No editable");
-		isEnabled(lblEstado, folderPath, "Campo Estado No editable");
+		isEnabled(txtUsuarioDominio, folderPath, "Campo Usuario Dominio No editable",Evidencia);
+		isEnabled(txtNombres, folderPath, "Campo Nombres No editable",Evidencia);
+		isEnabled(txtApellidos, folderPath, "Campo Apellidos No editable",Evidencia);
+		isEnabled(txtCargo, folderPath, "Campo Cargo No editable",Evidencia);
+		isEnabled(lblOficina, folderPath, "Campo Oficina No editable",Evidencia);
+		isEnabled(txtEmailUsuario, folderPath, "Campo Email Usuario No editable",Evidencia);
+		isEnabled(lblPerfil, folderPath, "Campo Perfil No editable",Evidencia);
+		isEnabled(lblEstado, folderPath, "Campo Estado No editable",Evidencia);
 		return this;
 	}
 
 	//CONSULTAR UN USUARIO EN ESPECIFICO
 	@Step("Botones consultar usuario")
-	public UsuariosPage botonesUsuario(File folderPath) throws Exception {
+	public UsuariosPage botonesUsuario(File folderPath,String Evidencia) throws Exception {
 
 		x = new Object[3];
 		x[0] = btnBuscar;
@@ -262,7 +263,7 @@ public class UsuariosPage extends UsuariosMap {
 
 		//VER USUARIO
 		if (Boolean.TRUE.equals(val)) {
-			click(btnVerTodos, folderPath, "Se selecciona la opción Ver Todos");
+			click(btnVerTodos, folderPath, "Se selecciona la opción Ver Todos",Evidencia);
 			waitInMs(3000);
 			if (lblUsuarioTabla == null) {
 				GenerarReportePdf.closeTemplate("No se trajo la información correctamente");
@@ -279,7 +280,7 @@ public class UsuariosPage extends UsuariosMap {
 
 	//CONSULTAR UN USUARIO EN ESPECIFICO
 	@Step("Consultar usuario")
-	public UsuariosPage consultaUsuario(File folderPath, String nom50, String nombres) throws Exception {
+	public UsuariosPage consultaUsuario(File folderPath, String nom50, String nombres,String Evidencia) throws Exception {
 
 		//FORMULARIO DE CONSULTA DE UN USUARIO EN ESPECIFIO
 		String nombre = RandomStringUtils.randomAlphabetic(50).toLowerCase();
@@ -287,10 +288,10 @@ public class UsuariosPage extends UsuariosMap {
 
 		if (nom.contains(nom50)) {
 			printConsole("Los campos contienen el maximo de 50 caracteres");
-			writeText(consultarUsuario, nombre, folderPath, "Se ingresa texto de 50 caracteres");
-			clear(consultarUsuario, folderPath, "Se eliminar texto antes digitado");
-			writeText(consultarUsuario, nombres, folderPath, "Se ingresa nombre de usuario");
-			click(btnBuscar, folderPath, "Se busca el usuario digitado");
+			writeText(consultarUsuario, nombre, folderPath, "Se ingresa texto de 50 caracteres",Evidencia);
+			clear(consultarUsuario, folderPath, "Se eliminar texto antes digitado",Evidencia);
+			writeText(consultarUsuario, nombres, folderPath, "Se ingresa nombre de usuario",Evidencia);
+			click(btnBuscar, folderPath, "Se busca el usuario digitado",Evidencia);
 		} else {
 			printConsole("Error en la validación, los campos no contienen el maximo de 50 caracteres");
 			Assert.fail("Error en la validación, los campos no contienen el maximo de 50 caracteres");

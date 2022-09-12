@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 
 package com.demoautomatizacion.test;
 
@@ -22,13 +25,25 @@ import utilities.GenerarReportePdf;
 import utilities.MyScreenRecorder;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ExpedirTest.
+ */
 @Listeners({ TestListener.class })
 @Epic("Expedir")
 @Feature("Expedir Test")
 
 public class ExpedirTest extends BaseTest {
+	
+	/** The fileprops. */
 	public Properties fileprops = new Properties();
 
+	/**
+	 * Gets the properties.
+	 *
+	 * @return the properties
+	 * @throws Exception the exception
+	 */
 	//RUTAS DE LAS PROPIEDADES Y SU ASOCIACION AL FILEINPUTSTREAM
 	public Properties getProperties() throws Exception {
 		fileprops.load(new FileInputStream(new File("src/test/resources/test.properties").getAbsolutePath()));
@@ -37,12 +52,22 @@ public class ExpedirTest extends BaseTest {
 		return fileprops;
 	}
 	
+	/** The recording. */
 	//INSTANCIA DE MY SCREEN RECORDER(GRABACION DE PANTALLA)
 	MyScreenRecorder recording;
 
 
 	
 	
+	/**
+	 * Login.
+	 *
+	 * @param nameTest the name test
+	 * @param usuario the usuario
+	 * @param contrasena the contrasena
+	 * @param Evidencia the evidencia
+	 * @throws Exception the exception
+	 */
 	//METODO UNIVERSAL DE LOGIN (APLICA PARA TODOS LOS TEST SIN IMPORTAR CUAL)
 	public void login(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception {
 		
@@ -61,12 +86,12 @@ public class ExpedirTest extends BaseTest {
 		
 		//LLAMADO DE LA URL DE PAGINA
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-				folderPath);
+		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"), folderPath,
+				getProperties().getProperty("Evidencia"));
 		
 	
 		 
@@ -74,12 +99,19 @@ public class ExpedirTest extends BaseTest {
 	
 	//Creacion de titulo con las areas como poliza o bono 
 
+	/**
+	 * Crear expedir.
+	 *
+	 * @throws Exception the exception
+	 */
 	@SuppressWarnings("static-access")
 	@Test(priority = 0, description = "Crear expedir")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Expedir")
 	@Story("Creación de expedir")
 	public void crearExpedir() throws Exception {
+		
+		String Evidencia = getProperties().getProperty("Evidencia");
 		
 		
 		//SE EXPLICA UNA SOLA VEZ ESTO PORQUE SE REPITE HASTA LA SACIEDAD, ESTAS LINEAS DE CODIGO LLAMAN LA RUTA EN DONDE SE VA A ALMACENAR LA EVIDENCIA
@@ -95,16 +127,17 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		//IGUAL ESTE MECANISMO DE HOME LO QUE HACE ES LLAMAR EL MODULO Y SUBMODULO DE LA PAGINA QUE VAMOS A UTILIZAR 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"));
+		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"),getProperties().getProperty("Evidencia"));
 
+		//
 		//LLamado del objeto o instancia del pags objet con los metodos en este caso el de crear expedir,bono, poliza etc
 		expedir 		
 		
-		.crearExpedir(folderPath, null, null, null, getProperties().getProperty("informacionGeneralE"))
+		.crearExpedir(folderPath, null, null, null, getProperties().getProperty("informacionGeneralE"),getProperties().getProperty("Evidencia"))
 
 		
 		.bono(folderPath, getProperties().getProperty("bono"), getProperties().getProperty("nitB"), getProperties().getProperty("nitBono"),
-		getProperties().getProperty("diasPlazo"))
+		getProperties().getProperty("diasPlazo"),getProperties().getProperty("Evidencia"))
 		
 		/*.certificado(folderPath, getProperties().getProperty("certificado"),
 				getProperties().getProperty("nitCertificado"), getProperties().getProperty("nitCerti"),
@@ -112,21 +145,27 @@ public class ExpedirTest extends BaseTest {
 
 		
 		//EJECUCION DE CASOS		
-		.poliza_547049(folderPath, getProperties().getProperty("polizaE"))
+		.poliza_547049(folderPath, getProperties().getProperty("polizaE"),getProperties().getProperty("Evidencia"))
 		
 		
-		.plazos(folderPath, getProperties().getProperty("plazosE"), getProperties().getProperty("diasPlazo"), getProperties().getProperty("diasPlazo"))
+		.plazos(folderPath, 
+				getProperties().getProperty("plazosE"), 
+				getProperties().getProperty("diasPlazo"), 
+				getProperties().getProperty("diasPlazo"),
+				getProperties().getProperty("Evidencia"))
 
 		
-		.tipoMercancia(folderPath, getProperties().getProperty("tipoMercanciaE"))
+		.tipoMercancia(folderPath, 
+				getProperties().getProperty("tipoMercanciaE"),
+				getProperties().getProperty("Evidencia"))
 		
-		.mercanciasIndividual(folderPath, getProperties().getProperty("mercanciasE"), getProperties().getProperty("cargueI"))
+		.mercanciasIndividual(folderPath, getProperties().getProperty("mercanciasE"), getProperties().getProperty("cargueI"),getProperties().getProperty("Evidencia"))
 		
-		.tarifas(folderPath, getProperties().getProperty("tarifasE"))
+		.tarifas(folderPath, getProperties().getProperty("tarifasE"),getProperties().getProperty("Evidencia"))
 		
-		.guardarExpedir(folderPath);
+		.guardarExpedir(folderPath,getProperties().getProperty("Evidencia"));
 
-		login.cerrarSesion(folderPath);
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		recording.stopRecording();
 		
@@ -135,6 +174,11 @@ public class ExpedirTest extends BaseTest {
 		GenerarReportePdf.closeTemplate("");
 	}
 	
+	/**
+	 * Lpn dtlnum 1.
+	 *
+	 * @throws Exception the exception
+	 */
 	//Ejecucion de test con base de datos
 	@Test(priority = 1, description = "BaseDatos")
     @Severity(SeverityLevel.NORMAL)
@@ -185,12 +229,12 @@ public class ExpedirTest extends BaseTest {
         login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
                 getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
         //METODO DE INGRESO A MODULO Y SUBMODULO
-        home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"));
+        home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
         //EJECUCION DE CASOS
         expedir.LpnDtlnumCoincidan1(folderPath, getProperties().getProperty("TipoDeBodega"), getProperties().getProperty("estadoA"),
         		getProperties().getProperty("Mercancias"),getProperties().getProperty("Lista"),getProperties().getProperty("Lpm"),dataBDD + " Datos LPN de la base de datos",
         		getProperties().getProperty("SubModuloExpedir"),//dataBDD2 + " Datos LPN de la base de datos",
-        		getProperties().getProperty("Lista1"));
+        		getProperties().getProperty("Lista1"),getProperties().getProperty("Evidencia"));
         
        
 
@@ -201,6 +245,11 @@ public class ExpedirTest extends BaseTest {
 	
 	
 	
+	/**
+	 * Modificar expedir.
+	 *
+	 * @throws Exception the exception
+	 */
 	//Ejecucion del metodo mercancia generica
 	@Test(priority = 1, description = "Modificar expedir")
 	@Severity(SeverityLevel.NORMAL)
@@ -216,19 +265,25 @@ public class ExpedirTest extends BaseTest {
 		login(getProperties().getProperty("nameTestModificarExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 
 		expedir.modificarExpedir(folderPath, getProperties().getProperty("tituloEditar"), 
-				getProperties().getProperty("polizaE"), getProperties().getProperty("tipoMercanciaE"))  
+				getProperties().getProperty("polizaE"), getProperties().getProperty("tipoMercanciaE"),getProperties().getProperty("Evidencia"))  
 		
 		//Ejecucion de caso
 		.MercanciaGenerica(folderPath, getProperties().getProperty("nitExpedir"),
 				getProperties().getProperty("descripcion"), getProperties().getProperty("tipoMercanciaE"), 
-				getProperties().getProperty("SubModuloExpedir"), getProperties().getProperty("Titulobonoprenda"));
+				getProperties().getProperty("SubModuloExpedir"), getProperties().getProperty("Titulobonoprenda"),
+				getProperties().getProperty("Evidencia"));
 		
 		GenerarReportePdf.closeTemplate("");
 	}
 	
+	/**
+	 * Cargue bodega.
+	 *
+	 * @throws Exception the exception
+	 */
 	//Se ejecuta el metodo de bodega de cargue 
 	@Test(priority = 1, description = "Validacion")
 	@Severity(SeverityLevel.NORMAL)
@@ -236,26 +291,37 @@ public class ExpedirTest extends BaseTest {
 	@Story("Modificación de expedir")
 	public void CargueBodega() throws Exception {
 		
+		//INSTANCIA DE LA RUTA DONDE SE GUARDA LA EVIDENCIA
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
-		
+		getProperties().getProperty("path"));
+
 
 		login(getProperties().getProperty("CargueBodegaPropio"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloC"), getProperties().getProperty("SubmoduloC"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloC"), getProperties().getProperty("SubmoduloC"),getProperties().getProperty("Evidencia"));
 		
 		//Ejecucion de caso
-		expedir.BodegaCargue(folderPath, getProperties().getProperty("NitClienteAsociado"),getProperties().getProperty("Mercancias"));
+		expedir.BodegaCargue(folderPath, getProperties().getProperty("NitClienteAsociado"),getProperties().getProperty("Mercancias"),
+				getProperties().getProperty("Evidencia"));
 		
 		
 		
-		login.cerrarSesion(folderPath);
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		GenerarReportePdf.closeTemplate("");
 		
 	}
 	
+	  
+	
+	/**
+	 * Cargue validacion.
+	 *
+	 * @param Video the video
+	 * @param Evidencia the evidencia
+	 * @throws Exception the exception
+	 */
 	//Ejecucion de la validacion de expedicion
 	@SuppressWarnings("static-access")
 	@Test(priority = 1, description = "Modificar expedir")
@@ -266,11 +332,10 @@ public class ExpedirTest extends BaseTest {
 		
 		
 		//Evidencia
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
+		getProperties().getProperty("path"));
 		
 		
-			File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-					getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
-		if(Evidencia.equals("SI"))
 			
 		{	
 		
@@ -300,7 +365,7 @@ public class ExpedirTest extends BaseTest {
 		
 		//Evidencia
 		
-		login.cerrarSesion(folderPath);
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		
 		recording.stopRecording();
@@ -330,6 +395,11 @@ public class ExpedirTest extends BaseTest {
 	
 	//VALIDACIONES DE SEGUNDA HISTORIA DE USUARIO SOBRE LIBERACIONES Y EXPEDICIONES
 	
+	/**
+	 * Validacion cancelado.
+	 *
+	 * @throws Exception the exception
+	 */
 	@SuppressWarnings("static-access")
 	@Test(priority = 1, description = "Modificar expedir")
 	@Severity(SeverityLevel.NORMAL)
@@ -345,19 +415,19 @@ public class ExpedirTest extends BaseTest {
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 		
 		expedir
 		
 		//EJECUCION DE CANCELAR EXPEDIR
 		.ExpedirCancelar(folderPath, getProperties().getProperty("TituloCancelado"), 
 				getProperties().getProperty("Mercancias"),getProperties().getProperty("EstadoC"), 
-				getProperties().getProperty("CantInicial"),getProperties().getProperty("CantActual"))
+				getProperties().getProperty("CantInicial"),getProperties().getProperty("CantActual"),getProperties().getProperty("Evidencia"))
 		
 		//EJECUCIONES DE LOS METODOS OPERACION DE TITULO Y AUTORIZACION LIBERACION
 		.OperacionTitulo_552036(folderPath, getProperties().getProperty("TituloGrabado"), 
 		getProperties().getProperty("informacionGeneralE"), getProperties().getProperty("PersonaJuridica"),
-		getProperties().getProperty("informacionG"),getProperties().getProperty("TituloHistorico"))
+		getProperties().getProperty("informacionG"),getProperties().getProperty("TituloHistorico"),getProperties().getProperty("Evidencia"))
 		
 		//Ejecucion de caso
 		.AutorizacionLiberacion_548143(folderPath, 
@@ -367,10 +437,11 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("informacionG"), 
 				getProperties().getProperty("SubModuloAutorizar"),
 				getProperties().getProperty("AutoriPend"),
-				getProperties().getProperty("DetalleMercancia"));
+				getProperties().getProperty("DetalleMercancia")
+				,getProperties().getProperty("Evidencia"));
 		
 		
-		login.cerrarSesion(folderPath);
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		recording.stopRecording();
 		
@@ -379,6 +450,11 @@ public class ExpedirTest extends BaseTest {
 	
 	
 	
+	/**
+	 * Validacion liberado.
+	 *
+	 * @throws Exception the exception
+	 */
 	@SuppressWarnings("static-access")
 	@Test(priority = 1, description = "Modificar expedir")
 	@Severity(SeverityLevel.NORMAL)
@@ -394,16 +470,16 @@ public class ExpedirTest extends BaseTest {
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloLiberacion"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloLiberacion"),getProperties().getProperty("Evidencia"));
 	
 		//VALIDACION DE LIBERACION/EJEUCION DE CASO
 		expedir.ValidacionLiberacion_543826(folderPath, getProperties().getProperty("TituloLiberacion"), 
 				getProperties().getProperty("Detalle"),getProperties().getProperty("EstadoC"), 
 				getProperties().getProperty("CantInicial"), getProperties().getProperty("CantActual"),
 				getProperties().getProperty("LiberarCantidad"),getProperties().getProperty("Sinicial"),getProperties().getProperty("TituloHistorico"),
-				getProperties().getProperty("TituloLiberacionInicial"),getProperties().getProperty("Mercancias"));
+				getProperties().getProperty("TituloLiberacionInicial"),getProperties().getProperty("Mercancias"),getProperties().getProperty("Evidencia"));
 		
-		login.cerrarSesion(folderPath);
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		recording.stopRecording();
 		
@@ -413,6 +489,11 @@ public class ExpedirTest extends BaseTest {
 	
 	
 	
+	/**
+	 * Validacion mercancia liberada.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test(priority = 1, description = "Modificar expedir")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Validacion de mercancias liberadas")
@@ -425,10 +506,11 @@ public class ExpedirTest extends BaseTest {
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloLiberacion"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloLiberacion"),getProperties().getProperty("Evidencia"));
 		
 		//Ejecucion de caso
-		expedir.ObjetoPresente(folderPath, getProperties().getProperty("TituloaLiberar"), getProperties().getProperty("Detalle"));
+		expedir.ObjetoPresente(folderPath, getProperties().getProperty("TituloaLiberar"), 
+				getProperties().getProperty("Detalle"),getProperties().getProperty("Evidencia"));
 		
 
 		GenerarReportePdf.closeTemplate("");
@@ -437,6 +519,11 @@ public class ExpedirTest extends BaseTest {
 	
 
 	
+	/**
+	 * Validacion titulo liberado.
+	 *
+	 * @throws Exception the exception
+	 */
 	@SuppressWarnings("static-access")
 	@Test(priority = 1, description = "Modificar expedir")
 	@Severity(SeverityLevel.NORMAL)
@@ -452,23 +539,25 @@ public class ExpedirTest extends BaseTest {
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 
 		//Ejecucion de caso
 		expedir.ValidacionMercanciaLiberada(folderPath, getProperties().getProperty("TituloLiberado"), 
 				getProperties().getProperty("Detalle"),getProperties().getProperty("CantInicial"),
-				getProperties().getProperty("CantActual"),getProperties().getProperty("TituloCancelado"))
+				getProperties().getProperty("CantActual"),getProperties().getProperty("TituloCancelado"),
+				getProperties().getProperty("Evidencia"))
 		
 		//Ejecucion de caso
 		.UsuarioAplicador_554763(folderPath, 
 				getProperties().getProperty("usuario2"), getProperties().getProperty("ModuloT"), 
 				getProperties().getProperty("SubModuloExpedir"), getProperties().getProperty("titulograbado"), getProperties().getProperty("infogeneraltitulo"), 
 				getProperties().getProperty("lblbonoprenda"), getProperties().getProperty("LapsoTiempo"), getProperties().getProperty("TituloNoEditable"), 
-				getProperties().getProperty("aplicador"), getProperties().getProperty("SeccionPerfil"), getProperties().getProperty("UsuarioAplicador"));
+				getProperties().getProperty("aplicador"), getProperties().getProperty("SeccionPerfil"), getProperties().getProperty("UsuarioAplicador"),
+				getProperties().getProperty("Evidencia"));
 		
 		//
 		
-		login.cerrarSesion(folderPath);
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		recording.stopRecording();
 		
@@ -482,6 +571,11 @@ public class ExpedirTest extends BaseTest {
 	
 	
 	
+	/**
+	 * Busqueda expedir.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test(priority = 2, description = "Consultar expedir")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Expedir")
@@ -494,13 +588,18 @@ public class ExpedirTest extends BaseTest {
 		login(getProperties().getProperty("nameTestConsultarExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 		//Ejecucion de caso
-		expedir.imprimir(folderPath, getProperties().getProperty("tituloBuscar"));
+		expedir.imprimir(folderPath, getProperties().getProperty("tituloBuscar"),getProperties().getProperty("Evidencia"));
 		
 		GenerarReportePdf.closeTemplate("");
 	}
 	
+	/**
+	 * Ver expedir.
+	 * para ejecucion de prueba
+	 * @throws Exception the exception
+	 */
 	@Test(priority = 3, description = "Ver expedir")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Expedir")
@@ -513,10 +612,11 @@ public class ExpedirTest extends BaseTest {
 		login(getProperties().getProperty("nameTestVerExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),
+				getProperties().getProperty("Evidencia"));
 
 		//Ejecucion de caso
-		expedir.verExpedir(folderPath);
+		expedir.verExpedir(folderPath,getProperties().getProperty("Evidencia"));
 		
 		// Validaciones de historico de liberaciones 
 		
@@ -528,6 +628,11 @@ public class ExpedirTest extends BaseTest {
 	
 	
 	
+	/**
+	 * Validacion histortico liberacion.
+	 *
+	 * @throws Exception the exception
+	 */
 	@SuppressWarnings("static-access")
 	@Test(priority = 1, description = "Modificar expedir")
 	@Severity(SeverityLevel.NORMAL)
@@ -540,12 +645,13 @@ public class ExpedirTest extends BaseTest {
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"));
 		
-		recording.startRecording("", folderPath);
+		recording.startRecording("Inicia grabacion de pantalla", folderPath);
 
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),
+				getProperties().getProperty("Evidencia"));
 		
 		//Ejecucion de caso
 		expedir.ValidacionHistorico_546943(folderPath, getProperties().getProperty("TituloHistorico"),getProperties().getProperty("DetalleMercancia"),getProperties().getProperty("EstadoC"),
@@ -559,14 +665,15 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("LiberarCantidad"),
 				getProperties().getProperty("Sinicial"),
 				getProperties().getProperty("TituloCancelado"), 
-				getProperties().getProperty("Producto"));
+				getProperties().getProperty("Producto"),
+				getProperties().getProperty("Evidencia"));
 
-		login.cerrarSesion(folderPath);
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		
 		
 		recording.stopRecording();
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre reporte pdf");
 	}
 	
 	
@@ -579,6 +686,11 @@ public class ExpedirTest extends BaseTest {
 	//HU_24
 	
 
+	/**
+	 * Validacion modificacion prorroga.
+	 *
+	 * @throws Exception the exception
+	 */
 	@SuppressWarnings("static-access")
 	@Test(priority = 1, description = "Modificar expedir")
 	@Severity(SeverityLevel.NORMAL)
@@ -594,15 +706,17 @@ public class ExpedirTest extends BaseTest {
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), 
+				getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 		
 		//Ejecucion de caso
 		expedir.ProrrogasModificacion_546952(folderPath, getProperties().getProperty("TituloModificarProrroga"),
-				getProperties().getProperty("SeccionP"),getProperties().getProperty("estadoA"),getProperties().getProperty("ValorProrroga"));
+				getProperties().getProperty("SeccionP"),
+				getProperties().getProperty("estadoA"),getProperties().getProperty("ValorProrroga"),getProperties().getProperty("Evidencia"));
 		
 		//estadoA
 		
-		login.cerrarSesion(folderPath);
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		recording.stopRecording();
 		
@@ -613,6 +727,11 @@ public class ExpedirTest extends BaseTest {
 	
 	
 	
+	/**
+	 * Reversiondetitulos.
+	 *
+	 * @throws Exception the exception
+	 */
 	@SuppressWarnings("static-access")
 	@Test(priority = 1, description = "Modificar expedir")
 	@Severity(SeverityLevel.NORMAL)
@@ -628,7 +747,7 @@ public class ExpedirTest extends BaseTest {
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloReversarLiberacion"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloReversarLiberacion"),getProperties().getProperty("Evidencia"));
 		
 		
 		//Generador de titulos automatico
@@ -646,21 +765,23 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("tarifas"), 
 				getProperties().getProperty("ingreso"), 
 				getProperties().getProperty("aplicar"),
-				getProperties().getProperty("FechaDeCargue"));
+				getProperties().getProperty("FechaDeCargue"), 
+				getProperties().getProperty("Evidencia"));
 		
 		
 		//Ejecucion de caso
 		
 		expedir.ReversarLiberacion_558597(folderPath, 
 				getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"), 
-				getProperties().getProperty("estadoA"), getProperties().getProperty("infogeneraltitulo"));
+				getProperties().getProperty("estadoA"), getProperties().getProperty("infogeneraltitulo"),
+				getProperties().getProperty("Evidencia"));
 		
 		
 		
 		
 		//estadoA
 		
-		login.cerrarSesion(folderPath);
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		recording.stopRecording();
 		
@@ -672,6 +793,11 @@ public class ExpedirTest extends BaseTest {
 	
 	//HU25
 	
+	/**
+	 * Validacion HU 25.
+	 *
+	 * @throws Exception the exception
+	 */
 	@SuppressWarnings("static-access")
 	@Test(priority = 1, description = "Modificar expedir")
 	@Severity(SeverityLevel.NORMAL)
@@ -687,13 +813,13 @@ public class ExpedirTest extends BaseTest {
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 		
 		//Ejecucion de caso
 		expedir.UsuarioAdmin(folderPath, getProperties().getProperty("etiquetaPoliza"), getProperties().getProperty("poliza"),
 				getProperties().getProperty("TituloHistorico"),getProperties().getProperty("SeccionA"),
 				getProperties().getProperty("usuario2"),getProperties().getProperty("TituloEjemplo"),getProperties().getProperty("TituloIncompleto"),
-				getProperties().getProperty("Mercancias"),getProperties().getProperty("ModuloS"));
+				getProperties().getProperty("Mercancias"),getProperties().getProperty("ModuloS"),getProperties().getProperty("Evidencia"));
 		
 		
 		//login.cerrarSesion(folderPath);
@@ -701,13 +827,18 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.stopRecording();
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 
 	
 	
 
 	
+	/**
+	 * Validacion modificacionusuarioadmin.
+	 *
+	 * @throws Exception the exception
+	 */
 	@SuppressWarnings("static-access")
 	@Test(priority = 1, description = "Modificar expedir")
 	@Severity(SeverityLevel.NORMAL)
@@ -722,25 +853,30 @@ public class ExpedirTest extends BaseTest {
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloS"), getProperties().getProperty("SeccionA"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloS"), getProperties().getProperty("SeccionA"),getProperties().getProperty("Evidencia"));
 		
 		//EJECUCION DE USUARIO ADMINISTRADOR
 		expedir.UsuarioEditarAdmin_545511(folderPath, getProperties().getProperty("usuario2"), getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),
 				getProperties().getProperty("Titulobonoprenda"), getProperties().getProperty("infogeneraltitulo"), getProperties().getProperty("lblbonoprenda"), 
 				getProperties().getProperty("LapsoTiempo"),getProperties().getProperty("TituloNoEditable"),
 				getProperties().getProperty("TituloEstadoAnulado"), getProperties().getProperty("Mercancias"),
-				getProperties().getProperty("tipoUser"));
+				getProperties().getProperty("tipoUser"),getProperties().getProperty("Evidencia"));
 		
 		
 		//login.cerrarSesion(folderPath);
 		
 		recording.stopRecording();
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 
 	
 	
+	/**
+	 * Run CP 05.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test(priority = 1, description = "Modificar expedir")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Expedir")
@@ -753,18 +889,23 @@ public class ExpedirTest extends BaseTest {
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloS"), getProperties().getProperty("SeccionA"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloS"), getProperties().getProperty("SeccionA"),getProperties().getProperty("Evidencia"));
 		
 		//EJECUCION DE HU05
 		expedir.CP05(folderPath, getProperties().getProperty("usuario2"), getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),
 				getProperties().getProperty("Titulobonoprenda"), getProperties().getProperty("infogeneraltitulo"), getProperties().getProperty("lblbonoprenda"), 
-				getProperties().getProperty("LapsoTiempo"),getProperties().getProperty("Titulouseradmin"));
+				getProperties().getProperty("LapsoTiempo"),getProperties().getProperty("Titulouseradmin"),getProperties().getProperty("Evidencia"));
 		
 		
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 
+	/**
+	 * Run CP 08.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test(priority = 1, description = "Modificar expedir")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Expedir")
@@ -777,17 +918,18 @@ public class ExpedirTest extends BaseTest {
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloS"), getProperties().getProperty("SeccionA"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloS"), getProperties().getProperty("SeccionA"),getProperties().getProperty("Evidencia"));
 		
 		//EJECUCION DE HU08
 		expedir.CP08(folderPath, getProperties().getProperty("usuario2"), 
 				getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"), 
 				getProperties().getProperty("TituloNoEditable"), getProperties().getProperty("Prorroga"),
 				getProperties().getProperty("lblbonoprenda"), getProperties().getProperty("LapsoTiempo"),
-				getProperties().getProperty("infogeneraltitulo"),getProperties().getProperty("Mercancias") );  
+				getProperties().getProperty("infogeneraltitulo"),getProperties().getProperty("Mercancias"),
+				getProperties().getProperty("Evidencia") );  
 		
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 
 

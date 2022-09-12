@@ -28,12 +28,14 @@ public class PerfilesTest extends BaseTest {
 
 	public Properties getProperties() throws Exception {
 		
+		//INSTANCIAS DE PROPIEDADES(ARCHIVOS PLANOS QUE CONTIENEN PROPIEDADES) 
 		fileprops.load(new FileInputStream(new File("src/test/resources/test.properties").getAbsolutePath()));
 		fileprops.load(new FileInputStream(new File("src/test/resources/Perfiles.properties").getAbsolutePath()));
 		
 		return fileprops;
 	}
 
+	//METODO DE LOGIN A PORTAL DE ALMAVIVA, INGRESO DE CREDENCIALES
 	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
@@ -45,12 +47,13 @@ public class PerfilesTest extends BaseTest {
 
 		GenerarReportePdf.setImgContador(0);
 
+		//LLAMADO DE URL Y CREDENCIALES
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"), folderPath);
+		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"), folderPath,getProperties().getProperty("Evidencia"));
 	}
 
 	@Test(priority = 0, description = "Crear perfil")
@@ -59,71 +62,78 @@ public class PerfilesTest extends BaseTest {
 	@Story("Creación de perfil")
 	public void crearPerfil() throws Exception {
 
+		//RUTA EN DONDE SE VA A GUARDAR LOS INFORMES DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
 				getProperties().getProperty("path"));
 
 		login(getProperties().getProperty("nameTestCrearPerfil"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"));
+		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"),getProperties().getProperty("Evidencia"));
 
 		//EJECUCION DE METODOS ASOCIADOS A CREAR UN PERFIL EN ALMAVIVA
-		perfiles.obligatoriedadCampos(folderPath)
-				
+		perfiles.obligatoriedadCampos(folderPath,getProperties().getProperty("Evidencia"))
+		
+		//INSTANCIA DE METODO PARA VALIDAR UN MAXIMO DE CARACTERES
 		.caracteres50100(folderPath, getProperties().getProperty("nombre50"),
 						getProperties().getProperty("descripcion100"),
 						getProperties().getProperty("nom50"),
-						getProperties().getProperty("desc100"))
+						getProperties().getProperty("desc100"),getProperties().getProperty("Evidencia"))
 				
-				.cancelarPerfil(folderPath)
+				.cancelarPerfil(folderPath,getProperties().getProperty("Evidencia"))
 
 				.crearPerfil(folderPath, getProperties().getProperty("nombre"),
-						getProperties().getProperty("descripcion"))
-		 .guardarPerfil(folderPath);
+						getProperties().getProperty("descripcion"),getProperties().getProperty("Evidencia"))
+		 .guardarPerfil(folderPath,getProperties().getProperty("Evidencia"));
 		 //.aceptarUsuario(folderPath);
 
 		GenerarReportePdf.closeTemplate("");
 	}  
 	
+	//METODO PARA MODIFICAR PERFIL DE USUARIO
 	@Test(priority = 1, description = "Modificar perfil")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Perfiles")
 	@Story("Modificación de perfil")
 	public void modificarPerfil() throws Exception {
 
+		//RUTA EN DONDE SE VA A GUARDAR LOS INFORMES DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
 				getProperties().getProperty("path"));
 
 		login(getProperties().getProperty("nameTestModificarPerfil"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"));
+		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"),getProperties().getProperty("Evidencia"));
 
 		perfiles.modificarPerfil(folderPath, getProperties().getProperty("descripcion"),
-				getProperties().getProperty("estadoI"))
-		.guardarPerfil(folderPath);
+				getProperties().getProperty("estadoI"),getProperties().getProperty("Evidencia"))
+		.guardarPerfil(folderPath,getProperties().getProperty("Evidencia"));
 		 //.aceptarUsuario(folderPath);
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 	
+	//METODO DE VER PERFIL
 	@Test(priority = 2, description = "Ver perfil")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Perfiles")
 	@Story("Detalle de perfil")
 	public void verPerfil() throws Exception {
 
+		//RUTA EN DONDE SE VA A GUARDAR LOS INFORMES DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
 				getProperties().getProperty("path"));
 
 		login(getProperties().getProperty("nameTestVerPerfil"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"));
+		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"),getProperties().getProperty("Evidencia"));
 
-		perfiles.verPerfil(folderPath);
+		//METODO PARA VER PERFIL
+		perfiles.verPerfil(folderPath,getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 	
 	@Test(priority = 3, description = "Consultar perfil")
@@ -132,18 +142,21 @@ public class PerfilesTest extends BaseTest {
 	@Story("Consulta de perfil")
 	public void consultarUsuario() throws Exception {
 
+		//RUTA EN DONDE SE VA A GUARDAR LOS INFORMES DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
 				getProperties().getProperty("path"));
 
 		login(getProperties().getProperty("nameTestConsultarPerfil"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"));
+		
+		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"),getProperties().getProperty("Evidencia"));
 
-		perfiles.botonesPerfil(folderPath)
+		//INSTANCIA DE METODO PARA INTERACTUAR CON BOTONES DE PERFIL Y CONSULTA DE PERFIL
+		perfiles.botonesPerfil(folderPath,getProperties().getProperty("Evidencia"))
 
-		.consultaPerfil(folderPath, getProperties().getProperty("nom50"), getProperties().getProperty("nombrePerfil"));
+		.consultaPerfil(folderPath, getProperties().getProperty("nom50"), getProperties().getProperty("nombrePerfil"),getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 }

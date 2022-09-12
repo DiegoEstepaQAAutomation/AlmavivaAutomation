@@ -20,13 +20,13 @@ public class CupoPage extends CupoMap {
 
 	//Paso a paso de crear un cupo
 	@Step("Crear cupo")
-	public CupoPage crearCupo(File folderPath, String nitC) throws Exception {
+	public CupoPage crearCupo(File folderPath, String nitC,String Evidencia) throws Exception {
 
 		//Se crea un cupo nuevo, se ingresa un nit, se da la tecla enter y se dirige hacia el nuevo cupo para hacerlo visible
-		click(btnCrearCupo, folderPath, "Se ingresa a crear Cupo");
-		writeText(txtNit, nitC, folderPath, "Se digita en el campo Nit");
+		click(btnCrearCupo, folderPath, "Se ingresa a crear Cupo",Evidencia);
+		writeText(txtNit, nitC, folderPath, "Se digita en el campo Nit",Evidencia);
 		enter(txtNit);
-		scrollElementV(folderPath, txtCupoAParticular, "Se desplaza hasta la opción Cupo Particular");
+		scrollElementV(folderPath, txtCupoAParticular, "Se desplaza hasta la opción Cupo Particular",Evidencia);
 		return this;
 	}
 
@@ -97,38 +97,38 @@ public class CupoPage extends CupoMap {
 	
 	//Paso a paso de modificar un cupo ya existente 
 	@Step("Modificar cupo")
-	public CupoPage modificarCupo(File folderPath, String mercancia, String acreedor) throws Exception {
+	public CupoPage modificarCupo(File folderPath, String mercancia, String acreedor,String Evidencia) throws Exception {
 
 		//Se dirige hacia el boton modificar cupo, se ingresa en mercancia , se seleccionan los valores de mercancia y medida de forma random
 		
-		scrollElementH(folderPath, btnModificarCupo, "Se desplaza hasta la opción Modificar cupo");
-		etiquetas(btnModificarCupo, folderPath, "Etiqueta Modificar cupo");
-		click(btnModificarCupo, folderPath, "Se ingresa a modificar Cupo");
+		scrollElementH(folderPath, btnModificarCupo, "Se desplaza hasta la opción Modificar cupo",Evidencia);
+		etiquetas(btnModificarCupo, folderPath, "Etiqueta Modificar cupo",Evidencia);
+		click(btnModificarCupo, folderPath, "Se ingresa a modificar Cupo",Evidencia);
 		
 		waitInMs(15000);
-		click(locatorVariable(lblOpciones, mercancia), folderPath, "Se ingresa a la opción Mercancia");
-		click(btnCrearMercancia, folderPath, "Se ingresa a crear mercancia");
-		listRandom(lblTipoMercancia, folderPath, "Se elije una opción de tipo de mercancia random");
-		listRandom(lblUnidadMedida, folderPath, "Se elije una opción de unidad de medida random");
-		click(btnGuardarMercancia, folderPath, "Se guarda la información");
+		click(locatorVariable(lblOpciones, mercancia), folderPath, "Se ingresa a la opción Mercancia",Evidencia);
+		click(btnCrearMercancia, folderPath, "Se ingresa a crear mercancia",Evidencia);
+		listRandom(lblTipoMercancia, folderPath, "Se elije una opción de tipo de mercancia random",Evidencia);
+		listRandom(lblUnidadMedida, folderPath, "Se elije una opción de unidad de medida random",Evidencia);
+		click(btnGuardarMercancia, folderPath, "Se guarda la información",Evidencia);
 		
-		click(locatorVariable(lblOpciones, mercancia), folderPath, "Se cierra a la opción Mercancia");
+		click(locatorVariable(lblOpciones, mercancia), folderPath, "Se cierra a la opción Mercancia",Evidencia);
 		//Se ingresa a acreedor y se guarda el nuevo acreedor
 		
-		click(locatorVariable(lblOpciones, acreedor), folderPath, "Se ingresa a la opción Acreedor");
-		click(btnCrearAcreedor, folderPath, "Se ingresa a crear Acreedor");
+		click(locatorVariable(lblOpciones, acreedor), folderPath, "Se ingresa a la opción Acreedor",Evidencia);
+		click(btnCrearAcreedor, folderPath, "Se ingresa a crear Acreedor",Evidencia);
 		
 		//Tiempos de espera largos porque la pagina toma bastante tiempo para guardar los cambios
 		waitInMs(4000);
-		click(btnGuardarAcreedor, folderPath, "Se guarda la información");
+		click(btnGuardarAcreedor, folderPath, "Se guarda la información",Evidencia);
 		waitInMs(50000);
 
 		//Se acepta el nuevo acreedor
 		try {
-			click(locatorVariable(lblOpciones, acreedor), folderPath, "Se cierra a la opción Acreedor");
+			click(locatorVariable(lblOpciones, acreedor), folderPath, "Se cierra a la opción Acreedor",Evidencia);
 		} catch (Exception e) {
-			click(btnAceptarAcreedorYaAsociado, folderPath, "Se acpeta el pop-up");
-			click(locatorVariable(lblOpciones, acreedor), folderPath, "Se cierra a la opción Acreedor");
+			click(btnAceptarAcreedorYaAsociado, folderPath, "Se acpeta el pop-up",Evidencia);
+			click(locatorVariable(lblOpciones, acreedor), folderPath, "Se cierra a la opción Acreedor",Evidencia);
 		}
 		
 		//Subimos en la pagina y se ejecuta el metodo modalidades de cupo
@@ -140,45 +140,45 @@ public class CupoPage extends CupoMap {
 	//El paso a paso del ver cupo 
 	
 	@Step("Ver cupo")
-	public CupoPage verCupo(File folderPath) throws Exception {
+	public CupoPage verCupo(File folderPath,String Evidencia) throws Exception {
 		
 		//Validaciones al visualizar cupo, se da click en visualizar cupo
 		
-		scrollElementH(folderPath, btnVerCupo, "Se desplaza hasta la opción Ver cupo");
-		etiquetas(btnVerCupo, folderPath, "Etiqueta Ver cupo");
-		click(btnVerCupo, folderPath, "Se ingresa a ver Cupo");
+		scrollElementH(folderPath, btnVerCupo, "Se desplaza hasta la opción Ver cupo",Evidencia);
+		etiquetas(btnVerCupo, folderPath, "Etiqueta Ver cupo",Evidencia);
+		click(btnVerCupo, folderPath, "Se ingresa a ver Cupo",Evidencia);
 
 		//Se valida si esta enabled o habilitado el campo en cupo con bodega propia
 		waitInMs(15000);
-		scrollElementV(folderPath, lblCupoAlternativo, "Se desplaza hasta Modalidades de Cupo");
-		isEnabled(txtCupoAPropia, folderPath, "Campo Cupo Aprobado No editable");
-		isEnabled(txtFechaAPropia, folderPath, "Campo Fecha de Aprobación No editable");
-		isEnabled(txtDiasCAPropia, folderPath, "Campo Días Cupo No editable");
-		isEnabled(txtNumeroAPropia, folderPath, "Campo No. Acta de Aprobación No editable");
+		scrollElementV(folderPath, lblCupoAlternativo, "Se desplaza hasta Modalidades de Cupo",Evidencia);
+		isEnabled(txtCupoAPropia, folderPath, "Campo Cupo Aprobado No editable",Evidencia);
+		isEnabled(txtFechaAPropia, folderPath, "Campo Fecha de Aprobación No editable",Evidencia);
+		isEnabled(txtDiasCAPropia, folderPath, "Campo Días Cupo No editable",Evidencia);
+		isEnabled(txtNumeroAPropia, folderPath, "Campo No. Acta de Aprobación No editable",Evidencia);
 		
 		//Se valida si esta enabled o habilitado el campo en cupo con bodega particular
-		isEnabled(txtCupoAParticular, folderPath, "Campo Cupo Aprobado No editable");
-		isEnabled(txtFechaAParticular, folderPath, "Campo Fecha de Aprobación No editable");
-		isEnabled(txtDiasCAParticular, folderPath, "Campo Días Cupo No editable");
-		isEnabled(txtNumeroAParticular, folderPath, "Campo No. Acta de Aprobación No editable");
+		isEnabled(txtCupoAParticular, folderPath, "Campo Cupo Aprobado No editable",Evidencia);
+		isEnabled(txtFechaAParticular, folderPath, "Campo Fecha de Aprobación No editable",Evidencia);
+		isEnabled(txtDiasCAParticular, folderPath, "Campo Días Cupo No editable",Evidencia);
+		isEnabled(txtNumeroAParticular, folderPath, "Campo No. Acta de Aprobación No editable",Evidencia);
 		
 		//Se valida si esta enabled o habilitado el campo en cupo con bodega particular arrendada
-		isEnabled(txtCupoAParticularA, folderPath, "Campo Cupo Aprobado No editable");
-		isEnabled(txtFechaAParticularA, folderPath, "Campo Fecha de Aprobación No editable");
-		isEnabled(txtFechaAParticularA, folderPath, "Campo Días Cupo No editable");
-		isEnabled(txtNumeroAParticularA, folderPath, "Campo No. Acta de Aprobación No editable");
+		isEnabled(txtCupoAParticularA, folderPath, "Campo Cupo Aprobado No editable",Evidencia);
+		isEnabled(txtFechaAParticularA, folderPath, "Campo Fecha de Aprobación No editable",Evidencia);
+		isEnabled(txtFechaAParticularA, folderPath, "Campo Días Cupo No editable",Evidencia);
+		isEnabled(txtNumeroAParticularA, folderPath, "Campo No. Acta de Aprobación No editable",Evidencia);
 		
 		//Se valida si esta enabled o habilitado el campo en cupo con bodega en transito
-		isEnabled(txtCupoATransito, folderPath, "Campo Cupo Aprobado No editable");
-		isEnabled(txtFechaATransito, folderPath, "Campo Fecha de Aprobación No editable");
-		isEnabled(txtDiasCATransito, folderPath, "Campo Días Cupo No editable");
-		isEnabled(txtNumeroATransito, folderPath, "Campo No. Acta de Aprobación No editable");
+		isEnabled(txtCupoATransito, folderPath, "Campo Cupo Aprobado No editable",Evidencia);
+		isEnabled(txtFechaATransito, folderPath, "Campo Fecha de Aprobación No editable",Evidencia);
+		isEnabled(txtDiasCATransito, folderPath, "Campo Días Cupo No editable",Evidencia);
+		isEnabled(txtNumeroATransito, folderPath, "Campo No. Acta de Aprobación No editable",Evidencia);
 		return this;
 	}
 	
 	//Consulta de cupo
 	@Step("Consultar cupo")
-	public CupoPage consultaCupo(File folderPath, String nom50, String criterio, String nit) throws Exception {
+	public CupoPage consultaCupo(File folderPath, String nom50, String criterio, String nit,String Evidencia) throws Exception {
 
 		//Se digita un valor alfabetico random en minuscula y se toma el atributo de maxlegth o tamaño maximo
 		String nitt = RandomStringUtils.randomAlphabetic(50).toLowerCase();
@@ -187,10 +187,10 @@ public class CupoPage extends CupoMap {
 		//Se hace una validacion si el campo tiene maximo 50 caracteres
 		if (n.contains(nom50)) {
 			printConsole("Los campos contienen el maximo de 50 caracteres");
-			writeText(txtConsultarNit, nitt, folderPath, "Se ingresa texto de 50 caracteres");
-			clear(txtConsultarNit, folderPath, "Se eliminar texto antes digitado");
-			selectElementList(lblCriterio, criterio, folderPath, "Se selecciona Criterio");
-			writeText(txtConsultarNit, nit, folderPath, "Se ingresa nit");
+			writeText(txtConsultarNit, nitt, folderPath, "Se ingresa texto de 50 caracteres",Evidencia);
+			clear(txtConsultarNit, folderPath, "Se eliminar texto antes digitado",Evidencia);
+			selectElementList(lblCriterio, criterio, folderPath, "Se selecciona Criterio",Evidencia);
+			writeText(txtConsultarNit, nit, folderPath, "Se ingresa nit",Evidencia);
 			
 		} else {
 			printConsole("Error en la validación, los campos no contienen el maximo de 50 caracteres");

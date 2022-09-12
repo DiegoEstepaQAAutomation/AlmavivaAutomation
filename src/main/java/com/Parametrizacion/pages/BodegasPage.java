@@ -21,7 +21,7 @@ public class BodegasPage extends BodegaMap {
 
 	//Crear bodega 
 	@Step("Ingresar a Parametrizacion")
-	public BodegasPage Parametrizacion(File folderPath) throws Exception {
+	public BodegasPage Parametrizacion(File folderPath,String Evidencia) throws Exception {
 
 		x = new Object[8];
 
@@ -35,17 +35,17 @@ public class BodegasPage extends BodegaMap {
 		x[7] = Obligatorio8;
 
 		//Paso a paso de crear bodega con todos los elementos necesarios, funciona basicamente con clicks
-		click(crearBodega, folderPath, "Se da click sobre bodega");
-		click(CodigoB, folderPath, "Se da click sobre la opcion codigo bodega");
-		click(Oficina, folderPath, "Se da click sobre la opcion Oficina");
-		click(Pais, folderPath, "Se da click en la opcion Pais");
-		click(Departamento, folderPath, "Se da click en la opcion Departamento");
-		click(Ciudad, folderPath, "Se da click en la opcion Ciudad");
-		click(Nombre, folderPath, "Se da click en la opcion Nombre");
-		click(Direccion, folderPath, "Se da click en la opcion Direccion");
-		click(Telefono, folderPath, "Se da click sobre la opcion telefono");
-		click(TipoBodega, folderPath, "Se selecciona la opcion tipo de bodega");
-		click(Estado, folderPath, "Se selecciona la opcion estado");
+		click(crearBodega, folderPath, "Se da click sobre bodega",Evidencia);
+		click(CodigoB, folderPath, "Se da click sobre la opcion codigo bodega",Evidencia);
+		click(Oficina, folderPath, "Se da click sobre la opcion Oficina",Evidencia);
+		click(Pais, folderPath, "Se da click en la opcion Pais",Evidencia);
+		click(Departamento, folderPath, "Se da click en la opcion Departamento",Evidencia);
+		click(Ciudad, folderPath, "Se da click en la opcion Ciudad",Evidencia);
+		click(Nombre, folderPath, "Se da click en la opcion Nombre",Evidencia);
+		click(Direccion, folderPath, "Se da click en la opcion Direccion",Evidencia);
+		click(Telefono, folderPath, "Se da click sobre la opcion telefono",Evidencia);
+		click(TipoBodega, folderPath, "Se selecciona la opcion tipo de bodega",Evidencia);
+		click(Estado, folderPath, "Se selecciona la opcion estado",Evidencia);
 
 		val = validarElementos(x, t);
 
@@ -54,7 +54,7 @@ public class BodegasPage extends BodegaMap {
 			Assert.fail("Error en la validación: No se encontró el mensaje del elemento ");
 		}
 
-		click(Cancelar, folderPath, "Se selecciona la opcion cancelar ");
+		click(Cancelar, folderPath, "Se selecciona la opcion cancelar ",Evidencia);
 		return this;
 	}
 
@@ -62,32 +62,32 @@ public class BodegasPage extends BodegaMap {
 	@Step("Ingresar a Parametrizacion")
 	public BodegasPage fillFormulary(File folderPath, String CodigoBodeg, String oficinaBodeg, String Nacion, String Depa,
 			String ZonaUrbana, String Propietario, String Ubicacion, String NumeroTelefonico, 
-			String Opcion1tipo, String Opcion2Tipo, String Opcion3Tipo, String Opcion4Tipo, String EstadoOpcion)
+			String Opcion1tipo, String Opcion2Tipo, String Opcion3Tipo, String Opcion4Tipo, String EstadoOpcion,String Evidencia)
 			throws Exception {
 
 		//Formulario de creacion de bodega, elementos de pais,ciudad,oficina y departamento 
-		click(crearBodega, folderPath, "Se da click sobre bodega");
-		writeText(CodigoB, CodigoBodeg, folderPath, "Se escribe Codigo Bodega");
-		selectElementList(Oficina, oficinaBodeg, folderPath, "Se selecciona la Oficina");
-		selectElementList(Pais, Nacion, folderPath, "Se selecciona Pais");
-		selectElementList(Departamento, Depa, folderPath, "Se selecciona Departamento");
-		selectElementList(Ciudad, ZonaUrbana, folderPath, "Se selecciona la Ciudad");
-		writeText(Nombre, Propietario, folderPath, "Se escribe El nombre de la bodega");
-		writeText(Direccion, Ubicacion, folderPath, "Se escribe Direccion");
-		writeText(Telefono, NumeroTelefonico, folderPath, "Se escribe Numero Telefonico");
-		scrollElementV(folderPath, TipoBodega, "Se desplaza hasta la opción Tipo de bodega");
-		selectElementList(lblTipoBodega, Opcion1tipo, folderPath, "Se selecciona tipo de bodega Propia");
-		click(cbxDLX, folderPath, "");
-		//Tipos de bodega
-		selectElementList(lblTipoBodega, Opcion2Tipo, folderPath, "Se selecciona tipo de bodega Particular");
-		selectElementList(lblTipoBodega, Opcion3Tipo, folderPath, "Se selecciona la opcion tipo de bodega Particular Arrendada");
-		selectElementList(lblTipoBodega, Opcion4Tipo, folderPath, "Se selecciona la  opcion tipo de bodega Tránsito");
-		selectElementList(lblEstado, EstadoOpcion, folderPath, "Se selecciona el estado");
+		click(crearBodega, folderPath, "Se da click sobre bodega",Evidencia);
+		writeText(CodigoB, CodigoBodeg, folderPath, "Se escribe Codigo Bodega",Evidencia);
+		selectElementList(Oficina, oficinaBodeg, folderPath, "Se selecciona la Oficina",Evidencia);
+		selectElementList(Pais, Nacion, folderPath, "Se selecciona Pais",Evidencia);
+		selectElementList(Departamento, Depa, folderPath, "Se selecciona Departamento",Evidencia);
+		selectElementList(Ciudad, ZonaUrbana, folderPath, "Se selecciona la Ciudad",Evidencia);
+		writeText(Nombre, Propietario, folderPath, "Se escribe El nombre de la bodega",Evidencia);
+		writeText(Direccion, Ubicacion, folderPath, "Se escribe Direccion",Evidencia);
+		writeText(Telefono, NumeroTelefonico, folderPath, "Se escribe Numero Telefonico",Evidencia);
+		scrollElementV(folderPath, TipoBodega, "Se desplaza hasta la opción Tipo de bodega",Evidencia);
+		selectElementList(lblTipoBodega, Opcion1tipo, folderPath, "Se selecciona tipo de bodega Propia",Evidencia);
+		click(cbxDLX, folderPath, "click en checkbox de dlx",Evidencia);
+		//Tipos de bodega se selecciona tipo de bodega
+		selectElementList(lblTipoBodega, Opcion2Tipo, folderPath, "Se selecciona tipo de bodega Particular",Evidencia);
+		selectElementList(lblTipoBodega, Opcion3Tipo, folderPath, "Se selecciona la opcion tipo de bodega Particular Arrendada",Evidencia);
+		selectElementList(lblTipoBodega, Opcion4Tipo, folderPath, "Se selecciona la  opcion tipo de bodega Tránsito",Evidencia);
+		selectElementList(lblEstado, EstadoOpcion, folderPath, "Se selecciona el estado",Evidencia);
 		// Aceptar
 		// Guardar
-		click(Guardar, folderPath, "Se da click sobre Guardar");
-		click(Aceptar, folderPath, "Se da click sobre Aceptar");
-		click(Ver, folderPath, "Se da click sobre Ver");
+		click(Guardar, folderPath, "Se da click sobre Guardar",Evidencia);
+		click(Aceptar, folderPath, "Se da click sobre Aceptar",Evidencia);
+		click(Ver, folderPath, "Se da click sobre Ver",Evidencia);
 		
 		return this;
 	}

@@ -38,21 +38,25 @@ public class UsuariosTest extends BaseTest {
 	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
+		
+		//INSTANCIA DE RUTA DE DONDE SE GUARDA LOS INFORMES DE EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
 				getProperties().getProperty("path"));
 
+		//INSTANCIAS METODOS  DE GENERAR PDF 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
 				getProperties().getProperty("urlPrivada"));
 
 		GenerarReportePdf.setImgContador(0);
 
+		//INSTANCIA DE URL Y CREDENCIALES
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-				folderPath);
+				folderPath,getProperties().getProperty("Evidencia"));
 	}
 
 	@Test(priority = 0, description = "Crear usuario")
@@ -61,35 +65,37 @@ public class UsuariosTest extends BaseTest {
 	@Story("Creación de usuario")
 	public void crearUsuario() throws Exception {
 
+		//INSTANCIA DE RUTA DE DONDE SE GUARDA LOS INFORMES DE EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
 				getProperties().getProperty("path"));
 
 		login(getProperties().getProperty("nameTestCrearUsuario"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloU"));
+		home.modulo(folderPath, getProperties().getProperty("Modulo"),
+				getProperties().getProperty("SubModuloU"),getProperties().getProperty("Evidencia"));
 
 		//EJECUCION DE CASOS
-		usuarios.obligatoriedadCampos(folderPath)
+		usuarios.obligatoriedadCampos(folderPath,getProperties().getProperty("Evidencia"))
 
 				.caracteres50(folderPath, getProperties().getProperty("nombres50"),
 						getProperties().getProperty("apellidos50"), getProperties().getProperty("cargo50"),
 						getProperties().getProperty("email"), getProperties().getProperty("nom50"),
 						getProperties().getProperty("apell50"), getProperties().getProperty("car50"),
-						getProperties().getProperty("mail50"))
+						getProperties().getProperty("mail50"),getProperties().getProperty("Evidencia"))
 
-				.cancelarUsuario(folderPath)
+				.cancelarUsuario(folderPath,getProperties().getProperty("Evidencia"))
 
 				.crearUsuario(folderPath, getProperties().getProperty("usuarioDominio"),
 						getProperties().getProperty("nombres"), getProperties().getProperty("apellidos"),
 						getProperties().getProperty("cargo"), getProperties().getProperty("oficina"),
 						getProperties().getProperty("email"), getProperties().getProperty("perfil"),
 						getProperties().getProperty("estado"), getProperties().getProperty("busqueda"),
-						getProperties().getProperty("codigo"))
-				.guardarUsuario(folderPath);
+						getProperties().getProperty("codigo"),getProperties().getProperty("Evidencia"))
+				.guardarUsuario(folderPath,getProperties().getProperty("Evidencia"));
 		// .aceptarUsuario(folderPath);
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 
 	@Test(priority = 1, description = "Modificar usuario")
@@ -98,25 +104,28 @@ public class UsuariosTest extends BaseTest {
 	@Story("Modificación de usuario")
 	public void modificarUsuario() throws Exception {
 
+		//INSTANCIA DE RUTA DE DONDE SE GUARDA LOS INFORMES DE EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
 				getProperties().getProperty("path"));
 
 		login(getProperties().getProperty("nameTestModificarUsuario"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloU"));
+		home.modulo(folderPath, getProperties().getProperty("Modulo"),
+				getProperties().getProperty("SubModuloU"),getProperties().getProperty("Evidencia"));
 
 		//EJECUCION DE CASOS
 		usuarios.modificarUsuario(folderPath, getProperties().getProperty("nombres"),
 				getProperties().getProperty("apellidos"), getProperties().getProperty("cargo"),
 				getProperties().getProperty("oficina"), getProperties().getProperty("email"),
 				getProperties().getProperty("perfil"), getProperties().getProperty("estado"),
-				getProperties().getProperty("busqueda"), getProperties().getProperty("codigo"))
+				getProperties().getProperty("busqueda"), getProperties().getProperty("codigo"),
+				getProperties().getProperty("Evidencia"))
 
-				.guardarUsuario(folderPath);
+				.guardarUsuario(folderPath,getProperties().getProperty("Evidencia"));
 		// .aceptarUsuario(folderPath);
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 
 	@Test(priority = 2, description = "Ver usuario")
@@ -125,16 +134,18 @@ public class UsuariosTest extends BaseTest {
 	@Story("Detalle de usuario")
 	public void verUsuario() throws Exception {
 
+		//INSTANCIA DE RUTA DE DONDE SE GUARDA LOS INFORMES DE EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
 				getProperties().getProperty("path"));
 
 		login(getProperties().getProperty("nameTestVerUsuario"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloU"));
+		home.modulo(folderPath, getProperties().getProperty("Modulo"),
+				getProperties().getProperty("SubModuloU"),getProperties().getProperty("Evidencia"));
 
 		//EJECUCION DE CASO
-		usuarios.verUsuario(folderPath);
+		usuarios.verUsuario(folderPath,getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.closeTemplate("");
 	}
@@ -145,20 +156,22 @@ public class UsuariosTest extends BaseTest {
 	@Story("Consulta de usuario")
 	public void consultarUsuario() throws Exception {
 
+		//INSTANCIA DE RUTA DE DONDE SE GUARDA LOS INFORMES DE EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
 				getProperties().getProperty("path"));
 
 		login(getProperties().getProperty("nameTestConsultarUsuario"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloU"));
+		home.modulo(folderPath, getProperties().getProperty("Modulo"),
+				getProperties().getProperty("SubModuloU"),getProperties().getProperty("Evidencia"));
 
 		//EJECUCION DE CASOS
-		usuarios.botonesUsuario(folderPath)
+		usuarios.botonesUsuario(folderPath,getProperties().getProperty("Evidencia"))
 
 		.consultaUsuario(folderPath, getProperties().getProperty("nom50"),
-				getProperties().getProperty("nombres"));
+				getProperties().getProperty("nombres"),getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 }

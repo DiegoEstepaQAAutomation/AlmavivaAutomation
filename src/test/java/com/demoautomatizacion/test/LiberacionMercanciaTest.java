@@ -43,12 +43,12 @@ public class LiberacionMercanciaTest extends BaseTest {
 		GenerarReportePdf.setImgContador(0);
 
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-				folderPath);
+				folderPath,getProperties().getProperty("Evidencia"));
 	}
 
 	@Test(priority = 0, description = "")
@@ -63,9 +63,9 @@ public class LiberacionMercanciaTest extends BaseTest {
 		login(getProperties().getProperty("nameTestLiberacion"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"));
-		liberacion.consultarLiberacion(folderPath);
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
+		liberacion.consultarLiberacion(folderPath,getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 }

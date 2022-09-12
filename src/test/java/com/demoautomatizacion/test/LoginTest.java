@@ -13,26 +13,47 @@ import com.demoautomatizacion.BaseTest;
 import com.demoautomatizacion.Pages.BasePage;
 import com.demoautomatizacion.test.utils.Listeners.TestListener;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LoginTest.
+ */
 @Listeners({ TestListener.class })
 @Epic("Login")
 @Feature("Login Tests")
 
 public class LoginTest extends BaseTest {
 
+	/** The fileprops. */
 	public Properties fileprops = new Properties();
 	
+	/**
+	 * Gets the properties.
+	 *
+	 * @return the properties
+	 * @throws Exception the exception
+	 */
 	//LLAMADO DE LAS PROPIEDADES DE LOGIN
 	public Properties getProperties() throws Exception {
 		fileprops.load(new FileInputStream(new File("src/test/resources/test.properties").getAbsolutePath()));
 		return fileprops;
 	}
 
+	/**
+	 * Ingresar portal almaviva.
+	 *
+	 * @throws Exception the exception
+	 */
 	//ESTE METODO LLAMA LAS PROPIEDADES QUE PERMITEN EL LOGUEO EN ALMAVIVA
 	@Test(priority = 0, description = "Login Portal Almaviva")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Ingresar Portal Almaviva")
 	@Story("Login")
 	public void ingresarPortalAlmaviva() throws Exception { 
+		
+		String Evidencia = getProperties().getProperty("Evidencia");
+		
+		if(Evidencia.equals("SI")) 
+		{
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolder"),
 		        getProperties().getProperty("path"));
@@ -41,15 +62,40 @@ public class LoginTest extends BaseTest {
 		        getProperties().getProperty("analista"),
 		        getProperties().getProperty("url"));
 		GenerarReportePdf.setImgContador(0);
-
+				
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"), folderPath)
-	    .cerrarSesion(folderPath);
+		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),folderPath, getProperties().getProperty("Evidencia"))
+	    .cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		GenerarReportePdf.closeTemplate("");
-	}
+		
+		}else { 
+			
+			File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolder"),
+			        getProperties().getProperty("path"));
+			
+			home.irPortal(getProperties().getProperty("urlPrivada"));
+			login.privacidadIp();
+			home.irPortal(getProperties().getProperty("url"));
+			login.privacidadIp();
+			home.irPortal(getProperties().getProperty("urlPrivada"));
+			login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),folderPath, getProperties().getProperty("Evidencia"))
+		    .cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));	
+		
+		}
+	
+	
 }
+	
+} 
+	
+
+	
+
+			
+		
+	

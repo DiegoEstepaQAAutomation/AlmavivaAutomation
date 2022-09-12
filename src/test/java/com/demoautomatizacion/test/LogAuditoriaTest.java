@@ -18,13 +18,25 @@ import com.demoautomatizacion.BaseTest;
 import com.demoautomatizacion.Pages.BasePage;
 import com.demoautomatizacion.test.utils.Listeners.TestListener;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LogAuditoriaTest.
+ */
 @Listeners({ TestListener.class })
 @Epic("Log Auditoria")
 @Feature("Log Auditoria Test")
 
 public class LogAuditoriaTest extends BaseTest {
+	
+	/** The fileprops. */
 	public Properties fileprops = new Properties();
 
+	/**
+	 * Gets the properties.
+	 *
+	 * @return the properties
+	 * @throws Exception the exception
+	 */
 	public Properties getProperties() throws Exception {
 
 		fileprops.load(new FileInputStream(new File("src/test/resources/test.properties").getAbsolutePath()));
@@ -33,6 +45,14 @@ public class LogAuditoriaTest extends BaseTest {
 		return fileprops;
 	}
 
+	/**
+	 * Login.
+	 *
+	 * @param nameTest the name test
+	 * @param usuario the usuario
+	 * @param contrasena the contrasena
+	 * @throws Exception the exception
+	 */
 	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
@@ -45,14 +65,19 @@ public class LogAuditoriaTest extends BaseTest {
 		GenerarReportePdf.setImgContador(0);
 
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-				folderPath);
+				folderPath,getProperties().getProperty("Evidencia"));
 	}
 
+	/**
+	 * Crear usuario.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test(priority = 0, description = "Lista de usuarios en log auditoría")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Log Auditoría")
@@ -65,14 +90,19 @@ public class LogAuditoriaTest extends BaseTest {
 		login(getProperties().getProperty("nameTestListaUsuariosLogAuditoria"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloL"));
+		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloL"),getProperties().getProperty("Evidencia"));
 		
 		String[] usuarios = logAuditoria.almacenarListaVector(folderPath);
-		logAuditoria.usuariosLog(folderPath, usuarios);
+		logAuditoria.usuariosLog(folderPath, usuarios,getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.closeTemplate("");
 	}
 
+	/**
+	 * Filtro fechas log.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test(priority = 1, description = "Filtros de fechas y descarga de información en log auditoría")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Log Auditoría")
@@ -85,13 +115,13 @@ public class LogAuditoriaTest extends BaseTest {
 		login(getProperties().getProperty("nameTestListaFiltrosLogAuditoria"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloL1"));
+		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloL1"),getProperties().getProperty("Evidencia"));
 
-		logAuditoria.botonesLog(folderPath)
+		logAuditoria.botonesLog(folderPath,getProperties().getProperty("Evidencia"))
 		
 		.filtroFechasLog(folderPath, getProperties().getProperty("mesD"), getProperties().getProperty("anualD"),
 				getProperties().getProperty("diaD"), getProperties().getProperty("mesH"),
-				getProperties().getProperty("anualH"), getProperties().getProperty("diaH"));
+				getProperties().getProperty("anualH"), getProperties().getProperty("diaH"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.closeTemplate("");
 	}

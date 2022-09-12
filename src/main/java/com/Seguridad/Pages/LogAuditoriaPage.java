@@ -44,7 +44,7 @@ public class LogAuditoriaPage extends LogAuditoriaMap {
 
 	//Usuarios en log auditoria
 	@Step("Usuarios en Log-Auditoria")
-	public void usuariosLog(File folderPath, String[] usuarios) throws Exception {
+	public void usuariosLog(File folderPath, String[] usuarios,String Evidencia) throws Exception {
 
 		//Se hace el paso a paso de usuarios en log auditoria, se crea una variable integer
 		Integer i = 0;
@@ -59,11 +59,11 @@ public class LogAuditoriaPage extends LogAuditoriaMap {
 
 			//Se valida cada elemento que surge del ciclo en un ciclo de validacion
 			waitInMs(1000);
-			clear(txtBuscarUsuarioLog, folderPath, "Se elimina el texto digitado anteriormente");
-			writeText(txtBuscarUsuarioLog, usuarios1, folderPath, "Se ingresa el usuario: " + usuarios1);
+			clear(txtBuscarUsuarioLog, folderPath, "Se elimina el texto digitado anteriormente",Evidencia);
+			writeText(txtBuscarUsuarioLog, usuarios1, folderPath, "Se ingresa el usuario: " + usuarios1,Evidencia);
 			click(btnBuscar);
-
-			String user = searchElementGrid(lblTablaLogAuditoria, usuarios1, folderPath, "");
+			//Se envia elemento de grilla a una variable tipo string
+			String user = searchElementGrid(lblTablaLogAuditoria, usuarios1, folderPath, "se busca elemento en grilla",Evidencia);
 
 			if (user.contains(usuarios1)) {
 				printConsole("Usuario: " + usuarios1 + " = Log Auditoría: " + user);
@@ -76,27 +76,27 @@ public class LogAuditoriaPage extends LogAuditoriaMap {
 
 	@Step("Filtro fechas Log Auditoría")
 	public LogAuditoriaPage filtroFechasLog(File folderPath, String mesD, String anualD, String diaD, String mesH,
-			String anualH, String diaH) throws Exception {
+			String anualH, String diaH,String Evidencia) throws Exception {
 
 		//Se busca por fecha el log o informe de auditoria, se envia a una variable tipo string la fecha actual solo que tomando unicamente el dia
 		String timeStamp = new SimpleDateFormat("dd").format(Calendar.getInstance().getTime());
 		diaH = timeStamp;
 
 		//paso a paso de filtracion de auditoria por fecha
-		click(calendarioFechaDesde, folderPath, "Se ingresa a calendario Fecha desde");
-		selectElementList(lblMesFecha, mesD, folderPath, "Se selecciona el mes de Fecha desde");
-		selectElementList(lblAnualFecha, anualD, folderPath, "Se selecciona el año de Fecha desde");
+		click(calendarioFechaDesde, folderPath, "Se ingresa a calendario Fecha desde",Evidencia);
+		selectElementList(lblMesFecha, mesD, folderPath, "Se selecciona el mes de Fecha desde",Evidencia);
+		selectElementList(lblAnualFecha, anualD, folderPath, "Se selecciona el año de Fecha desde",Evidencia);
 		waitInMs(1000);
-		click(locatorVariable(lblDiaFecha, diaD), folderPath, "Se selecciona el día de Fecha desde");
+		click(locatorVariable(lblDiaFecha, diaD), folderPath, "Se selecciona el día de Fecha desde",Evidencia);
 
-		click(calendarioFechaHasta, folderPath, "Se ingresa a calendario Fecha hasta");
-		selectElementList(lblMesFecha, mesH, folderPath, "Se selecciona el mes de Fecha hasta");
-		selectElementList(lblAnualFecha, anualH, folderPath, "Se selecciona el año de Fecha hasta");
+		click(calendarioFechaHasta, folderPath, "Se ingresa a calendario Fecha hasta",Evidencia);
+		selectElementList(lblMesFecha, mesH, folderPath, "Se selecciona el mes de Fecha hasta",Evidencia);
+		selectElementList(lblAnualFecha, anualH, folderPath, "Se selecciona el año de Fecha hasta",Evidencia);
 		waitInMs(1000);
-		click(locatorVariable(lblDiaFecha, diaH), folderPath, "Se selecciona el día de Fecha hasta");
+		click(locatorVariable(lblDiaFecha, diaH), folderPath, "Se selecciona el día de Fecha hasta",Evidencia);
 		//se valida mediante un imprimir en consola la fecha en formato dia
 		printConsole("Día actual: " + timeStamp);
-		click(btnBuscarLog, folderPath, "Se selecciona la opción Buscar");
+		click(btnBuscarLog, folderPath, "Se selecciona la opción Buscar",Evidencia);
 		waitInMs(5000);
 		
 		if (lblUsuarioValidar == null) {
@@ -106,13 +106,13 @@ public class LogAuditoriaPage extends LogAuditoriaMap {
 			printConsole("Se trajo la información correctamente");
 		}
 		
-		click(btnDescargar, folderPath, "Se descarga la información");
+		click(btnDescargar, folderPath, "Se descarga la información",Evidencia);
 		return this;
 	}
 
 	//Botones de auditoria
 	@Step("Botones Log Auditoría")
-	public LogAuditoriaPage botonesLog(File folderPath) throws Exception {
+	public LogAuditoriaPage botonesLog(File folderPath,String Evidencia) throws Exception {
 
 		x = new Object[2];
 		x[0] = btnVerTodos;
@@ -121,7 +121,7 @@ public class LogAuditoriaPage extends LogAuditoriaMap {
 		val = validarElementos(x, t);
 
 		if (Boolean.TRUE.equals(val)) {
-			click(btnVerTodos, folderPath, "Se selecciona la opción Ver Todos");
+			click(btnVerTodos, folderPath, "Se selecciona la opción Ver Todos",Evidencia);
 			waitInMs(20000);
 			if (lblUsuarioValidar == null) {
 				GenerarReportePdf.closeTemplate("No se trajo la información correctamente");

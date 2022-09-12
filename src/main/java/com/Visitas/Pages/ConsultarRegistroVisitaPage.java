@@ -18,42 +18,42 @@ public class ConsultarRegistroVisitaPage extends ConsultarRegistroVisitaMap {
 	}
 
 	@Step("Consultar registro de visita")
-	public ConsultarRegistroVisitaPage consultarRegistroV(File folderPath) throws Exception {
+	public ConsultarRegistroVisitaPage consultarRegistroV(File folderPath,String Evidencia) throws Exception {
 
-		etiquetas(btnCrearRegistrarVisita, folderPath, "");
-		click(btnCrearRegistrarVisita, folderPath, "");
+		etiquetas(btnCrearRegistrarVisita, folderPath, "Validacion de etiqueta crear registro visita",Evidencia);
+		click(btnCrearRegistrarVisita, folderPath, "click en registro visita",Evidencia);
 		scrollElementH(btnAccion);
-		etiquetas(btnAccion, folderPath, "");
-		click(btnAccion, folderPath, "");
+		etiquetas(btnAccion, folderPath, "validacion de etiqueta accion",Evidencia);
+		click(btnAccion, folderPath, "click en boton de registro",Evidencia);
 
 		// Registro de Visita
-		click(locatorVariable(lblOpciones, " Registro de Visita "), folderPath, "Se ingresa a Registro de Visita");
+		click(locatorVariable(lblOpciones, " Registro de Visita "), folderPath, "Se ingresa a Registro de Visita",Evidencia);
 		writeText(txtFechaVisita, datePlusYear(1));
 		writeRandomAlp(txtNombreVisitador, 50);
-		click(locatorVariable(lblOpciones, " Registro de Visita "), folderPath, "");
+		click(locatorVariable(lblOpciones, " Registro de Visita "), folderPath, "click en opciones",Evidencia);
 
-		// Información General del Cliente
-		click(locatorVariable(lblOpciones, " Información General del Cliente "), folderPath, "Se ingresa a Información General del Título");
-		isEnabled(txtNombreCliente, folderPath, "Campo Nombre del Cliente No editable");
-		isEnabled(txtNitCliente, folderPath, "Campo Nit del Cliente No editable");
-		click(locatorVariable(lblOpciones, " Información General del Cliente "), folderPath, "Se ingresa a Información General del Título");
+		// Informaciï¿½n General del Cliente
+		click(locatorVariable(lblOpciones, " Informaciï¿½n General del Cliente "), folderPath, "Se ingresa a Informaciï¿½n General del Tï¿½tulo",Evidencia);
+		isEnabled(txtNombreCliente, folderPath, "Campo Nombre del Cliente No editable",Evidencia);
+		isEnabled(txtNitCliente, folderPath, "Campo Nit del Cliente No editable",Evidencia);
+		click(locatorVariable(lblOpciones, " Informaciï¿½n General del Cliente "), folderPath, "Se ingresa a Informaciï¿½n General del Tï¿½tulo",Evidencia);
 
-		// Información General de la bodega
-		click(locatorVariable(lblOpciones, " Información General de la bodega "), folderPath, "Se ingresa a Información General del Título");
-		selectElementList(lblTomaAnalsisCalidad, "No", folderPath, "");
-		selectElementList(lblPesajeAleatorio, "Si", folderPath, "");
-		selectElementList(lblTomaRegistroFotografico, "No", folderPath, "");
-		selectElementList(lblAcompanamientoDirector, "Si", folderPath, "");
+		// Informaciï¿½n General de la bodega
+		click(locatorVariable(lblOpciones, " Informaciï¿½n General de la bodega "), folderPath, "Se ingresa a Informaciï¿½n General del Tï¿½tulo",Evidencia);
+		selectElementList(lblTomaAnalsisCalidad, "No", folderPath, "seleccion de elemento de lista",Evidencia);
+		selectElementList(lblPesajeAleatorio, "Si", folderPath, "Seleccion de elemento de lista",Evidencia);
+		selectElementList(lblTomaRegistroFotografico, "No", folderPath, "Seleccion de elemento de lista",Evidencia);
+		selectElementList(lblAcompanamientoDirector, "Si", folderPath, "Seleccion de elemento de lista",Evidencia);
 		desplazarseVertical(0, -160);
-		click(locatorVariable(lblOpciones, " Información General de la bodega "), folderPath, "Se ingresa a Información General del Título");
+		click(locatorVariable(lblOpciones, " Informaciï¿½n General de la bodega "), folderPath, "Se ingresa a Informaciï¿½n General del Tï¿½tulo",Evidencia);
 
 		// Condiciones de bodega
-		click(locatorVariable(lblOpciones, " Condiciones de bodega "), folderPath, "Se ingresa a Información General del Título");
+		click(locatorVariable(lblOpciones, " Condiciones de bodega "), folderPath, "Se ingresa a Informaciï¿½n General del Tï¿½tulo",Evidencia);
 		writeRandomAlp(txtEstadoSeguridadOA, 60);
 		writeRandomAlp(txtEstadoSeguridadMercancia, 90);
 		writeRandomAlp(txtEstadoInstalacionesElectricas, 120);
-		click(locatorVariable(lblOpciones, " Condiciones de bodega "), folderPath, "Se ingresa a Información General del Título");
-		click(btnCancelarConsultarRegistroVisita, folderPath, "");
+		click(locatorVariable(lblOpciones, " Condiciones de bodega "), folderPath, "Se ingresa a Informaciï¿½n General del Tï¿½tulo",Evidencia);
+		click(btnCancelarConsultarRegistroVisita, folderPath, "click en elemento",Evidencia);
 
 		val = validarElemento(lblRegistrarVisita, t);
 		if (Boolean.FALSE.equals(val)) {

@@ -42,14 +42,16 @@ public class Bodegas extends BaseTest {
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista1"),
 				getProperties().getProperty("url"));
 		GenerarReportePdf.setImgContador(0);
-
+		
+		//Evidencia
+		
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp(folderPath);
+		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-				folderPath);
+				folderPath,getProperties().getProperty("Evidencia"));
 	}
 
 	//PASO A PASO DE CREACION DE UNA BODEGA
@@ -65,10 +67,10 @@ public class Bodegas extends BaseTest {
 		login(getProperties().getProperty("nameTestBodega"), getProperties().getProperty("usuario"),
 				getProperties().getProperty("password"));
 
-		home.modulo(folderPath, getProperties().getProperty("ModuloP"), getProperties().getProperty("SubModuloB"));
+		home.modulo(folderPath, getProperties().getProperty("ModuloP"), getProperties().getProperty("SubModuloB"),getProperties().getProperty("Evidencia"));
 
 		//EJECUCION DE LOS CASOS DE BODEGA
-		bodega.Parametrizacion(folderPath)
+		bodega.Parametrizacion(folderPath,getProperties().getProperty("Evidencia"))
 		
 				.fillFormulary(folderPath, getProperties().getProperty("CodigoBodeg"),
 						getProperties().getProperty("oficinaBodeg"), getProperties().getProperty("Nacion"),
@@ -76,7 +78,7 @@ public class Bodegas extends BaseTest {
 						getProperties().getProperty("Propietario"), getProperties().getProperty("Ubicacion"),
 						getProperties().getProperty("NumeroTelefonico"), getProperties().getProperty("Opcion1Tipo"),
 						getProperties().getProperty("Opcion2Tipo"), getProperties().getProperty("Opcion3Tipo"),
-						getProperties().getProperty("Opcion4Tipo"), getProperties().getProperty("EstadoOpcion"));
+						getProperties().getProperty("Opcion4Tipo"), getProperties().getProperty("EstadoOpcion"),getProperties().getProperty("Evidencia"));
 
 		// FillFormulary(folderPath, "CodigoBodeg", "oficinaBodeg", "Propietario",
 		// "Ubicacion", "NumeroTelefonico");
