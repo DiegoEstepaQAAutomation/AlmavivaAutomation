@@ -33,9 +33,11 @@ import com.Visitas.Pages.ConsultarRegistroVisitaPage;
 import com.demoautomatizacion.Pages.BasePage;
 import com.demoautomatizacion.Pages.HomePage;
 import com.demoautomatizacion.Pages.LoginPage;
+import com.demoautomatizacion.test.Convenios;
 import com.Cliente.Pages.CupoPage;
 import com.Cliente.Pages.GestionPage;
 import com.ConsultaRegistroVisita.Pages.CRVisitasPage;
+import com.Convenio.Pages.ConvenioPage;
 
 //ESTA ES UNA CLASE QUE GUARDA TODAS LAS INSTANCIAS DE TODOS LOS OBJETOS EXISTENTES
 public class BaseTest {
@@ -47,7 +49,7 @@ public class BaseTest {
 	public LoginPage login;
 	public BasePage base;
 
-	
+	public ConvenioPage convenios;
 	
 	// M�dulo Seguridad
 	public UsuariosPage usuarios;
@@ -108,6 +110,7 @@ public class BaseTest {
 		
 
 
+		convenios = new ConvenioPage(driver);
 		// M�dulo Seguridad
 		usuarios = new UsuariosPage(driver);
 		roles = new RolesPage(driver);

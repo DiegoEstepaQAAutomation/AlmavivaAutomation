@@ -36,7 +36,13 @@ public class BodegaMap extends BasePage {
 	
 	protected By lblTipoBodega = By.id("bodeTipo");
 	
+	protected By AlertaBusqueda= By.xpath("//*[@id='toast-container']");
 	
+	protected By txtScavConsecutive = By.xpath("//*[@id='numRef']");
+	protected By GridConsecutivo = By.xpath("//*[@id='contenido']/app-main/app-home/div/div[3]/table/tbody/tr[1]");
+	protected By GridScav = By.xpath("//*[@id=\"contenido\"]/app-main/bodega-consultar/div/form/div[12]/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[2]/table/thead/tr");
+	protected By btnScav = By.xpath("//body/app-root/div/div/div/app-main/bodega-consultar/div/form/div[12]/accordion/app-integracion-scav/accordion-group/div/div[1]/div/div/button");
+	protected By btnVisualizar = By.xpath("//*[@id='contenido']/app-main/app-home/div/div[3]/table/tbody/tr[1]/td[13]/div/a[2]");
 	protected By cbxDLX = By.xpath("//*[@class='col-6']/div[1]/input");
 	protected By cbxJDA = By.xpath("//*[@class='col-6']/div[2]/input");
 	protected By Guardar = By.xpath("//*[@id='contenido']/app-main/bodega-crear/div/form/div[12]/div/button[1]");

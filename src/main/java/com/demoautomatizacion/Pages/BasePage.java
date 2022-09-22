@@ -226,7 +226,7 @@ public class BasePage {
 			waitInMs(2000);
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		}
 		return readText;
 	}
@@ -266,7 +266,7 @@ public class BasePage {
 			waitInMs(2000);
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		} }else { 
 			driver.findElement(elementLocation).sendKeys(text);
 			waitInMs(2000);
@@ -339,7 +339,7 @@ public class BasePage {
 			captureScreen(folderPath, steps,Evidencia);
 			return element;
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		}
 		return element; 
 		} else 
@@ -369,7 +369,7 @@ public class BasePage {
 			waitInMs(2000);
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		}  
 		
 		} else {	
@@ -425,7 +425,7 @@ public class BasePage {
 			waitInMs(2000);
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		} 
 		} else { 
 			
@@ -458,7 +458,7 @@ public class BasePage {
 			waitInMs(2000);
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		} } else { 
 			
 			try {
@@ -506,7 +506,7 @@ public class BasePage {
 			captureScreen(folderPath, steps,Evidencia);
 			return displayed;
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		}
 		return false; } else 
 		{ try {
@@ -559,7 +559,7 @@ public class BasePage {
 			waitInMs(2000);
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		} 
 		
 		}else 
@@ -761,7 +761,7 @@ public class BasePage {
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		}} else { 
 			
 			
@@ -786,7 +786,7 @@ public class BasePage {
 	 * @throws DocumentException the document exception
 	 */
 	// METODO DE SCROLL HACIA UN LOCALIZADOR VERTICAL
-	public void scrollElementV2( By locator, String steps) throws DocumentException {
+	public void scrollElementV2( By locator, String steps,String Evidencia) throws DocumentException {
 		try {
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			WebElement element = driver.findElement(locator);
@@ -795,7 +795,7 @@ public class BasePage {
 			
 		} catch (Exception e) {
 
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		}
 	}
 
@@ -818,7 +818,7 @@ public class BasePage {
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		}
 		
 		} else {  
@@ -1037,13 +1037,25 @@ public class BasePage {
 	 * @return the file
 	 */
 	// METODO PARA CREAR CARPETA PARA CAPTURA
-	public static File createFolder(String nameFolder, String path) {
+	public static File createFolder(String nameFolder, String path,String Evidencia) {
+		if(Evidencia.equals("SI")) 
+		{
+			
 		
 		String fecha = fechaSistema();
 		String nomCarpeta = nameFolder + " " + fecha;
 		File directorio = new File(path + nomCarpeta);
 		directorio.mkdir();
 		return directorio;  
+		}
+		else 
+		{
+			System.out.println("Carpeta no creada");
+			
+		}
+		return null;
+		
+		
 	}
 
 	/**
@@ -1091,7 +1103,7 @@ public class BasePage {
 			waitInMs(2000);
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		}}else { 
 			
 			File file = new File(archive);
@@ -1200,7 +1212,7 @@ public class BasePage {
 			waitInMs(2000);
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		} }else {  
 			
 			driver.switchTo().defaultContent();
@@ -1231,7 +1243,7 @@ public class BasePage {
 			waitInMs(2000);
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		}} else { 
 			
 			ArrayList<String> ventana = new ArrayList<String>(driver.getWindowHandles());
@@ -1273,7 +1285,7 @@ public class BasePage {
 			action.moveToElement(element).perform();
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		}} else { 
 			
 			
@@ -1313,7 +1325,7 @@ public class BasePage {
 			printConsole(Drplistdown.getAttribute("value"));
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		} } else {
 			
 			try {
@@ -1438,14 +1450,14 @@ public class BasePage {
 	 * @throws DocumentException the document exception
 	 */
 	//Metodo para saber si un elemento esta seleccionado
-	public boolean isSelected(By elementLocation, File folderPath, String steps) throws DocumentException {
+	public boolean isSelected(By elementLocation, File folderPath, String steps,String Evidencia) throws DocumentException {
 		try {
 			visibilityOfElementLocated(elementLocation);
 			boolean selected = driver.findElement(elementLocation).isSelected();
 			waitInMs(2000);
 			return selected;
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		}
 		return false;
 	}
@@ -1473,7 +1485,7 @@ public class BasePage {
 			//Retorna enabled
 			return enabled;
 		} catch (Exception e) {
-			GenerarReportePdf.closeTemplate(e.toString());
+			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
 		}
 		return false;  
 			

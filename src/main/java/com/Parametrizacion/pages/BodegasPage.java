@@ -91,4 +91,43 @@ public class BodegasPage extends BodegaMap {
 		
 		return this;
 	}
+	
+	//Crear bodega 
+		@Step("Ingresar a Parametrizacion")
+		public BodegasPage ScavValidacion_571747(File folderPath,String ValorFecha2,String Evidencia) throws Exception 
+		
+		
+		{
+			
+			
+			searchElementGrid(GridConsecutivo, "283", folderPath, Evidencia, Evidencia);
+			scrollElementH(folderPath, btnVisualizar, Evidencia, Evidencia);
+			click(btnVisualizar, folderPath, Evidencia, Evidencia);
+			time(2);
+			boolean alertaConsultaBodega = validarElemento(AlertaBusqueda, 6);
+			ValidacionObjeto(alertaConsultaBodega, Evidencia, folderPath, Evidencia);
+			scrollDown();
+			scrollDown();
+			scrollDown();
+			click(btnScav, folderPath, "Click en scav", Evidencia);
+			scrollDown();
+			scrollDown();
+			searchElementGrid(GridScav, ValorFecha2, folderPath, Evidencia, Evidencia);
+			
+			
+			String Confirmacion = readText(txtScavConsecutive, folderPath, "Obtenemos el consecutivo", Evidencia);
+			
+			isEnabled(txtScavConsecutive, folderPath,"El consecutivo es"+ Confirmacion, Evidencia);
+			
+			click(btnScav, folderPath, "Click en scav", Evidencia);
+			
+			
+			//GridConsecutivo
+			
+			
+			
+			return this;
+		}
+	
+	
 }

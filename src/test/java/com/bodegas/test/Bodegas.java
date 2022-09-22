@@ -20,6 +20,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import utilities.GenerarReportePdf;
+import utilities.MyScreenRecorder;
 
 @Listeners({ TestListener.class })
 @Epic("Bodegas")
@@ -34,6 +35,9 @@ public class Bodegas extends BaseTest {
 		return fileprops;
 	}
 
+	/** The recording. */
+	//INSTANCIA DE MY SCREEN RECORDER(GRABACION DE PANTALLA)
+	MyScreenRecorder recording;
 	//LOGIN DE PAGINA ALMAVIVA
 	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
@@ -85,4 +89,43 @@ public class Bodegas extends BaseTest {
 
 		GenerarReportePdf.closeTemplate("");
 	}
+	
+	
+	
+	//PASO A PASO DE CREACION DE UNA BODEGA
+		@SuppressWarnings("static-access")
+		@Test(priority = 0, description = "Validar que Permita la creación de la información de bodegas pertenecientes a Almaviva y/o particulares autorizadas")
+		@Severity(SeverityLevel.NORMAL)
+		@Description("Validar que Permita la creación de la información de bodegas pertenecientes a Almaviva y/o particulares autorizadas")
+		@Story("Validar que Permita la creación de la información de bodegas pertenecientes a Almaviva y/o particulares autorizadas")
+		public void AlmavivaBodegasScav() throws Exception {
+			//VALIDAR ESTOS PASOS EN EXPEDIR TEST EN EL METODO CREAR EXPEDIR
+			File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderBodega"),
+					getProperties().getProperty("path"));
+			
+			recording.startRecording("grabando", folderPath);
+			
+			login(getProperties().getProperty("nameTestBodega"), getProperties().getProperty("usuario"),
+					getProperties().getProperty("password"));
+
+			home.modulo(folderPath, getProperties().getProperty("ModuloP"), getProperties().getProperty("SubModuloB"),getProperties().getProperty("Evidencia"));
+
+			//EJECUCION DE LOS CASOS DE BODEGA
+			bodega.ScavValidacion_571747(folderPath, getProperties().getProperty("ValorFecha2"), getProperties().getProperty("Evidencia"));
+			
+			login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
+			
+			recording.stopRecording();
+			
+			// FillFormulary(folderPath, "CodigoBodeg", "oficinaBodeg", "Propietario",
+			// "Ubicacion", "NumeroTelefonico");
+
+			GenerarReportePdf.closeTemplate("");
+		}
+
+	
+	
+	
+	
+	
 }

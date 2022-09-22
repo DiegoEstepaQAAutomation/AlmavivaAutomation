@@ -198,4 +198,70 @@ public class CupoPage extends CupoMap {
 		}
 		return this;
 	}
+	
+	
+	//Metodo que me permite verificar el numero scav en cupo
+		@Step("Modalidades cupo")
+		public CupoPage ScavCupo_571690(File folderPath,String Evidencia,
+				String ValorGrillaCupo,String valorGrillaCupo2,
+				String valorGrillaCupo3,String valorGrillaCupo4,
+				String valorGrillaCupo5,String valorGrillaCupo6,
+				String valorGrillaCupo7,String valorGrillaCupo8) throws Exception {
+
+			//Se dirige hacia el boton modificar cupo, se ingresa en mercancia , se seleccionan los valores de mercancia y medida de forma random
+			scrollElementH(folderPath, btnVerCupo, "Se desplaza hasta la opción ver cupo",Evidencia);
+			etiquetas(btnVerCupo, folderPath, "Etiqueta ver cupo",Evidencia);
+			click(btnVerCupo, folderPath, "Se ingresa a ver Cupo",Evidencia);
+			time(70);
+			//Se digita un cupo con bodega propia
+			click(btnVisualizarScav, folderPath, "Se ingresa a ver Cupo",Evidencia);
+			
+			desplazarseVertical(0, 600);
+			
+			
+			//Busqueda de encabezados de informacion de scav
+			
+			boolean CampoPrueba = validarElemento(CampoSolicitud, 5);
+			ValidacionObjeto(CampoPrueba, "Validaciom Caso exitoso 571686,571690,571691 ", folderPath, Evidencia);
+			
+			
+			//busqueda de valores en grilla
+			searchElementGrid(GridScav, ValorGrillaCupo, folderPath, "Caso exitoso 571686", Evidencia);
+			searchElementGrid(GridScav, valorGrillaCupo2, folderPath, "Caso exitoso 571687", Evidencia);
+			searchElementGrid(GridScav, valorGrillaCupo3, folderPath, "Caso exitoso 571687", Evidencia);
+			searchElementGrid(GridScav, valorGrillaCupo4, folderPath, "Caso exitoso 571687", Evidencia);
+			searchElementGrid(GridScav, valorGrillaCupo5, folderPath, "Caso exitoso 571687", Evidencia);
+			searchElementGrid(GridScav, valorGrillaCupo6, folderPath, "Caso exitoso 571687", Evidencia);
+			searchElementGrid(GridScav, valorGrillaCupo7, folderPath, "Caso exitoso 571687", Evidencia);
+			searchElementGrid(GridValoresScav, valorGrillaCupo8, folderPath, "Caso exitoso 571690,571691", Evidencia);
+			
+			
+			String ficha = readText(txtFichaAprobacion, folderPath, "obtenemos el codigo de ficha", Evidencia);
+			isEnabled(txtFichaAprobacion, folderPath,"Caso 571688 exitoso El consecutivo unico es" + ficha, Evidencia);
+			
+			
+			writeRandomAlp(txtFichaAprobacion, 11);
+			click(btnSearch, folderPath, "click en buscar consecutivo", Evidencia);
+			time(6);
+					
+			boolean alertaBusqueda = validarElemento(AlertaBusqueda, 5);
+			ValidacionObjeto(alertaBusqueda, "Caso exitoso 571689,571689", folderPath, Evidencia);
+			
+			clear(txtFichaAprobacion, folderPath, "borro campo", Evidencia);
+			click(btnSearch, folderPath, "click en buscar consecutivo,571689,571692,571693", Evidencia);
+			
+			click(btnCancelar, folderPath, "click en cancelar", Evidencia);
+			
+			//Se dirige hacia el boton modificar cupo, se ingresa en mercancia , se seleccionan los valores de mercancia y medida de forma random
+			scrollElementH(folderPath, btnModificarCupo, "Se desplaza hasta la opción ver cupo",Evidencia);
+			etiquetas(btnModificarCupo, folderPath, "Etiqueta ver cupo",Evidencia);
+			click(btnModificarCupo, folderPath, "Se ingresa a ver Cupo",Evidencia);
+			
+			click(btnGuardar, folderPath, "click en guardar", Evidencia);
+			click(btnAceptarGuardar, folderPath, "click en guardar,Caso exitoso 571691,571690", Evidencia);
+			
+			
+			return this;
+		}
+
 }

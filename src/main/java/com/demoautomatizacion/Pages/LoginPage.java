@@ -92,7 +92,7 @@ public class LoginPage extends LoginMap {
 	@Step("Ingresar Credenciales de Acceso")
 	public LoginPage ingresarCredenciales(String usuario2, String password, File folderPath,String Evidencia) throws Exception {
 
-		if(Evidencia.equals("SI")) {
+		
 		waitInMs(1000);
 		writeText(txtusuario, usuario2, folderPath, "Se escribe usuario",Evidencia);
 		writeText(txtpassword, password, folderPath, "Se escribe una contraseña",Evidencia);
@@ -112,30 +112,7 @@ public class LoginPage extends LoginMap {
 
 		click(Titulo, folderPath, "se valida el titulo de almaviva",Evidencia);
 		return this; 
-		} else { 
-			
-			waitInMs(1000);
-			writeText(txtusuario, usuario2,folderPath, "Se escribe una contraseña",Evidencia);
-			writeText(txtpassword, password, folderPath, "Se escribe una contraseña",Evidencia);
-			click(btnLogin, folderPath, "Se da click en el elemento",Evidencia);
-
-			try {
-				waitInMs(1000);
-				getElement(Home).isDisplayed();
-			} catch (Exception e) {
-				waitInMs(500);
-				JavascriptExecutor js = (JavascriptExecutor) driver;
-				js.executeScript(
-						"document.querySelector(\"body > div > div > div.swal2-actions > button.swal2-confirm.swal2-styled\").click()");
 			}
-
-
-
-			click(Titulo, folderPath, "se valida el titulo de almaviva",Evidencia);
-			return this; 
-			
-		}
-	}
 	//CIERRE DE SESION
 	
 	/**
@@ -148,7 +125,7 @@ public class LoginPage extends LoginMap {
 	 */
 	//SE INGRESAN LAS CREDENCIALES DE ACCESO Y CLICK EN LOGIN SIN EVIDENCIA
 		@Step("Ingresar Credenciales de Acceso")
-		public LoginPage ingresarCredenciales2(String usuario2, String password) throws Exception {
+		public LoginPage ingresarCredenciales2(String usuario2, String password,String Evidencia) throws Exception {
 
 			waitInMs(1000);
 			writeText(txtusuario, usuario2);
@@ -168,7 +145,7 @@ public class LoginPage extends LoginMap {
 			val = validarElemento(Titulo, t);
 
 			if (Boolean.FALSE.equals(val)) {
-				GenerarReportePdf.closeTemplate("Error en la validación: No se encontró el mensaje del elemento " + Titulo);
+				GenerarReportePdf.closeTemplate("Error en la validación: No se encontró el mensaje del elemento " + Titulo,Evidencia);
 				Assert.fail("Error en la validación: No se encontró el mensaje del elemento " + Titulo);
 			}
 

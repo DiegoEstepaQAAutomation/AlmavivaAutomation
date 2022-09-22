@@ -126,9 +126,15 @@ public class CupoTest extends BaseTest {
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"),getProperties().getProperty("Evidencia"));
 
-		cupo.modificarCupo(folderPath, getProperties().getProperty("mercancia"),
-				getProperties().getProperty("acreedor"),getProperties().getProperty("Evidencia"));
+		//cupo.modificarCupo(folderPath, getProperties().getProperty("mercancia"),
+			//	getProperties().getProperty("acreedor"),getProperties().getProperty("Evidencia"));
 
+		cupo.ScavCupo_571690(folderPath, getProperties().getProperty("Evidencia"), getProperties().getProperty("ValorGrillaCupo"), 
+				getProperties().getProperty("ValorGrillaCupo2"), getProperties().getProperty("valorGrillaCupo3"), 
+				getProperties().getProperty("valorGrillaCupo4"), 
+				getProperties().getProperty("valorGrillaCupo5"), getProperties().getProperty("valorGrillaCupo6"),
+				getProperties().getProperty("valorGrillaCupo7"), getProperties().getProperty("valorGrillaCupo8"));
+		
 		GenerarReportePdf.closeTemplate("Cierre de plantilla");
 	}
 

@@ -76,10 +76,10 @@ public class ExpedirTest extends BaseTest {
 		 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"));
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 		
@@ -115,9 +115,9 @@ public class ExpedirTest extends BaseTest {
 		
 		
 		//SE EXPLICA UNA SOLA VEZ ESTO PORQUE SE REPITE HASTA LA SACIEDAD, ESTAS LINEAS DE CODIGO LLAMAN LA RUTA EN DONDE SE VA A ALMACENAR LA EVIDENCIA
+		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
-
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 		
 		//LO MISMO ESTA LINEA LLAMA AL METODO DE INICIAR GRABACION DE PANTALLA
 		recording.startRecording("grabacion de pantalla o screen recording ", folderPath);
@@ -171,7 +171,7 @@ public class ExpedirTest extends BaseTest {
 		
 		//AL IGUAL QUE EN LOS DEMAS TEST ESTE CIERRA EL PDF O REPORTE 
 				
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 	
 	/**
@@ -186,9 +186,10 @@ public class ExpedirTest extends BaseTest {
     @Story("BaseDatos")
     public void LpnDtlnum1() throws Exception {
 
-        File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-                getProperties().getProperty("path"));
-        
+		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+		
         //CONSULTA DE BASE DE DATOS GENERADA EN UN ARRAY LIST
         ArrayList<Object> consultaPruebaBD = consultaBD("SELECT "
                 +getProperties().getProperty("campoIv.lodnum")+","
@@ -238,7 +239,7 @@ public class ExpedirTest extends BaseTest {
         
        
 
-        GenerarReportePdf.closeTemplate("");
+        GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 
 	}
 	
@@ -259,7 +260,7 @@ public class ExpedirTest extends BaseTest {
 
 		//INSTANCIA DE LA RUTA DONDE SE GUARDA LA EVIDENCIA
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//METODO DE LOGIN DE LA PAGINA
 		login(getProperties().getProperty("nameTestModificarExpedir"), getProperties().getProperty("usuario2"),
@@ -276,7 +277,7 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("SubModuloExpedir"), getProperties().getProperty("Titulobonoprenda"),
 				getProperties().getProperty("Evidencia"));
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 	
 	/**
@@ -293,7 +294,7 @@ public class ExpedirTest extends BaseTest {
 		
 		//INSTANCIA DE LA RUTA DONDE SE GUARDA LA EVIDENCIA
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-		getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 
 		login(getProperties().getProperty("CargueBodegaPropio"), getProperties().getProperty("usuario2"),
@@ -309,7 +310,7 @@ public class ExpedirTest extends BaseTest {
 		
 		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 		
 	}
 	
@@ -333,8 +334,8 @@ public class ExpedirTest extends BaseTest {
 		
 		//Evidencia
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-		getProperties().getProperty("path"));
-		
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+
 		
 			
 		{	
@@ -370,7 +371,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.stopRecording();
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 
 		}
 
@@ -408,7 +409,7 @@ public class ExpedirTest extends BaseTest {
 	public void ValidacionCancelado() throws Exception {
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		recording.startRecording("", folderPath);
 		
@@ -445,7 +446,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.stopRecording();
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 	
 	
@@ -463,7 +464,8 @@ public class ExpedirTest extends BaseTest {
 	public void ValidacionLiberado() throws Exception {
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+
 
 		recording.startRecording("", folderPath);
 		
@@ -483,7 +485,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.stopRecording();
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 	
 	
@@ -501,7 +503,7 @@ public class ExpedirTest extends BaseTest {
 	public void ValidacionMercanciaLiberada() throws Exception {
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
@@ -513,7 +515,7 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("Detalle"),getProperties().getProperty("Evidencia"));
 		
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 		
 	}
 	
@@ -532,8 +534,8 @@ public class ExpedirTest extends BaseTest {
 	public void ValidacionTituloLiberado() throws Exception {
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
-		
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+
 		recording.startRecording("", folderPath);
 
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
@@ -561,7 +563,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.stopRecording();
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 		
 	}
 	
@@ -576,6 +578,7 @@ public class ExpedirTest extends BaseTest {
 	 *
 	 * @throws Exception the exception
 	 */
+	@SuppressWarnings("static-access")
 	@Test(priority = 2, description = "Consultar expedir")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Expedir")
@@ -583,16 +586,27 @@ public class ExpedirTest extends BaseTest {
 	public void busquedaExpedir() throws Exception {
 
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+		
+		recording.startRecording("", folderPath);
 
 		login(getProperties().getProperty("nameTestConsultarExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
-		//Ejecucion de caso
-		expedir.imprimir(folderPath, getProperties().getProperty("tituloBuscar"),getProperties().getProperty("Evidencia"));
 		
-		GenerarReportePdf.closeTemplate("");
+		expedir.ValidacionScav_571761(folderPath, getProperties().getProperty("valorGrillaCupo2"), getProperties().getProperty("ValorGrillaCupo3"), 
+				getProperties().getProperty("ValorGrillaCupo7"), getProperties().getProperty("ValorGrillaTipoTitulo"), getProperties().getProperty("ValorGrillaCupo8"), 
+				getProperties().getProperty("Evidencia"));
+		
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
+		
+		
+		recording.stopRecording();
+		//Ejecucion de caso
+		//expedir.imprimir(folderPath, getProperties().getProperty("tituloBuscar"),getProperties().getProperty("Evidencia"));
+		
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 	
 	/**
@@ -606,8 +620,10 @@ public class ExpedirTest extends BaseTest {
 	@Story("Detalle de expedir")
 	public void verExpedir() throws Exception {
 
+		
+		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestVerExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
@@ -620,7 +636,7 @@ public class ExpedirTest extends BaseTest {
 		
 		// Validaciones de historico de liberaciones 
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 	
 	
@@ -643,7 +659,8 @@ public class ExpedirTest extends BaseTest {
 		
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+
 		
 		recording.startRecording("Inicia grabacion de pantalla", folderPath);
 
@@ -673,7 +690,7 @@ public class ExpedirTest extends BaseTest {
 		
 		
 		recording.stopRecording();
-		GenerarReportePdf.closeTemplate("Cierre reporte pdf");
+		GenerarReportePdf.closeTemplate("Cierre reporte pdf",getProperties().getProperty("Evidencia"));
 	}
 	
 	
@@ -699,7 +716,8 @@ public class ExpedirTest extends BaseTest {
 	public void ValidacionModificacionProrroga() throws Exception {
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+
 		
 		recording.startRecording("", folderPath);
 
@@ -720,7 +738,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.stopRecording();
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 	
 	
@@ -740,7 +758,8 @@ public class ExpedirTest extends BaseTest {
 	public void Reversiondetitulos() throws Exception {
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+
 		
 		recording.startRecording("", folderPath);
 
@@ -785,7 +804,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.stopRecording();
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 
 
@@ -806,7 +825,8 @@ public class ExpedirTest extends BaseTest {
 	public void ValidacionHU25() throws Exception {
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+
 		
 		recording.startRecording("", folderPath);
 
@@ -827,7 +847,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.stopRecording();
 		
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 
 	
@@ -845,9 +865,9 @@ public class ExpedirTest extends BaseTest {
 	@Description("Módulo Expedir")
 	@Story("Modificación de expedir")
 	public void ValidacionModificacionusuarioadmin() throws Exception {
-		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+
 		recording.startRecording("", folderPath);
 		
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
@@ -867,7 +887,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.stopRecording();
 		
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 
 	
@@ -884,7 +904,8 @@ public class ExpedirTest extends BaseTest {
 	public void RunCP05() throws Exception {
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+
 
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
@@ -898,7 +919,7 @@ public class ExpedirTest extends BaseTest {
 		
 		
 		
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 
 	/**
@@ -913,7 +934,8 @@ public class ExpedirTest extends BaseTest {
 	public void RunCP08() throws Exception {
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+
 
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
@@ -929,7 +951,7 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("Evidencia") );  
 		
 		
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 
 

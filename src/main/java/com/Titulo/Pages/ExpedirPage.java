@@ -770,6 +770,67 @@ public class ExpedirPage extends ExpedirMap {
 		return this;
 	}
 	
+	
+	@Step("Imprimir")
+	public ExpedirPage ValidacionScav_571761(File folderPath,
+			String valorGrillaCupo2,String ValorGrillaCupo3,
+			String ValorGrillaCupo7,String ValorGrillaTipoTitulo,String ValorGrillaCupo8,String Evidencia) throws Exception {
+
+	
+		
+		verExpedir(folderPath, Evidencia);
+		boolean ScavButtonOption = validarElemento(btnScav, 5);
+		ValidacionObjeto(ScavButtonOption, "Caso exitoso 571755", folderPath, Evidencia);
+		click(btnScav, folderPath, "click en scav", Evidencia);
+		
+		//scrollElementV(folderPath, btnCancelarAlterno, "scroll hasta cancelar", Evidencia);
+		click(btnCancelarAlterno2, folderPath, "click en cancelar", Evidencia);
+		time(15);
+		
+		scrollElementV(folderPath, btnModificar2, "scroll a modificar", Evidencia);
+		click(btnModificar2, folderPath, "click en modificar", Evidencia);
+		
+		time(30);
+		
+		//desplazarseVertical(0, 600);
+		//scrollElementV(folderPath, btnScav, "scroll hasta boton scav", Evidencia);
+		//Busqueda de encabezados de informacion de scav
+		click(btnScav, folderPath, "click en scav", Evidencia);
+		
+		//571759
+		time(3);
+		desplazarseVertical(0, 600);
+		time(10);
+		searchElementGrid(ScavGridTitulo, valorGrillaCupo2, folderPath, "Caso exitoso 571756", Evidencia);
+		searchElementGrid(ScavGridTitulo, ValorGrillaCupo3, folderPath, "validacion campo", Evidencia);
+		searchElementGrid(ScavGridTitulo, ValorGrillaCupo7, folderPath, "validacion campo", Evidencia);
+		searchElementGrid(ScavGridTitulo, ValorGrillaTipoTitulo, folderPath, "validacion campo", Evidencia);
+		searchElementGrid(ScavGridTituloValores, ValorGrillaCupo8, folderPath, "Caso exitoso 571759", Evidencia);	
+		String ficha = readText(txtFichaAprobacion, folderPath, "obtenemos el codigo de ficha", Evidencia);
+		isEnabled(txtFichaAprobacion, folderPath,"Caso 571757 exitoso El consecutivo unico es" + ficha, Evidencia);
+		
+		clear(txtFichaAprobacion, folderPath, "limpia campo", Evidencia);
+		writeRandomAlp(txtFichaAprobacion, 11);
+		click(btnSearch, folderPath, "click en buscar consecutivo", Evidencia);
+		time(3);
+		boolean alertaBusqueda = validarElemento(AlertaBusqueda, 5);
+		ValidacionObjeto(alertaBusqueda, "Caso exitoso 571758,571762,571761", folderPath, Evidencia);
+		time(3);
+		clear(txtFichaAprobacion, folderPath, "limpia campo", Evidencia);
+		//writeText(txtFichaAprobacion, ficha, folderPath, "escribimos de nuevo nuestra ficha de referencia", Evidencia);
+		click(btnSearch, folderPath, "click en buscar consecutivo", Evidencia);
+		
+		click(btnCancelarAlterno, folderPath, "click en modificar", Evidencia);
+		time(8);
+		
+		return this;
+		
+	}
+
+	
+	
+	
+	
 	/**
 	 * Modificar expedir.
 	 *

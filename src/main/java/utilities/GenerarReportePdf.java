@@ -55,8 +55,9 @@ public class GenerarReportePdf {
 		GenerarReportePdf.imgContador = imgContador;
 	}
 
-	public static void createTemplate(File folderPath, String nameTest, String analyst, String url) {
-
+	public static void createTemplate(File folderPath, String nameTest, String analyst, String url,String Evidencia) {
+		
+		if(Evidencia.equals("SI")) {
 		try {
 			font.setColor(BaseColor.GRAY);
 			font.setFamily("ITALIC");
@@ -103,7 +104,14 @@ public class GenerarReportePdf {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}   else {System.out.println("Archivo no creado"); 
+	
+	
+	}  
+		
+	
 	}
+	
 
 	public static void createBody(String steps, String imagePath)
 			throws DocumentException, MalformedURLException, IOException {
@@ -158,8 +166,8 @@ public class GenerarReportePdf {
 		documento.close();
 	}
 
-	public static void closeTemplate(String error) throws DocumentException {
-
+	public static void closeTemplate(String error,String Evidencia) throws DocumentException {
+		if(Evidencia.equals("SI")) {
 		horaF = new Date();
 		long diff = (horaF.getTime() - horaI.getTime());
 		String executionTime = simpleDateFormat.format(new Date(diff));
@@ -178,6 +186,13 @@ public class GenerarReportePdf {
 			documento.add(estate);
 		}
 		documento.close();
+		
+		}else { 
+			
+			System.out.println("Archivo no se creo");
+			
+		
+		}
 	}
 
 	public static class HeaderFooter extends PdfPageEventHelper {

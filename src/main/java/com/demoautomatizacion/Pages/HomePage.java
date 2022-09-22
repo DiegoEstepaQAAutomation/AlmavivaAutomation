@@ -51,16 +51,11 @@ public class HomePage extends HomeMap {
 	@Step("Ingresar al Módulo")
 	public void modulo(File folderPath, String modulo, String subModulo,String Evidencia) throws Exception {
 		
-		if(Evidencia.equals("SI")) { 
+		
 		 
 		click(locatorVariable(lblModulo, modulo), folderPath, "Se ingresa al Módulo",Evidencia);
 		if (subModulo != null)
 			click(locatorVariable(lblSubmoduloS, subModulo), folderPath, "Se ingresa al Sub-módulo",Evidencia); 
-		}else { 
-			click(locatorVariable(lblModulo, modulo));
-		if (subModulo != null)
-			click(locatorVariable(lblSubmoduloS, subModulo));
-		}
 	}
 			
 		

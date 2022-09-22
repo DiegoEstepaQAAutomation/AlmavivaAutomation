@@ -204,6 +204,19 @@ public class ExpedirMap extends BasePage {
 	
 	// Modificar
 	protected By btnModificar = By.xpath("//*[@id='tbClientes']/tbody/tr/td[9]/div/a[1]");
+	
+	
+	// Modificar
+	protected By btnModificar2 = By.xpath("//*[@id='tbClientes']/tbody/tr[10]/td[9]/div/a[1]");
+	
+	//Universal de interaccion de titulos
+	
+	protected By btnInteraccionTitulos = By.xpath("//*[@id='tbClientes']/tbody/tr[{0}]/td[9]/div/a[contains(text(),'{0}')]");
+	
+	protected By btnInteraccionTitulos2 = By.xpath("//*[@id='tbClientes']/tbody/tr[(text()='{0}')]/td[9]/div/a[contains(text(),'{0}')]");
+			
+			
+			
 	protected By btnAceptarGuardarModificar = By.xpath("//div/div/div/button[contains(text(),'Aceptar')]");
 	protected By lblGudadoExitoso = By.xpath("//div[@id='toast-container']/div/div[contains(text(),'El registro se ha guardado con estado')]");
 
@@ -249,16 +262,24 @@ public class ExpedirMap extends BasePage {
 	protected By ImpresionCDM = By.xpath("//body/modal-container/div/div/app-impresion-titulo/div/div[2]/div[2]/div[2]/div/button[1]");
 	protected By ImpresionBonoprenda = By.xpath("//body/modal-container/div/div/app-impresion-titulo/div/div[2]/div[1]/div[2]/div/button[1]");
 	
-	
-	
-	
+	//Scav
+	protected By CampoSolicitud = By.xpath("//*[@id='contenido']/app-main/app-formulario/div/form[2]/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[2]/table/thead/tr/th[1];");
+	protected By btnScav = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/app-integracion-scav/accordion-group/div/div[1]/div/div/button");
+	protected By txtFichaAprobacion = By.xpath("//*[@id='numRef']");
+	protected By campoValidar = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[3]/table/thead/tr/th[1]");
+	protected By ScavGridTitulo = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[3]/table/thead/tr"); 
+	protected By btnSearch = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[2]/button");
 	
 	protected By btnModificarcliente = By.xpath("//*[@id='tbClientes']/tbody/tr/td[9]/div/div[1]/a");
+	protected By AlertaBusqueda = By.xpath("//*[@id='toast-container']");
+	
+	protected By ScavGridTituloValores = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[3]/table/tbody/tr");
 	
 	
 	
-	protected By btnCancelarAlterno = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[2]/div/button");
+	protected By btnCancelarAlterno = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[2]/div/button[2]");
 	
+	protected By btnCancelarAlterno2 = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[2]/div/button");
 	
 	protected By BuscarTitulo = By.xpath("//body/app-root/div/div/div/main-titulos/titulos-home/div/form/div[2]/input");
 	protected By ModificartituloLiberado = By.xpath("//*[@id='tbClientes']/tbody/tr[1]/td[9]/div/a[1]");
