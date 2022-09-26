@@ -45,10 +45,10 @@ public class GenerarReporteTest extends BaseTest {
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"));
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 
@@ -71,7 +71,7 @@ public class GenerarReporteTest extends BaseTest {
 
 		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 		
 		//INSTANCIA DE GRABAR PANTALLA(INICIA GRABACION)
 		recording.startRecording("inicio de grabacion", folderPath);
@@ -104,6 +104,6 @@ public class GenerarReporteTest extends BaseTest {
 		recording.stopRecording();
 		
 
-		GenerarReportePdf.closeTemplate("Cierra la plantilla");
+		GenerarReportePdf.closeTemplate("Cierra la plantilla",getProperties().getProperty("Evidencia"));
 	}
 }

@@ -57,10 +57,10 @@ public class LogAuditoriaTest extends BaseTest {
 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderL"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"));
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 
@@ -85,7 +85,7 @@ public class LogAuditoriaTest extends BaseTest {
 	public void crearUsuario() throws Exception {
 
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderL"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestListaUsuariosLogAuditoria"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -95,7 +95,7 @@ public class LogAuditoriaTest extends BaseTest {
 		String[] usuarios = logAuditoria.almacenarListaVector(folderPath);
 		logAuditoria.usuariosLog(folderPath, usuarios,getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class LogAuditoriaTest extends BaseTest {
 	public void filtroFechasLog() throws Exception {
 
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderL"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestListaFiltrosLogAuditoria"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -123,6 +123,6 @@ public class LogAuditoriaTest extends BaseTest {
 				getProperties().getProperty("diaD"), getProperties().getProperty("mesH"),
 				getProperties().getProperty("anualH"), getProperties().getProperty("diaH"),getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 }

@@ -57,7 +57,7 @@ public class ConsultarRegistroVisitaPage extends ConsultarRegistroVisitaMap {
 
 		val = validarElemento(lblRegistrarVisita, t);
 		if (Boolean.FALSE.equals(val)) {
-			GenerarReportePdf.closeTemplate("Error");
+			GenerarReportePdf.closeTemplate("Error",Evidencia);
 			Assert.fail("Error");
 		}
 		return this;

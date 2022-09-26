@@ -40,10 +40,10 @@ public class PerfilesTest extends BaseTest {
 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"));
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 
@@ -64,7 +64,7 @@ public class PerfilesTest extends BaseTest {
 
 		//RUTA EN DONDE SE VA A GUARDAR LOS INFORMES DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestCrearPerfil"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -87,7 +87,7 @@ public class PerfilesTest extends BaseTest {
 		 .guardarPerfil(folderPath,getProperties().getProperty("Evidencia"));
 		 //.aceptarUsuario(folderPath);
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}  
 	
 	//METODO PARA MODIFICAR PERFIL DE USUARIO
@@ -99,7 +99,7 @@ public class PerfilesTest extends BaseTest {
 
 		//RUTA EN DONDE SE VA A GUARDAR LOS INFORMES DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestModificarPerfil"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -111,7 +111,7 @@ public class PerfilesTest extends BaseTest {
 		.guardarPerfil(folderPath,getProperties().getProperty("Evidencia"));
 		 //.aceptarUsuario(folderPath);
 
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 	
 	//METODO DE VER PERFIL
@@ -123,7 +123,7 @@ public class PerfilesTest extends BaseTest {
 
 		//RUTA EN DONDE SE VA A GUARDAR LOS INFORMES DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestVerPerfil"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -133,7 +133,7 @@ public class PerfilesTest extends BaseTest {
 		//METODO PARA VER PERFIL
 		perfiles.verPerfil(folderPath,getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 	
 	@Test(priority = 3, description = "Consultar perfil")
@@ -144,7 +144,7 @@ public class PerfilesTest extends BaseTest {
 
 		//RUTA EN DONDE SE VA A GUARDAR LOS INFORMES DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestConsultarPerfil"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -157,6 +157,6 @@ public class PerfilesTest extends BaseTest {
 
 		.consultaPerfil(folderPath, getProperties().getProperty("nom50"), getProperties().getProperty("nombrePerfil"),getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 }

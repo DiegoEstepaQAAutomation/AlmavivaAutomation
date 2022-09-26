@@ -36,10 +36,10 @@ public class AnularTituloTest extends BaseTest {
 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderAT"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"));
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 
@@ -59,7 +59,7 @@ public class AnularTituloTest extends BaseTest {
 	public void crearExpedir() throws Exception {
 
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderAT"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestAnular"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -69,6 +69,6 @@ public class AnularTituloTest extends BaseTest {
 		//EJECUCION DEL METODO ANULAR TITULO 
 		anularTitulo.anularTitulo(folderPath, getProperties().getProperty("codigoAnular"),getProperties().getProperty("Evidencia"));
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 }

@@ -45,11 +45,11 @@ public class NotificacionesTest extends BaseTest {
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		//INSTANCIA DE RUTA DONDE GUARDAMOS NUESTRO INFORME
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//LLAMADO DE LOS METODOS DE CREAR INFORME PDF
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"));
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 
@@ -80,7 +80,7 @@ public class NotificacionesTest extends BaseTest {
 		
 		//INSTANCIA DE RUTA DE LA CARPETA DONDE GUARDAMOS EL INFORME PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 		
 		//INSTANCIA DEL METODO GRABAR PANTALLA Y DE LOGIN
 		recording.startRecording("inicio de grabacion", folderPath);
@@ -104,7 +104,7 @@ public class NotificacionesTest extends BaseTest {
 		
 		recording.stopRecording();
 		
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 
 	

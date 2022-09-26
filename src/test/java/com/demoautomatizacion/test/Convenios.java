@@ -75,10 +75,10 @@ public class Convenios extends BaseTest
 		 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"));
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 		
@@ -112,7 +112,7 @@ public class Convenios extends BaseTest
 		
 		//INSTANCIA DE LA RUTA DONDE SE GUARDA LA EVIDENCIA
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//LO MISMO ESTA LINEA LLAMA AL METODO DE INICIAR GRABACION DE PANTALLA
 		recording.startRecording("", folderPath);
@@ -159,7 +159,7 @@ public class Convenios extends BaseTest
 		
 		recording.stopRecording();
 		
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 		
 		
 	}

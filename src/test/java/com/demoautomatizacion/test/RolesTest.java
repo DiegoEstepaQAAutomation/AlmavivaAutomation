@@ -43,10 +43,10 @@ public class RolesTest extends BaseTest{
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION 
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderR"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"));
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 
@@ -70,7 +70,7 @@ public class RolesTest extends BaseTest{
 
 		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION 
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderR"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestCrearRol"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -93,7 +93,7 @@ public class RolesTest extends BaseTest{
 		 .guardarRol(folderPath,getProperties().getProperty("Evidencia"));
 		 //.aceptarUsuario(folderPath);
 
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}  
 	
 	@Test(priority = 1, description = "Modificar rol")
@@ -105,7 +105,7 @@ public class RolesTest extends BaseTest{
 		
 		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderR"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestModificarRol"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -119,7 +119,7 @@ public class RolesTest extends BaseTest{
 
 		 //.aceptarUsuario(folderPath);
 
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 
 	@Test(priority = 2, description = "Ver rol")
@@ -130,7 +130,7 @@ public class RolesTest extends BaseTest{
 
 		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderR"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//METODO DE LOGIN
 		login(getProperties().getProperty("nameTestVerRol"), getProperties().getProperty("usuario2"),
@@ -143,7 +143,7 @@ public class RolesTest extends BaseTest{
 		
 		roles.verRol(folderPath,getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 	
 	@Test(priority = 3, description = "Consultar rol")
@@ -155,7 +155,7 @@ public class RolesTest extends BaseTest{
 
 		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderR"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//METODO DE LOGIN A PORTAL DE ALMAVIVA
 		login(getProperties().getProperty("nameTestConsultarRol"), getProperties().getProperty("usuario2"),
@@ -170,6 +170,6 @@ public class RolesTest extends BaseTest{
 		.consultaRol(folderPath, getProperties().getProperty("nom50"), getProperties().getProperty("nombreRol"),getProperties().getProperty("Evidencia"));
 
 		//CIERRE DE PLANTILLA
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 }

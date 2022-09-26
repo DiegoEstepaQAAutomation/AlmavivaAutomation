@@ -35,6 +35,7 @@ public class Bodegas extends BaseTest {
 		return fileprops;
 	}
 
+	//Evidencia
 	/** The recording. */
 	//INSTANCIA DE MY SCREEN RECORDER(GRABACION DE PANTALLA)
 	MyScreenRecorder recording;
@@ -42,9 +43,10 @@ public class Bodegas extends BaseTest {
 	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderBodega"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+		
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista1"),
-				getProperties().getProperty("url"));
+				getProperties().getProperty("url"),getProperties().getProperty("Evidencia"));
 		GenerarReportePdf.setImgContador(0);
 		
 		//Evidencia
@@ -66,7 +68,7 @@ public class Bodegas extends BaseTest {
 	public void AlmavivaBodegas1() throws Exception {
 		//VALIDAR ESTOS PASOS EN EXPEDIR TEST EN EL METODO CREAR EXPEDIR
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderBodega"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestBodega"), getProperties().getProperty("usuario"),
 				getProperties().getProperty("password"));
@@ -87,7 +89,7 @@ public class Bodegas extends BaseTest {
 		// FillFormulary(folderPath, "CodigoBodeg", "oficinaBodeg", "Propietario",
 		// "Ubicacion", "NumeroTelefonico");
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 	
 	
@@ -101,7 +103,7 @@ public class Bodegas extends BaseTest {
 		public void AlmavivaBodegasScav() throws Exception {
 			//VALIDAR ESTOS PASOS EN EXPEDIR TEST EN EL METODO CREAR EXPEDIR
 			File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderBodega"),
-					getProperties().getProperty("path"));
+					getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 			
 			recording.startRecording("grabando", folderPath);
 			
@@ -120,7 +122,7 @@ public class Bodegas extends BaseTest {
 			// FillFormulary(folderPath, "CodigoBodeg", "oficinaBodeg", "Propietario",
 			// "Ubicacion", "NumeroTelefonico");
 
-			GenerarReportePdf.closeTemplate("");
+			GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 		}
 
 	

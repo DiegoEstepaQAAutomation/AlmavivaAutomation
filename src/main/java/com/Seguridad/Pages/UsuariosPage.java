@@ -52,7 +52,7 @@ public class UsuariosPage extends UsuariosMap {
 		if (Boolean.TRUE.equals(val)) {
 			time(1);
 		} else {
-			GenerarReportePdf.closeTemplate("Error en la validación, alguno de los elementos no fueron encontrados");
+			GenerarReportePdf.closeTemplate("Error en la validación, alguno de los elementos no fueron encontrados",Evidencia);
 			Assert.fail("Error en la validación, alguno de los elementos no fueron encontrados");
 		}
 		return this;
@@ -174,7 +174,7 @@ public class UsuariosPage extends UsuariosMap {
 
 		if (Boolean.TRUE.equals(val)) {
 		} else {
-			GenerarReportePdf.closeTemplate("Error en la validaci�n, el registro no se creo correctamente");
+			GenerarReportePdf.closeTemplate("Error en la validaci�n, el registro no se creo correctamente",Evidencia);
 			Assert.fail("Error en la validaci�n, el registro no se creo correctamente");
 		}
 		return this;
@@ -266,13 +266,13 @@ public class UsuariosPage extends UsuariosMap {
 			click(btnVerTodos, folderPath, "Se selecciona la opción Ver Todos",Evidencia);
 			waitInMs(3000);
 			if (lblUsuarioTabla == null) {
-				GenerarReportePdf.closeTemplate("No se trajo la información correctamente");
+				GenerarReportePdf.closeTemplate("No se trajo la información correctamente",Evidencia);
 				Assert.fail("No se trajo la información correctamente");
 			} else {
 				printConsole("Se trajo la información correctamente");
 			}
 		} else {
-			GenerarReportePdf.closeTemplate("Error en la validación, alguno de los elementos no fueron encontrados");
+			GenerarReportePdf.closeTemplate("Error en la validación, alguno de los elementos no fueron encontrados",Evidencia);
 			Assert.fail("Error en la validación, alguno de los elementos no fueron encontrados");
 		}
 		return this;

@@ -56,11 +56,12 @@ public class LoginTest extends BaseTest {
 		{
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolder"),
-		        getProperties().getProperty("path"));
+		        getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 		GenerarReportePdf.createTemplate(folderPath,
 		        getProperties().getProperty("nameTest"),
 		        getProperties().getProperty("analista"),
-		        getProperties().getProperty("url"));
+		        getProperties().getProperty("url"),
+		        getProperties().getProperty("Evidencia"));
 		GenerarReportePdf.setImgContador(0);
 				
 		home.irPortal(getProperties().getProperty("urlPrivada"));
@@ -71,12 +72,12 @@ public class LoginTest extends BaseTest {
 		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),folderPath, getProperties().getProperty("Evidencia"))
 	    .cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 		
 		}else { 
 			
 			File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolder"),
-			        getProperties().getProperty("path"));
+			        getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 			
 			home.irPortal(getProperties().getProperty("urlPrivada"));
 			login.privacidadIp();

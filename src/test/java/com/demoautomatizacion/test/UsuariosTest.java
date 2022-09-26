@@ -41,11 +41,11 @@ public class UsuariosTest extends BaseTest {
 		
 		//INSTANCIA DE RUTA DE DONDE SE GUARDA LOS INFORMES DE EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//INSTANCIAS METODOS  DE GENERAR PDF 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"));
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 
@@ -67,7 +67,7 @@ public class UsuariosTest extends BaseTest {
 
 		//INSTANCIA DE RUTA DE DONDE SE GUARDA LOS INFORMES DE EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestCrearUsuario"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -95,7 +95,7 @@ public class UsuariosTest extends BaseTest {
 				.guardarUsuario(folderPath,getProperties().getProperty("Evidencia"));
 		// .aceptarUsuario(folderPath);
 
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 
 	@Test(priority = 1, description = "Modificar usuario")
@@ -106,7 +106,7 @@ public class UsuariosTest extends BaseTest {
 
 		//INSTANCIA DE RUTA DE DONDE SE GUARDA LOS INFORMES DE EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestModificarUsuario"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -125,7 +125,7 @@ public class UsuariosTest extends BaseTest {
 				.guardarUsuario(folderPath,getProperties().getProperty("Evidencia"));
 		// .aceptarUsuario(folderPath);
 
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 
 	@Test(priority = 2, description = "Ver usuario")
@@ -136,7 +136,7 @@ public class UsuariosTest extends BaseTest {
 
 		//INSTANCIA DE RUTA DE DONDE SE GUARDA LOS INFORMES DE EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestVerUsuario"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -147,7 +147,7 @@ public class UsuariosTest extends BaseTest {
 		//EJECUCION DE CASO
 		usuarios.verUsuario(folderPath,getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 
 	@Test(priority = 3, description = "Consultar usuario")
@@ -158,7 +158,7 @@ public class UsuariosTest extends BaseTest {
 
 		//INSTANCIA DE RUTA DE DONDE SE GUARDA LOS INFORMES DE EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestConsultarUsuario"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -172,6 +172,6 @@ public class UsuariosTest extends BaseTest {
 		.consultaUsuario(folderPath, getProperties().getProperty("nom50"),
 				getProperties().getProperty("nombres"),getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 }

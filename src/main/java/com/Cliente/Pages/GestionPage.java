@@ -46,7 +46,7 @@ public class GestionPage extends GestionMap {
 		if (Boolean.TRUE.equals(val)) {
 			time(1);
 		} else {
-			GenerarReportePdf.closeTemplate("Error en la validación, alguno de los elementos no fueron encontrados");
+			GenerarReportePdf.closeTemplate("Error en la validación, alguno de los elementos no fueron encontrados",Evidencia);
 			Assert.fail("Error en la validación, alguno de los elementos no fueron encontrados");
 		}
 		
@@ -78,7 +78,7 @@ public class GestionPage extends GestionMap {
 		if (Boolean.TRUE.equals(val)) {
 			time(1);
 		} else {
-			GenerarReportePdf.closeTemplate("Error en la validación, alguno de los elementos no fueron encontrados");
+			GenerarReportePdf.closeTemplate("Error en la validación, alguno de los elementos no fueron encontrados",Evidencia);
 			Assert.fail("Error en la validación, alguno de los elementos no fueron encontrados");
 		}
 		//Se cancela la edicion de poliza 

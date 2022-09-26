@@ -46,11 +46,11 @@ public class GenerarReportePage extends GenerarReporteMap {
 
 			if (Boolean.TRUE.equals(val)) {
 			} else {
-				GenerarReportePdf.closeTemplate("Descarga fallida");
+				GenerarReportePdf.closeTemplate("Descarga fallida",Evidencia);
 				Assert.fail("Error en la validación, no se encontro el elemento");
 			}
 		} else {
-			GenerarReportePdf.closeTemplate("Error en la validación, descarga fallida");
+			GenerarReportePdf.closeTemplate("Error en la validación, descarga fallida",Evidencia);
 			Assert.fail("Error en la validación, descarga fallida");
 		}
 		return this;

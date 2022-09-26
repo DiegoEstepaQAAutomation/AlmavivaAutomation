@@ -29,10 +29,10 @@ public class ConsultarRegistroVisitaTest extends BaseTest {
 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderV"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"));
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 		//ESTE METODO SE ENCARGA DEL LOGIN DE LAS URL DE ALMAVIVA Y LAS CREDENCIALES DE ACCESO
@@ -52,7 +52,7 @@ public class ConsultarRegistroVisitaTest extends BaseTest {
 	public void crearUsuario() throws Exception {
 
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderV"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestConsultarRegistroV"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -61,6 +61,6 @@ public class ConsultarRegistroVisitaTest extends BaseTest {
 		//Consulta del registro de visita
 		consultarRegistro.consultarRegistroV(folderPath,getProperties().getProperty("Evidencia"));
 		
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 }

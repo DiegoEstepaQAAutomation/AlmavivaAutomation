@@ -763,26 +763,30 @@ public class ExpedirPage extends ExpedirMap {
 		val = validarElemento(lblImprimirOriginal, t);
 
 	    if (Boolean.FALSE.equals(val)) {
-	    	GenerarReportePdf.closeTemplate("Error en la validación: No se encontró el mensaje del elemento " + lblImprimirOriginal);
+	    	GenerarReportePdf.closeTemplate("Error en la validación: No se encontró el mensaje del elemento " + lblImprimirOriginal,Evidencia);
 	        Assert.fail("Error en la validación: No se encontró el mensaje del elemento " + lblImprimirOriginal);
 	    }
 		escape();
 		return this;
 	}
 	
-	
+	//Metodo para validar opcion scav en expedir titulo
 	@Step("Imprimir")
 	public ExpedirPage ValidacionScav_571761(File folderPath,
 			String valorGrillaCupo2,String ValorGrillaCupo3,
-			String ValorGrillaCupo7,String ValorGrillaTipoTitulo,String ValorGrillaCupo8,String Evidencia) throws Exception {
+			String ValorGrillaCupo7,String ValorGrillaTipoTitulo,
+			String ValorGrillaCupo8,String Evidencia) throws Exception {
 
 	
-		
+		//LLamamos al metodo ver expedir
 		verExpedir(folderPath, Evidencia);
+		
+		//Validacion mediante variable booleana del boton scav
 		boolean ScavButtonOption = validarElemento(btnScav, 5);
 		ValidacionObjeto(ScavButtonOption, "Caso exitoso 571755", folderPath, Evidencia);
 		click(btnScav, folderPath, "click en scav", Evidencia);
 		
+		//Cancelamos operacion y volvemos a entrar pero a modificar
 		//scrollElementV(folderPath, btnCancelarAlterno, "scroll hasta cancelar", Evidencia);
 		click(btnCancelarAlterno2, folderPath, "click en cancelar", Evidencia);
 		time(15);
@@ -801,14 +805,17 @@ public class ExpedirPage extends ExpedirMap {
 		time(3);
 		desplazarseVertical(0, 600);
 		time(10);
+		//Validacion de valores en grilla
 		searchElementGrid(ScavGridTitulo, valorGrillaCupo2, folderPath, "Caso exitoso 571756", Evidencia);
 		searchElementGrid(ScavGridTitulo, ValorGrillaCupo3, folderPath, "validacion campo", Evidencia);
 		searchElementGrid(ScavGridTitulo, ValorGrillaCupo7, folderPath, "validacion campo", Evidencia);
 		searchElementGrid(ScavGridTitulo, ValorGrillaTipoTitulo, folderPath, "validacion campo", Evidencia);
-		searchElementGrid(ScavGridTituloValores, ValorGrillaCupo8, folderPath, "Caso exitoso 571759", Evidencia);	
+		searchElementGrid(ScavGridTituloValores, ValorGrillaCupo8, folderPath, "Caso exitoso 571759", Evidencia);
+		//Obtencion de valor unico de ficha
 		String ficha = readText(txtFichaAprobacion, folderPath, "obtenemos el codigo de ficha", Evidencia);
 		isEnabled(txtFichaAprobacion, folderPath,"Caso 571757 exitoso El consecutivo unico es" + ficha, Evidencia);
 		
+		//Busqueda de valores diferentes
 		clear(txtFichaAprobacion, folderPath, "limpia campo", Evidencia);
 		writeRandomAlp(txtFichaAprobacion, 11);
 		click(btnSearch, folderPath, "click en buscar consecutivo", Evidencia);
@@ -867,7 +874,7 @@ public class ExpedirPage extends ExpedirMap {
 		val = validarElemento(lblGudadoExitoso, t);
 
 	    if (Boolean.FALSE.equals(val)) {
-	    	GenerarReportePdf.closeTemplate("Error en la validación: No se encontró el mensaje del elemento " + lblGudadoExitoso);
+	    	GenerarReportePdf.closeTemplate("Error en la validación: No se encontró el mensaje del elemento " + lblGudadoExitoso,Evidencia);
 	        Assert.fail("Error en la validación: No se encontró el mensaje del elemento " + lblGudadoExitoso);
 	    }
 		return this;
@@ -900,6 +907,127 @@ public class ExpedirPage extends ExpedirMap {
 		return this;
 	}
 	
+	
+	//Paso a paso de visualizar un titulo
+		@Step("Ver expedir")
+		public ExpedirPage ProrrogaScav_573824(File folderPath,
+				String TituloScav,
+				String FicheroUnico,String ValorGrillaCupo,String valorGrillaCupo2,
+				String valorGrillaCupo3,String valorGrillaCupo7,String ValorGrillaTipoTitulo,
+				String ValorGrillaNumeroTitulo,
+				String Evidencia) throws Exception {
+
+		writeText(txtBuscarTituloScav, TituloScav, folderPath, "Escritura de titulo a buscar", Evidencia);
+		time(5);
+		click(btnSeleccionaTitulo, folderPath, "click en titulo buscado", Evidencia);
+		time(5);
+		click(btnScav2, folderPath, "click en scav", Evidencia);	
+		
+		boolean encabezado = validarElemento(EncabezadoFicha, 5);
+		ValidacionObjeto(encabezado, "Caso exitoso 571764", folderPath, Evidencia);
+		
+		writeText(txtFichaAprobacion, FicheroUnico, folderPath, "Digitar fichero unico", Evidencia);
+		
+		
+		desplazarseVertical(0, 600);
+		time(8);
+		click(btnSearch2, folderPath, "click en buscar", Evidencia);
+		
+		time(8);
+		//busqueda de valores en grilla
+		searchElementGrid(GridScav2, ValorGrillaCupo, folderPath, "Caso exitoso 571765", Evidencia);
+		searchElementGrid(GridScav2, valorGrillaCupo2, folderPath, "Caso exitoso 571765", Evidencia);
+		searchElementGrid(GridScav2, valorGrillaCupo3, folderPath, "Caso exitoso 571765", Evidencia);
+		searchElementGrid(GridScav2, valorGrillaCupo7, folderPath, "Caso exitoso 571765", Evidencia);
+		searchElementGrid(GridScav2, ValorGrillaTipoTitulo, folderPath, "Caso exitoso 571765", Evidencia);
+		searchElementGrid(GridScav2, ValorGrillaNumeroTitulo, folderPath, "Caso exitoso 571765", Evidencia);
+		
+		
+		
+		//Obtencion de valor de ficha unica
+		String ficha = readText(txtFichaAprobacion, folderPath, "obtenemos el codigo de ficha", Evidencia);
+		isEnabled(txtFichaAprobacion, folderPath,"Caso 571688 exitoso El consecutivo unico es" + ficha, Evidencia);
+		
+		clear(txtFichaAprobacion, folderPath, "borro campo", Evidencia);
+		
+		click(btnSearch2, folderPath, "click en buscar consecutivo,571689,571692,571693", Evidencia);
+		boolean alertaBusqueda = validarElemento(AlertaBusqueda, 5);
+		ValidacionObjeto(alertaBusqueda, "Caso exitoso 571689,571689", folderPath, Evidencia);
+		time(8);
+		click(btnSavingScav, folderPath, "click en guardar", Evidencia);
+		
+		boolean alertaBusqueda2 = validarElemento(AlertaBusqueda, 5);
+		ValidacionObjeto(alertaBusqueda2, "Caso exitoso 571689,571689", folderPath, Evidencia);
+		
+		click(btnAceptarGuardar, folderPath, "click en aceptar guardar", Evidencia);
+			
+			return this;
+		}
+
+		
+		
+		
+		
+		@Step("Ver expedir")
+		public ExpedirPage LiberacionesScav_571785(File folderPath,
+				String TituloScav,
+				String FicheroLiberaciones,String ValorGrillaCupo,String valorGrillaCupo2,
+				String valorGrillaCupo3,String valorGrillaCupo7,String ValorGrillaTipoTitulo,
+				String ValorGrillaNumeroTitulo,String ValorGrillaLiberacion1,String ValorGrillaLiberacion2,
+				String Evidencia) throws Exception 
+		
+		{
+			
+			writeText(txtBuscarTituloScav, TituloScav, folderPath, "Escritura de titulo a buscar", Evidencia);
+			time(5);
+			click(btnSeleccionaTitulo, folderPath, "click en titulo buscado", Evidencia);
+			time(5);
+			click(btnScavLiberaciones, folderPath, "click en boton scav", Evidencia);
+			
+			boolean encabezado = validarElemento(EncabezadoFichaScavLiberaciones, 5);
+			ValidacionObjeto(encabezado, "Caso exitoso 571780", folderPath, Evidencia);
+			
+			
+			writeText(txtFichaAprobacion, FicheroLiberaciones, folderPath, "Digitar fichero unico", Evidencia);
+			
+			
+			desplazarseVertical(0, 600);
+			time(8);
+			click(btnBuscarScavLiberaciones, folderPath, "click en buscar", Evidencia);
+			
+			time(8);
+			//busqueda de valores en grilla
+			searchElementGrid(GridLiberacionesScav, ValorGrillaCupo, folderPath, "Caso exitoso 571781", Evidencia);
+			searchElementGrid(GridLiberacionesScav, valorGrillaCupo2, folderPath, "Caso exitoso 571781", Evidencia);
+			searchElementGrid(GridLiberacionesScav, valorGrillaCupo3, folderPath, "Caso exitoso 571781", Evidencia);
+			searchElementGrid(GridLiberacionesScav, valorGrillaCupo7, folderPath, "Caso exitoso 571781", Evidencia);
+			searchElementGrid(GridLiberacionesScav, ValorGrillaTipoTitulo, folderPath, "Caso exitoso 571781", Evidencia);
+			searchElementGrid(GridLiberacionesScav, ValorGrillaNumeroTitulo, folderPath, "Caso exitoso 571781", Evidencia);
+			searchElementGrid(GridLiberacionesScav, ValorGrillaLiberacion1, folderPath, "Caso exitoso 571781", Evidencia);
+			searchElementGrid(GridLiberacionesScav, ValorGrillaLiberacion2, folderPath, "Caso exitoso 571781", Evidencia);
+			
+			
+			isEnabled(txtFichaAprobacion, folderPath,"Caso 571782 exitoso" , Evidencia);
+			
+			clear(txtFichaAprobacion, folderPath, "borro campo", Evidencia);
+			
+			writeRandomAlp(txtFichaAprobacion, 5);
+			
+			click(btnBuscarScavLiberaciones, folderPath, "click en buscar consecutivo Caso 571783 exitoso", Evidencia);
+			boolean alertaBusqueda = validarElemento(AlertaBusqueda, 5);
+			ValidacionObjeto(alertaBusqueda, "Caso exitoso 571783", folderPath, Evidencia);
+			
+			clear(txtFichaAprobacion, folderPath, "borro campo", Evidencia);
+			
+			click(btnBuscarScavLiberaciones, folderPath, "click en buscar consecutivo Caso 571784 exitoso", Evidencia);
+			boolean alertaBusqueda2 = validarElemento(AlertaBusqueda, 5);
+			ValidacionObjeto(alertaBusqueda2, "Caso exitoso 571784,571785", folderPath, Evidencia);
+			
+			return this;
+			
+		}
+		
+		
 	
 	//VALIDACIONES DE SEGUNDA HISTORIA DE USUARIO SOBRE TITULOS Y LIBERACIONES
 	

@@ -59,10 +59,10 @@ public class CupoTest extends BaseTest {
 		
 		//INSTANCIA DE CARPETA DONDE VAMOS A GUARDAR INFORME PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"));
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 
@@ -90,7 +90,7 @@ public class CupoTest extends BaseTest {
 
 		//INSTANCIA DE CARPETA DONDE VAMOS A GUARDAR INFORME PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestCrearCupo"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -103,7 +103,7 @@ public class CupoTest extends BaseTest {
 				.mercancia(getProperties().getProperty("mercancia"))
 				.acreedor(folderPath, getProperties().getProperty("acreedor"));
 
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class CupoTest extends BaseTest {
 
 		//INSTANCIA DE CARPETA DONDE VAMOS A GUARDAR INFORME PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestModificarCupo"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -129,13 +129,14 @@ public class CupoTest extends BaseTest {
 		//cupo.modificarCupo(folderPath, getProperties().getProperty("mercancia"),
 			//	getProperties().getProperty("acreedor"),getProperties().getProperty("Evidencia"));
 
+		//metodo de validacion de cupo con scav
 		cupo.ScavCupo_571690(folderPath, getProperties().getProperty("Evidencia"), getProperties().getProperty("ValorGrillaCupo"), 
 				getProperties().getProperty("ValorGrillaCupo2"), getProperties().getProperty("valorGrillaCupo3"), 
 				getProperties().getProperty("valorGrillaCupo4"), 
 				getProperties().getProperty("valorGrillaCupo5"), getProperties().getProperty("valorGrillaCupo6"),
 				getProperties().getProperty("valorGrillaCupo7"), getProperties().getProperty("valorGrillaCupo8"));
 		
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 
 	/**
@@ -151,7 +152,7 @@ public class CupoTest extends BaseTest {
 
 		//INSTANCIA DE CARPETA DONDE VAMOS A GUARDAR INFORME PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestVerCupo"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -160,7 +161,7 @@ public class CupoTest extends BaseTest {
 
 		cupo.verCupo(folderPath,getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 
 	/**
@@ -176,7 +177,7 @@ public class CupoTest extends BaseTest {
 
 		//INSTANCIA DE CARPETA DONDE VAMOS A GUARDAR INFORME PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestVerCupo"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -186,6 +187,6 @@ public class CupoTest extends BaseTest {
 		cupo.consultaCupo(folderPath, getProperties().getProperty("nit50"), getProperties().getProperty("criterio"),
 				getProperties().getProperty("nitConsultar"),getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 }

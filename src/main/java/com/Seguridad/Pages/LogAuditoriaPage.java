@@ -68,7 +68,7 @@ public class LogAuditoriaPage extends LogAuditoriaMap {
 			if (user.contains(usuarios1)) {
 				printConsole("Usuario: " + usuarios1 + " = Log Auditoría: " + user);
 			} else {
-				GenerarReportePdf.closeTemplate("Error");
+				GenerarReportePdf.closeTemplate("Error",Evidencia);
 				Assert.fail("Error");
 			}
 		}
@@ -100,7 +100,7 @@ public class LogAuditoriaPage extends LogAuditoriaMap {
 		waitInMs(5000);
 		
 		if (lblUsuarioValidar == null) {
-			GenerarReportePdf.closeTemplate("No se trajo la información correctamente");
+			GenerarReportePdf.closeTemplate("No se trajo la información correctamente",Evidencia);
 			Assert.fail("No se trajo la información correctamente");
 		}else {
 			printConsole("Se trajo la información correctamente");
@@ -124,13 +124,13 @@ public class LogAuditoriaPage extends LogAuditoriaMap {
 			click(btnVerTodos, folderPath, "Se selecciona la opción Ver Todos",Evidencia);
 			waitInMs(20000);
 			if (lblUsuarioValidar == null) {
-				GenerarReportePdf.closeTemplate("No se trajo la información correctamente");
+				GenerarReportePdf.closeTemplate("No se trajo la información correctamente",Evidencia);
 				Assert.fail("No se trajo la información correctamente");
 			}else {
 				printConsole("Se trajo la información correctamente");
 			}
 		} else {
-			GenerarReportePdf.closeTemplate("Error en la validación, alguno de los elementos no fueron encontrados");
+			GenerarReportePdf.closeTemplate("Error en la validación, alguno de los elementos no fueron encontrados",Evidencia);
 			Assert.fail("Error en la validación, alguno de los elementos no fueron encontrados");
 		}
 		return this;

@@ -235,7 +235,7 @@ public class CupoPage extends CupoMap {
 			searchElementGrid(GridScav, valorGrillaCupo7, folderPath, "Caso exitoso 571687", Evidencia);
 			searchElementGrid(GridValoresScav, valorGrillaCupo8, folderPath, "Caso exitoso 571690,571691", Evidencia);
 			
-			
+			//Obtencion de valor de ficha unica
 			String ficha = readText(txtFichaAprobacion, folderPath, "obtenemos el codigo de ficha", Evidencia);
 			isEnabled(txtFichaAprobacion, folderPath,"Caso 571688 exitoso El consecutivo unico es" + ficha, Evidencia);
 			

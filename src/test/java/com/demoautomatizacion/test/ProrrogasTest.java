@@ -37,10 +37,10 @@ public class ProrrogasTest extends BaseTest {
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		//INSTANCIA DE RUTA EN DONDE SE GUARDAN LOS INFORMES PDF DE LA EJECUCION DE LA AUTOMATIZACION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderProrroga"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 		//INSTANCIA DE LOS METODOS DE GENERAR INFORME PDF
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista1"),
-				getProperties().getProperty("url"));
+				getProperties().getProperty("url"),getProperties().getProperty("Evidencia"));
 		GenerarReportePdf.setImgContador(0);
 
 		//INSTANCIA DE INGRESO DE URL Y CREDENCIALES
@@ -62,7 +62,7 @@ public class ProrrogasTest extends BaseTest {
 	public void AlmavivaBodegas1() throws Exception {
 		//INSTANCIA DE RUTA EN DONDE SE GUARDAN LOS INFORMES PDF DE LA EJECUCION DE LA AUTOMATIZACION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderProrroga"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//METODO DE LOGIN,MODULO Y PRORROGAS
 		login(getProperties().getProperty("nameTestProrroga"), getProperties().getProperty("usuario"),
@@ -71,7 +71,7 @@ public class ProrrogasTest extends BaseTest {
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 		prorroga.prorrogas(folderPath,getProperties().getProperty("Evidencia"));	
 		
-		GenerarReportePdf.closeTemplate("Cerrar plantilla");
+		GenerarReportePdf.closeTemplate("Cerrar plantilla",getProperties().getProperty("Evidencia"));
 	}
 	
 	
@@ -84,7 +84,7 @@ public class ProrrogasTest extends BaseTest {
 	public void AlmavivaProrrogas() throws Exception {
 		//INSTANCIA DE RUTA EN DONDE SE GUARDAN LOS INFORMES PDF DE LA EJECUCION DE LA AUTOMATIZACION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderProrroga"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 		
 		//METODO DE LOGIN,MODULO Y PRORROGAS
 
@@ -94,7 +94,7 @@ public class ProrrogasTest extends BaseTest {
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 		prorroga.prorrogasHU24(folderPath,getProperties().getProperty("TituloModificarProrroga"),getProperties().getProperty("Evidencia"));	
 		
-		GenerarReportePdf.closeTemplate("Cerrar plantilla");
+		GenerarReportePdf.closeTemplate("Cerrar plantilla",getProperties().getProperty("Evidencia"));
 	}
 
 	

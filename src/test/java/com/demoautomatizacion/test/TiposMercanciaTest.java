@@ -38,9 +38,9 @@ public class TiposMercanciaTest extends BaseTest {
 		
 		//INSTANCIA DE RUTA DONDE GUARDAMOS INFORME PDF DE EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderMercancia"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista1"),
-				getProperties().getProperty("url"));
+				getProperties().getProperty("url"),getProperties().getProperty("Evidencia"));
 		GenerarReportePdf.setImgContador(0);
 		
 		//LLAMADO DE URL Y CREDENCIALES 
@@ -62,7 +62,7 @@ public class TiposMercanciaTest extends BaseTest {
 		
 		//INSTANCIA DE RUTA DONDE GUARDAMOS INFORME PDF DE EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderBodega"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestMercancia"), getProperties().getProperty("usuario"),
 				getProperties().getProperty("password"));
@@ -80,6 +80,6 @@ public class TiposMercanciaTest extends BaseTest {
 				getProperties().getProperty("estado"),getProperties().getProperty("Evidencia"));
 
 		//CIERRE DE PLANTILLA
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 }

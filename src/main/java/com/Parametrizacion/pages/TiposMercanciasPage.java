@@ -38,7 +38,7 @@ public class TiposMercanciasPage extends TipoMercanciaMap {
 		val = validarElementos(x, t);
 
 		if (Boolean.FALSE.equals(val)) {
-			GenerarReportePdf.closeTemplate("Error en la validación: No se encontró el mensaje del elemento ");
+			GenerarReportePdf.closeTemplate("Error en la validación: No se encontró el mensaje del elemento ",Evidencia);
 			Assert.fail("Error en la validación: No se encontró el mensaje del elemento ");
 		}
 		click(btnCancelarCrearPrimeraOpcion, folderPath, "Se selecciona cancelar",Evidencia);

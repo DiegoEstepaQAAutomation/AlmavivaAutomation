@@ -35,10 +35,10 @@ public class LiberacionMercanciaTest extends BaseTest {
 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderL"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"));
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 
@@ -58,7 +58,7 @@ public class LiberacionMercanciaTest extends BaseTest {
 	public void liberacion() throws Exception {
 
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderL"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		login(getProperties().getProperty("nameTestLiberacion"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -66,6 +66,6 @@ public class LiberacionMercanciaTest extends BaseTest {
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 		liberacion.consultarLiberacion(folderPath,getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.closeTemplate("Cierre de plantilla");
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 }

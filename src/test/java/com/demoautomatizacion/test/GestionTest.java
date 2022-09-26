@@ -39,10 +39,10 @@ public class GestionTest extends BaseTest {
 		//INSTANCIAS DE INFORME PDF
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"));
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 
@@ -65,7 +65,7 @@ public class GestionTest extends BaseTest {
 
 		//INSTANCIA DE LA RUTA DONDE QUEDA NUESTRO INFORME DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//METODO PARA LOGUEARSE A LA PAGINA DE ALMAVIVA Y INGRESO A MODULO
 		login(getProperties().getProperty("nameTestCrearCliente"), getProperties().getProperty("usuario2"),
@@ -105,7 +105,7 @@ public class GestionTest extends BaseTest {
 						getProperties().getProperty("descripcion"),getProperties().getProperty("Evidencia"));
 		
 		//CIERRE DE PLANTILLA
-		GenerarReportePdf.closeTemplate("cierre de plantilla");
+		GenerarReportePdf.closeTemplate("cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 
 	//METODOS PARA MODIFICAR LOS DATOS DE UN CLIENTE YA EXISTENTE
@@ -118,7 +118,7 @@ public class GestionTest extends BaseTest {
 
 		//INSTANCIA DE RUTA DONDE QUEDARA EL INFORME
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//INSTANCIA DE METODO DE GRABAR VIDEO
 		recording.startRecording("", folderPath);
@@ -163,7 +163,7 @@ public class GestionTest extends BaseTest {
 		recording.stopRecording();
 				
 		//cierre de plantilla
-		GenerarReportePdf.closeTemplate("");
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 	
 	//METODO PARA VISUALIZAR DATOS DE CLIENTE
@@ -175,7 +175,7 @@ public class GestionTest extends BaseTest {
 
 		//INSTANCIA DE RUTA DONDE QUEDARA GUARDADO EL INFORME DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//METODO DE LOGIN A PAGINA DE ALMAVIVA
 		login(getProperties().getProperty("nameTestVerCliente"), getProperties().getProperty("usuario2"),
@@ -188,7 +188,7 @@ public class GestionTest extends BaseTest {
 		gestion.verCliente(folderPath,getProperties().getProperty("Evidencia"));
 		
 		//CIERRE DE PLANTILLA
-		GenerarReportePdf.closeTemplate("cierre de plantilla");
+		GenerarReportePdf.closeTemplate("cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 	
 	//METODO PARA CONSULTAR A UN CLIENTE
@@ -200,7 +200,7 @@ public class GestionTest extends BaseTest {
 
 		//INSTANCIA DE RUTA DONDE QUEDA  GUARDADO NUESTRO INFORME
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 		//INSTANCIA DE METODO QUE NOS LOGUEA A LA PAGINA DE ALMAVIVA
 		login(getProperties().getProperty("nameTestConsultarCliente"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
@@ -211,6 +211,6 @@ public class GestionTest extends BaseTest {
 		gestion.consultaCliente(folderPath, getProperties().getProperty("nom50"), getProperties().getProperty("nit"),getProperties().getProperty("Evidencia"));
 		
 		//CIERRE DE PLANTILLA PDF
-		GenerarReportePdf.closeTemplate("cierre de plantilla pdf");
+		GenerarReportePdf.closeTemplate("cierre de plantilla pdf",getProperties().getProperty("Evidencia"));
 	}
 }

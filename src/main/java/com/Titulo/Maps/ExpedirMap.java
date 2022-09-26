@@ -266,16 +266,26 @@ public class ExpedirMap extends BasePage {
 	protected By CampoSolicitud = By.xpath("//*[@id='contenido']/app-main/app-formulario/div/form[2]/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[2]/table/thead/tr/th[1];");
 	protected By btnScav = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/app-integracion-scav/accordion-group/div/div[1]/div/div/button");
 	protected By txtFichaAprobacion = By.xpath("//*[@id='numRef']");
+	
+	protected By btnScav2 = By.xpath("//*[@id='contenido']/main-titulos/app-prorroga/div/accordion/app-integracion-scav/accordion-group/div/div[1]/div/div/button");
+	
 	protected By campoValidar = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[3]/table/thead/tr/th[1]");
 	protected By ScavGridTitulo = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[3]/table/thead/tr"); 
 	protected By btnSearch = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[2]/button");
 	
+	protected By btnSearch2 = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-prorroga/div/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[2]/button");
+	
 	protected By btnModificarcliente = By.xpath("//*[@id='tbClientes']/tbody/tr/td[9]/div/div[1]/a");
 	protected By AlertaBusqueda = By.xpath("//*[@id='toast-container']");
-	
 	protected By ScavGridTituloValores = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[3]/table/tbody/tr");
+	protected By txtBuscarTituloScav = By.xpath("//*[@id='titulo']");
+	protected By btnSeleccionaTitulo = By.xpath("//*[@id='ngb-typeahead-0-0']");
+	protected By EncabezadoFicha = By.xpath("//*[@id='contenido']/main-titulos/app-prorroga/div/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[1]/label");
+	protected By GridScav = By.xpath("/html/body/app-root/div/div/div/app-main/app-formulario/div/form[2]/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[2]/table/thead/tr");
+	protected By btnSavingScav = By.xpath("//*[@id='contenido']/main-titulos/app-prorroga/div/div[2]/div/button[1]");
 	
-	
+	protected By btnAceptarGuardar= By.xpath("/html/body/div[2]/div/div[3]/button[1]");
+	protected By GridScav2 = By.xpath("//*[@id='contenido']/main-titulos/app-prorroga/div/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[3]/table/thead/tr");
 	
 	protected By btnCancelarAlterno = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[2]/div/button[2]");
 	
@@ -479,7 +489,15 @@ public class ExpedirMap extends BasePage {
 
 	protected By btnPorcentajeAlm = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[4]/input"); 
 
-	 
+	//Liberaciones
+	
+	protected By btnScavLiberaciones= By.xpath("//*[@id='contenido']/main-titulos/app-liberacion-mercancia/div/accordion/app-integracion-scav/accordion-group/div/div[1]/div/div/button");
+	protected By EncabezadoFichaScavLiberaciones = By.xpath("//*[@id='contenido']/main-titulos/app-liberacion-mercancia/div/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[1]/label"); 
+	protected By btnBuscarScavLiberaciones= By.xpath("//*[@id='contenido']/main-titulos/app-liberacion-mercancia/div/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[2]/button");
+	protected By GridLiberacionesScav = By.xpath("//*[@id='contenido']/main-titulos/app-liberacion-mercancia/div/accordion/app-integracion-scav/accordion-group/div/div[2]/div/div[2]/div[3]/table/thead/tr");
+	
+	
+	
 
 	protected By btnCodigoSapExp = By.xpath("/html/body/app-root/div/div/div/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[9]/div/div[2]/div/div/div[5]/textarea"); 
 
@@ -516,6 +534,7 @@ public class ExpedirMap extends BasePage {
 		protected By btnFiltro2 = By.xpath("//*[@id='contenido']/main-titulos/app-titulo/div/form/div[1]/div/accordion/accordion-group[7]/div/div[2]/div/div[2]/div[2]/div/div/select");
 		//protected By FrameofGridClient1 = By.xpath("//*[@id='tbClientes']/tbody/tr");
 
+		
 
 
 	// hu16

@@ -474,6 +474,8 @@ public class ExpedirTest extends BaseTest {
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloLiberacion"),getProperties().getProperty("Evidencia"));
 	
+		
+		
 		//VALIDACION DE LIBERACION/EJEUCION DE CASO
 		expedir.ValidacionLiberacion_543826(folderPath, getProperties().getProperty("TituloLiberacion"), 
 				getProperties().getProperty("Detalle"),getProperties().getProperty("EstadoC"), 
@@ -491,6 +493,61 @@ public class ExpedirTest extends BaseTest {
 	
 	
 	
+	
+	/**
+	 * Validacion liberado.
+	 *
+	 * @throws Exception the exception
+	 */
+	@SuppressWarnings("static-access")
+	@Test(priority = 1, description = "Modificar expedir")
+	@Severity(SeverityLevel.NORMAL)
+	@Description("Módulo Expedir")
+	@Story("Validacion de liberacion")
+	public void ValidacionLiberadoScav() throws Exception {
+		
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia2"));
+
+
+		recording.startRecording("", folderPath);
+		
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia2"));
+
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloLiberacion"),getProperties().getProperty("Evidencia2"));
+	
+		
+		
+		//VALIDACION DE LIBERACION/EJEUCION DE CASO
+		expedir.LiberacionesScav_571785(folderPath, 
+				getProperties().getProperty("TituloScav"),
+				getProperties().getProperty("FicheroLiberaciones"),
+				getProperties().getProperty("ValorGrillaCupo"), 
+				getProperties().getProperty("valorGrillaCupo2"),
+				getProperties().getProperty("valorGrillaCupo3"), 
+				getProperties().getProperty("valorGrillaCupo7"), 
+				getProperties().getProperty("ValorGrillaTipoTitulo"), 
+				getProperties().getProperty("ValorGrillaNumeroTitulo"),
+				getProperties().getProperty("ValorGrillaLiberacion1"), 
+				getProperties().getProperty("ValorGrillaLiberacion2"), 
+				getProperties().getProperty("Evidencia2"));
+		
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia2"));
+		
+		recording.stopRecording();
+		
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia2"));
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Validacion mercancia liberada.
 	 *
@@ -502,12 +559,15 @@ public class ExpedirTest extends BaseTest {
 	@Story("Validacion de mercancias liberadas")
 	public void ValidacionMercanciaLiberada() throws Exception {
 		
+		//Instancia de ruta de carpeta
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
+		//login a almaviva
 		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
+		//Ingreso a modulo y submodulo
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloLiberacion"),getProperties().getProperty("Evidencia"));
 		
 		//Ejecucion de caso
@@ -585,20 +645,26 @@ public class ExpedirTest extends BaseTest {
 	@Story("Consulta de expedir")
 	public void busquedaExpedir() throws Exception {
 
+		//Instancia de metodo de crear carpeta o folder de destino de evidencias
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 		
+		//Instancia de metodo de grabar video
 		recording.startRecording("", folderPath);
 
+		//Login a la pagina de almaviva
 		login(getProperties().getProperty("nameTestConsultarExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
+		//Instancia de metodo para interactuar con modulos
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 		
+		//Instancia de metodo scav
 		expedir.ValidacionScav_571761(folderPath, getProperties().getProperty("valorGrillaCupo2"), getProperties().getProperty("ValorGrillaCupo3"), 
 				getProperties().getProperty("ValorGrillaCupo7"), getProperties().getProperty("ValorGrillaTipoTitulo"), getProperties().getProperty("ValorGrillaCupo8"), 
 				getProperties().getProperty("Evidencia"));
 		
+		//cierre de sesion y video y informe
 		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		
@@ -614,6 +680,7 @@ public class ExpedirTest extends BaseTest {
 	 * para ejecucion de prueba
 	 * @throws Exception the exception
 	 */
+	@SuppressWarnings("static-access")
 	@Test(priority = 3, description = "Ver expedir")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Expedir")
@@ -624,6 +691,9 @@ public class ExpedirTest extends BaseTest {
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+		
+		//Instancia de metodo de grabar video
+		recording.startRecording("", folderPath);
 
 		login(getProperties().getProperty("nameTestVerExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
@@ -634,6 +704,11 @@ public class ExpedirTest extends BaseTest {
 		//Ejecucion de caso
 		expedir.verExpedir(folderPath,getProperties().getProperty("Evidencia"));
 		
+		//cierre de sesion y video y informe
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
+				
+				
+		recording.stopRecording();
 		// Validaciones de historico de liberaciones 
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
@@ -641,6 +716,43 @@ public class ExpedirTest extends BaseTest {
 	
 	
 	
+	/**
+	 * Ver expedir.
+	 * para ejecucion de prueba
+	 * @throws Exception the exception
+	 */
+	@Test(priority = 3, description = "Ver expedir")
+	@Severity(SeverityLevel.NORMAL)
+	@Description("Módulo Expedir")
+	@Story("Detalle de expedir")
+	public void ProrrogaScav() throws Exception {
+
+		
+		
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+
+		login(getProperties().getProperty("nameTestVerExpedir"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("Prorroga"),
+				getProperties().getProperty("Evidencia"));
+
+		//Ejecucion de caso
+		expedir.ProrrogaScav_573824(folderPath, getProperties().getProperty("TituloScav"), getProperties().getProperty("FicheroUnico"), 
+				getProperties().getProperty("ValorGrillaCupo"), getProperties().getProperty("valorGrillaCupo2"), getProperties().getProperty("valorGrillaCupo3"),
+				getProperties().getProperty("valorGrillaCupo7"), getProperties().getProperty("ValorGrillaTipoTitulo"), getProperties().getProperty("ValorGrillaNumeroTitulo")
+				,getProperties().getProperty("Evidencia"));
+		
+		
+		
+	
+		
+		// Validaciones de historico de liberaciones 
+		
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+	}
+
 	
 	
 	
