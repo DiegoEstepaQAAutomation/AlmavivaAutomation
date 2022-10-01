@@ -130,13 +130,13 @@ public class Convenios extends BaseTest
 		
 		
 		//LLAMADO DE LOS METODOS DE AUTOMATIZACION DE CONVENIOS
-		//convenios.ConveniosConsulta_570452(folderPath, 
-			//	getProperties().getProperty("NitBusqueda"), 
-			//	getProperties().getProperty("ValorTabla"),
-			//	getProperties().getProperty("ValorTabla2"),
-			//	getProperties().getProperty("ValorTabla3"),
-			//	getProperties().getProperty("EstadoLiquidacion"),
-			//	getProperties().getProperty("Evidencia"));
+		convenios.ConveniosConsulta_570452(folderPath, 
+			getProperties().getProperty("NitBusqueda"), 
+				getProperties().getProperty("ValorTabla"),
+				getProperties().getProperty("ValorTabla2"),
+				getProperties().getProperty("ValorTabla3"),
+				getProperties().getProperty("EstadoLiquidacion"),
+				getProperties().getProperty("Evidencia"));
 		
 		
 		//convenios.PerfilesRolConvenio_567514(folderPath, 

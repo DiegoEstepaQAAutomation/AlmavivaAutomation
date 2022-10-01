@@ -95,6 +95,7 @@ public class LoginPage extends LoginMap {
 		
 		waitInMs(1000);
 		writeText(txtusuario, usuario2, folderPath, "Se escribe usuario",Evidencia);
+		waitInMs(2000);
 		writeText(txtpassword, password, folderPath, "Se escribe una contraseña",Evidencia);
 		click(btnLogin, folderPath, "Se da click en el elemento",Evidencia);
 

@@ -488,6 +488,71 @@ public class ExpedirPage extends ExpedirMap {
 		return this;
 	}
 	
+	@Step("Ver Titulo Expedir")
+	public ExpedirPage ValidacionExpedirDivisionIngresos_554006(File folderPath, String InfGTitulo, String ingreso, 
+			String aplicar, String SubModuloExpedir, String OficnaExpedicion, String oficinaAlmacenamiento,
+			String estado,String Evidencia) throws Exception 
+	{
+		
+		ValidacionExpedirDivisionIngresos(folderPath, Evidencia, Evidencia, Evidencia, Evidencia, Evidencia, Evidencia, Evidencia, Evidencia);
+		
+		
+		screenshot(folderPath, "CP01,CP02,CP03.");
+		
+		
+		return this;
+		
+		
+		
+	}
+	
+	
+	@Step("Ver Titulo Expedir")
+	public ExpedirPage ValidacionExpedirDivisionIngresos_571351(File folderPath, String InfGTitulo, String ingreso, 
+			String aplicar, String SubModuloExpedir, String OficnaExpedicion, String oficinaAlmacenamiento,
+			String estado,String Evidencia) throws Exception 
+	{
+		
+		ValidacionExpedirDivisionIngresos(folderPath, Evidencia, Evidencia, Evidencia, Evidencia, Evidencia, Evidencia, Evidencia, Evidencia);
+		
+		
+		screenshot(folderPath, "CP01,CP02,CP03.");
+		
+		
+		return this;
+		
+		
+		
+	}
+	
+	
+	
+	
+	@Step("Ver Titulo Expedir")
+	public ExpedirPage ValidacionExpedirDivisionIngresos_571360(File folderPath, String InfGTitulo, String ingreso, 
+			String aplicar, String SubModuloExpedir, String OficnaExpedicion, String oficinaAlmacenamiento,
+			String estado,String Evidencia) throws Exception 
+	{
+		
+		ValidacionExpedirDivisionIngresos(folderPath, Evidencia, Evidencia, Evidencia, Evidencia, Evidencia, Evidencia, Evidencia, Evidencia);
+		
+		
+		screenshot(folderPath, "CP01,CP02,CP03.");
+		
+		
+		return this;
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

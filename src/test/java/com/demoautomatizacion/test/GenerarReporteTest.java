@@ -88,22 +88,72 @@ public class GenerarReporteTest extends BaseTest {
 		generarReporte
 		
 		.reportes(folderPath, getProperties().getProperty("FechaI"),
-				getProperties().getProperty("FechaF"),getProperties().getProperty("Evidencia")) 
+				getProperties().getProperty("FechaF"),getProperties().getProperty("Evidencia")); 
 		
+		/*
 		.reportesCP05(folderPath, getProperties().getProperty("fechaI"), 
 						getProperties().getProperty("fechaF"), 
 						getProperties().getProperty("TipoReporte1"), 
 						getProperties().getProperty("TipoReporte2"), 
 						getProperties().getProperty("TipoReporte3"),
 						getProperties().getProperty("Evidencia")) ;
-		
+		*/
 		// CERRAR SESION,PLANTILLA Y PARAR GRABACION
 		
 		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		recording.stopRecording();
 		
+		//COMENTARIAR ESTA LINEA DEPENDIENDO SI NECESITA EJECUTAR TODOS AL TIEMPO
 
-		GenerarReportePdf.closeTemplate("Cierra la plantilla",getProperties().getProperty("Evidencia"));
+		//GenerarReportePdf.closeTemplate("Cierra la plantilla",getProperties().getProperty("Evidencia"));
+	}
+	
+	
+	
+	@SuppressWarnings("static-access")
+	@Test(priority = 0, description = "Reportes")
+	@Severity(SeverityLevel.NORMAL)
+	@Description("Módulo Reportes")
+	@Story("Opciones reportes")
+	public void generarReporte2() throws Exception {
+
+		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia2"));
+		
+		//INSTANCIA DE GRABAR PANTALLA(INICIA GRABACION)
+		recording.startRecording("inicio de grabacion", folderPath);
+
+		//METODO DE LOGIN(CREDENCIALES)
+		login(getProperties().getProperty("nameTestGenerarReporte"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
+
+		//INGRESO A MODULO Y SUBMODULO 
+		home.modulo(folderPath, getProperties().getProperty("Modulo"), 
+				getProperties().getProperty("SubModuloG"),getProperties().getProperty("Evidencia2"));
+		
+		//INSTANCIA DE METODOS DE GENERAR REPORTE EN ALMAVIVA
+		generarReporte
+		
+		.reportes(folderPath, getProperties().getProperty("FechaI"),
+				getProperties().getProperty("FechaF"),getProperties().getProperty("Evidencia2")); 
+		
+		/*
+		.reportesCP05(folderPath, getProperties().getProperty("fechaI"), 
+						getProperties().getProperty("fechaF"), 
+						getProperties().getProperty("TipoReporte1"), 
+						getProperties().getProperty("TipoReporte2"), 
+						getProperties().getProperty("TipoReporte3"),
+						getProperties().getProperty("Evidencia2")) ;
+		*/
+		// CERRAR SESION,PLANTILLA Y PARAR GRABACION
+		
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia2"));
+		
+		recording.stopRecording();
+		
+
+		GenerarReportePdf.closeTemplate("Cierra la plantilla",getProperties().getProperty("Evidencia2"));
 	}
 }

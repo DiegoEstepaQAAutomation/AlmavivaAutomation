@@ -483,6 +483,26 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("LiberarCantidad"),getProperties().getProperty("Sinicial"),getProperties().getProperty("TituloHistorico"),
 				getProperties().getProperty("TituloLiberacionInicial"),getProperties().getProperty("Mercancias"),getProperties().getProperty("Evidencia"));
 		
+		
+				expedir.ValidacionExpedirDivisionIngresos_554006(folderPath, getProperties().getProperty("TituloLiberacion"), 
+						getProperties().getProperty("Detalle"),getProperties().getProperty("EstadoC"), 
+						getProperties().getProperty("CantInicial"), getProperties().getProperty("CantActual"),
+						getProperties().getProperty("LiberarCantidad"),getProperties().getProperty("Sinicial"),getProperties().getProperty("TituloHistorico"));
+				
+				
+				
+				
+				expedir.ValidacionExpedirDivisionIngresos_571351(folderPath, getProperties().getProperty("TituloLiberacion"), 
+						getProperties().getProperty("Detalle"),getProperties().getProperty("EstadoC"), 
+						getProperties().getProperty("CantInicial"), getProperties().getProperty("CantActual"),
+						getProperties().getProperty("LiberarCantidad"),getProperties().getProperty("Sinicial"),getProperties().getProperty("TituloHistorico"));
+				
+				
+				expedir.ValidacionExpedirDivisionIngresos_571360(folderPath, getProperties().getProperty("TituloLiberacion"), 
+						getProperties().getProperty("Detalle"),getProperties().getProperty("EstadoC"), 
+						getProperties().getProperty("CantInicial"), getProperties().getProperty("CantActual"),
+						getProperties().getProperty("LiberarCantidad"),getProperties().getProperty("Sinicial"),getProperties().getProperty("TituloHistorico"));
+		
 		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		recording.stopRecording();
@@ -899,6 +919,41 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("FechaDeCargue"), 
 				getProperties().getProperty("Evidencia"));
 		
+		
+		
+		creaciontitulos.ValidacionExpedirFormulario_554762(folderPath, 
+				getProperties().getProperty("Empresa2"),
+				getProperties().getProperty("informacionGeneralE"),
+				getProperties().getProperty("Titulo"),
+				getProperties().getProperty("NumeroTitulo"),
+				getProperties().getProperty("Plazos"), 
+				getProperties().getProperty("etiquetaPoliza"),
+				getProperties().getProperty("Tipomerca"), 
+				getProperties().getProperty("Mercancias"), 
+				getProperties().getProperty("tarifas"), 
+				getProperties().getProperty("ingreso"), 
+				getProperties().getProperty("aplicar"),
+				getProperties().getProperty("FechaDeCargue"), 
+				getProperties().getProperty("Evidencia"));
+		
+		
+		
+		
+		
+		creaciontitulos.ValidacionExpedirFormulario_556552(folderPath, 
+				getProperties().getProperty("Empresa2"),
+				getProperties().getProperty("informacionGeneralE"),
+				getProperties().getProperty("Titulo"),
+				getProperties().getProperty("NumeroTitulo"),
+				getProperties().getProperty("Plazos"), 
+				getProperties().getProperty("etiquetaPoliza"),
+				getProperties().getProperty("Tipomerca"), 
+				getProperties().getProperty("Mercancias"), 
+				getProperties().getProperty("tarifas"), 
+				getProperties().getProperty("ingreso"), 
+				getProperties().getProperty("aplicar"),
+				getProperties().getProperty("FechaDeCargue"), 
+				getProperties().getProperty("Evidencia"));
 		
 		//Ejecucion de caso
 		

@@ -53,6 +53,8 @@ public class GenerarReportePage extends GenerarReporteMap {
 			GenerarReportePdf.closeTemplate("Error en la validación, descarga fallida",Evidencia);
 			Assert.fail("Error en la validación, descarga fallida");
 		}
+		
+		time(5);
 		return this;
 	}
 	

@@ -65,6 +65,9 @@ public class LiberacionMercanciaTest extends BaseTest {
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 		liberacion.consultarLiberacion(folderPath,getProperties().getProperty("Evidencia"));
+		
+		
+		liberacion.consultarLiberacion_554083(folderPath,getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}

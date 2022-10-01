@@ -67,4 +67,17 @@ public class LiberacionPage extends LiberacionMap {
 		isEnabled(lblCantidadLiberar, folderPath, "Campo Cantidad Liberar No editable",Evidencia);
 		return this;
 	}
+	
+	@Step("Liberacion")
+	public LiberacionPage consultarLiberacion_554083(File folderPath,String Evidencia) throws Exception 
+	{
+		consultarLiberacion(folderPath, Evidencia);
+		
+		screenshot(folderPath, "CP01,CP02,CP03.");
+		
+		return this;
+		
+	}
+	
+	
 }

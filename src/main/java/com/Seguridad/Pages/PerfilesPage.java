@@ -174,6 +174,26 @@ public class PerfilesPage extends PerfilesMap {
 		return this;
 	}
 	
+	
+	
+	
+	//Ver perfil
+		@Step("Ver perfil")
+		public PerfilesPage verPerfil_554763(File folderPath,String Evidencia) throws Exception {
+			
+			//Se valida la visualizacion de perfil 
+			scrollElementH(folderPath, btnVerPerfil, "Se desplaza hasta la opción Ver perfil",Evidencia);
+			etiquetas(btnVerPerfil, folderPath, "Etiqueta Ver perfil",Evidencia);
+			click(btnVerPerfil, folderPath, "Se ingresa a ver perfil",Evidencia);
+			
+			//Se valida que los campos esten enabled 
+			isEnabled(txtNombrePerfil, folderPath, "Campo Nombre Perfil No editable,Caso exitoso 554748,554749,554750,554751",Evidencia);
+			isEnabled(txtDescripcionPerfil, folderPath, "Campo Descripción de Perfil No editable",Evidencia);
+			isEnabled(lblEstado, folderPath, "Campo Estado No editable",Evidencia);
+			return this;
+		}
+	
+	
 	@Step("Botones consultar perfil")
 	public PerfilesPage botonesPerfil(File folderPath,String Evidencia) throws Exception {
 
