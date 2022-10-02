@@ -21,6 +21,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
+import ru.yandex.qatools.ashot.Screenshot;
 import utilities.GenerarReportePdf;
 import utilities.MyScreenRecorder;
 
@@ -185,13 +186,15 @@ public class ExpedirTest extends BaseTest {
     @Description("BaseDatos")
     @Story("BaseDatos")
     public void LpnDtlnum1() throws Exception {
-
+		
+		String stringDatabeseQuery = "";
+		
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 		
         //CONSULTA DE BASE DE DATOS GENERADA EN UN ARRAY LIST
-        ArrayList<Object> consultaPruebaBD = consultaBD("SELECT "
+        ArrayList<Object> databaseQuery = consultaBD("SELECT "
                 +getProperties().getProperty("campoIv.lodnum")+","
                 +getProperties().getProperty("campoIh.dtlnum")+","
                 +getProperties().getProperty("campoIv.prtnum")+","
@@ -207,13 +210,12 @@ public class ExpedirTest extends BaseTest {
                            
 				);
 		
+        
         //SE GUARDAN LOS RESULADOS EN UNA VARIABLE DE TIPO STRING Y SE CONVIERTE A STRING MEDIANTE EL TO STRING 
-		String dataBDD = consultaPruebaBD.toString();
+		stringDatabeseQuery = databaseQuery.toString();
 		 
-		System.out.print(dataBDD);
-		
-		
-		
+		System.out.print(stringDatabeseQuery);
+				
 		/*
 		ArrayList<Object> consultaPruebaBD2 = consultaBD2("SELECT "
 				+" FROM "+getProperties().getProperty("tbl_Mercancias_wms")
@@ -229,16 +231,55 @@ public class ExpedirTest extends BaseTest {
 
         login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
                 getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
-        //METODO DE INGRESO A MODULO Y SUBMODULO
-        home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
-        //EJECUCION DE CASOS
-        expedir.LpnDtlnumCoincidan1(folderPath, getProperties().getProperty("TipoDeBodega"), getProperties().getProperty("estadoA"),
-        		getProperties().getProperty("Mercancias"),getProperties().getProperty("Lista"),getProperties().getProperty("Lpm"),dataBDD + " Datos LPN de la base de datos",
-        		getProperties().getProperty("SubModuloExpedir"),//dataBDD2 + " Datos LPN de la base de datos",
-        		getProperties().getProperty("Lista1"),getProperties().getProperty("Evidencia"));
         
-       
+        //METODO DE INGRESO A MODULO Y SUBMODULO
+        home.modulo(
+        		folderPath, 
+        		getProperties().getProperty("ModuloT"), 
+        		getProperties().getProperty("SubModuloExpedir"),
+        		getProperties().getProperty("Evidencia"));
+        
+        //EJECUCION DE CASOS
+        expedir.LpnDtlnumCoincidan1(
+        		folderPath, 
+        		getProperties().getProperty("TipoDeBodega"), 
+        		getProperties().getProperty("estadoA"),
+        		getProperties().getProperty("Mercancias"),
+        		getProperties().getProperty("Lista"),getProperties().getProperty("Lpm"),
+        		stringDatabeseQuery + " Datos LPN de la base de datos",
+        		getProperties().getProperty("SubModuloExpedir"),//dataBDD2 + " Datos LPN de la base de datos",
+        		getProperties().getProperty("Lista1"),
+        		getProperties().getProperty("Evidencia"));
 
+        ArrayList<String> response = new ArrayList<String>();
+        
+        // Get grid columm by index
+        ArrayList<String> selectedColunmGrid = base.SelectedColunmGrid(3);
+        // Print total of recors of database.
+        base.screenshot(folderPath, "Total de registros en base de datos por consulta: "  + databaseQuery.size());
+        // Print total grid records.
+        base.screenshot(folderPath, "Total de registros en la grilla: "  + selectedColunmGrid.size());
+
+        base.screenshot(folderPath, "Comparacion base de datos/grid:");
+
+        for (int i=selectedColunmGrid.size(); i>=0; i--){ 
+
+        	//System.out.println(i);  
+            
+            if(stringDatabeseQuery.contains(selectedColunmGrid.get(i))) 
+            {
+            	response.add(selectedColunmGrid.get(i) + " ✔️ |" );
+            }
+            else
+            {
+            	response.add(selectedColunmGrid.get(i) + " ❌ |" );            	
+            }
+        } 
+
+        base.screenshot(folderPath, "Total de registros comparacion: " + response.size());
+
+        base.screenshot(folderPath, "Resultado: " + response.toString());
+        
         GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 
 	}

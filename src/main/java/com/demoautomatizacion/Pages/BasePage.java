@@ -1751,4 +1751,40 @@ public class BasePage {
 
     }
 	
+	/**
+	 * Select colunm grid.
+	 *
+	 * @param numColumn the num column
+	 * @param numColumn1 the num column 1
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	//TRAER DATA DE UNA TABLA WEB A UN EXCEL 
+	public ArrayList<String> SelectedColunmGrid(int numColumn) throws IOException {
+
+        String beforeXpath =  "//tbody/tr[";//tbody/tr[]/td[]
+
+        String afterXpath =  "]/td[";
+
+        String cierre  =  "]";
+
+        List<WebElement> rows = driver.findElements(By.xpath("//table[@role='grid']//tr"));
+
+        ArrayList<String> array = new ArrayList<String>();
+
+        for(int i=1; i<rows.size(); i++){
+
+            String actualXpath = beforeXpath+i+afterXpath+numColumn+cierre;
+
+            String column = driver.findElement(By.xpath(actualXpath)).getText();
+
+            array.add(column);
+
+        }
+
+        System.out.println(array);
+        return array;
+
+    }
+
+	
 }
