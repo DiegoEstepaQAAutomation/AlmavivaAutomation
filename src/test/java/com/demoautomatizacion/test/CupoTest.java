@@ -52,29 +52,30 @@ public class CupoTest extends BaseTest {
 	 * @param contrasena the contrasena
 	 * @throws Exception the exception
 	 */
-	//METODO DE LOGIN A PAGINA DE ALMAVIVA
-	public void login(String nameTest, String usuario, String contrasena) throws Exception {
+	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
+			public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
+			{
 
-		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		
-		//INSTANCIA DE CARPETA DONDE VAMOS A GUARDAR INFORME PDF
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+				//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
+				GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
+				//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
+				File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
+						getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
+				GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
+						getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.setImgContador(0);
+				GenerarReportePdf.setImgContador(0);
 
-		//METODOS QUE TRAEN LAS URL DE ALMAVIVA
-		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp();
-		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp();
-		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-				folderPath,getProperties().getProperty("Evidencia"));
-	}
+				//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
+				home.irPortal(getProperties().getProperty("urlPrivada"));
+				login.privacidadIp();
+				home.irPortal(getProperties().getProperty("url"));
+				login.privacidadIp();
+				home.irPortal(getProperties().getProperty("urlPrivada"));
+				login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
+						folderPath,getProperties().getProperty("Evidencia"));
+			}
 	//METODO QUE PERMITE CREAR CUPO
 
 	/**
@@ -92,17 +93,20 @@ public class CupoTest extends BaseTest {
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login(getProperties().getProperty("nameTestCrearCupo"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestCrearCupo"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"),getProperties().getProperty("Evidencia"));
 
-		cupo.crearCupo(folderPath, getProperties().getProperty("nitC"), getProperties().getProperty("Evidencia"))
+		//cupo.crearCupo(folderPath, getProperties().getProperty("nitC"), getProperties().getProperty("Evidencia"))
 		
-		        .modalidadesCupo()
-				.mercancia(getProperties().getProperty("mercancia"))
-				.acreedor(folderPath, getProperties().getProperty("acreedor"));
-
+		     //   .modalidadesCupo()
+			//	.mercancia(getProperties().getProperty("mercancia"))
+			//	.acreedor(folderPath, getProperties().getProperty("acreedor"));
+		
+		cupo.consultaCupo(folderPath, getProperties().getProperty("nit50"), getProperties().getProperty("criterio"),
+				getProperties().getProperty("nitConsultar"),getProperties().getProperty("Evidencia"));
+		
 		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
 	}
 
@@ -119,24 +123,28 @@ public class CupoTest extends BaseTest {
 
 		//INSTANCIA DE CARPETA DONDE VAMOS A GUARDAR INFORME PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia2"));
 
-		login(getProperties().getProperty("nameTestModificarCupo"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestModificarCupo"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"),getProperties().getProperty("Evidencia"));
+		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"),getProperties().getProperty("Evidencia2"));
 
 		//cupo.modificarCupo(folderPath, getProperties().getProperty("mercancia"),
 			//	getProperties().getProperty("acreedor"),getProperties().getProperty("Evidencia"));
 
 		//metodo de validacion de cupo con scav
-		cupo.ScavCupo_571690(folderPath, getProperties().getProperty("Evidencia"), getProperties().getProperty("ValorGrillaCupo"), 
+		/*cupo.ScavCupo_571690(folderPath, getProperties().getProperty("Evidencia"), getProperties().getProperty("ValorGrillaCupo"), 
 				getProperties().getProperty("ValorGrillaCupo2"), getProperties().getProperty("valorGrillaCupo3"), 
 				getProperties().getProperty("valorGrillaCupo4"), 
 				getProperties().getProperty("valorGrillaCupo5"), getProperties().getProperty("valorGrillaCupo6"),
 				getProperties().getProperty("valorGrillaCupo7"), getProperties().getProperty("valorGrillaCupo8"));
+		*/
 		
-		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
+		cupo.consultaCupo(folderPath, getProperties().getProperty("nit50"), getProperties().getProperty("criterio"),
+				getProperties().getProperty("nitConsultar"),getProperties().getProperty("Evidencia2"));
+		
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia2"));
 	}
 
 	/**
@@ -152,16 +160,16 @@ public class CupoTest extends BaseTest {
 
 		//INSTANCIA DE CARPETA DONDE VAMOS A GUARDAR INFORME PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
-				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia2"));
 
-		login(getProperties().getProperty("nameTestVerCupo"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestVerCupo"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
-		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"),getProperties().getProperty("Evidencia"));
+		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"),getProperties().getProperty("Evidencia1"));
 
-		cupo.verCupo(folderPath,getProperties().getProperty("Evidencia"));
+		cupo.verCupo(folderPath,getProperties().getProperty("Evidencia2"));
 
-		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia2"));
 	}
 
 	/**
@@ -179,8 +187,8 @@ public class CupoTest extends BaseTest {
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login(getProperties().getProperty("nameTestVerCupo"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestVerCupo"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"),getProperties().getProperty("Evidencia"));
 

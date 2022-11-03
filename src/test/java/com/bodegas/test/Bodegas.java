@@ -61,6 +61,7 @@ public class Bodegas extends BaseTest {
 	}
 
 	//PASO A PASO DE CREACION DE UNA BODEGA
+	@SuppressWarnings("static-access")
 	@Test(priority = 0, description = "Validar que Permita la creación de la información de bodegas pertenecientes a Almaviva y/o particulares autorizadas")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Validar que Permita la creación de la información de bodegas pertenecientes a Almaviva y/o particulares autorizadas")
@@ -69,6 +70,8 @@ public class Bodegas extends BaseTest {
 		//VALIDAR ESTOS PASOS EN EXPEDIR TEST EN EL METODO CREAR EXPEDIR
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderBodega"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+		
+		recording.startRecording("grabando", folderPath);
 
 		login(getProperties().getProperty("nameTestBodega"), getProperties().getProperty("usuario"),
 				getProperties().getProperty("password"));
@@ -76,15 +79,20 @@ public class Bodegas extends BaseTest {
 		home.modulo(folderPath, getProperties().getProperty("ModuloP"), getProperties().getProperty("SubModuloB"),getProperties().getProperty("Evidencia"));
 
 		//EJECUCION DE LOS CASOS DE BODEGA
-		bodega.Parametrizacion(folderPath,getProperties().getProperty("Evidencia"))
+		bodega.Parametrizacion(folderPath,getProperties().getProperty("Evidencia"));
 		
-				.fillFormulary(folderPath, getProperties().getProperty("CodigoBodeg"),
+				/*.fillFormulary(folderPath, getProperties().getProperty("CodigoBodeg"),
 						getProperties().getProperty("oficinaBodeg"), getProperties().getProperty("Nacion"),
 						getProperties().getProperty("Depa"), getProperties().getProperty("ZonaUrbana"),
 						getProperties().getProperty("Propietario"), getProperties().getProperty("Ubicacion"),
 						getProperties().getProperty("NumeroTelefonico"), getProperties().getProperty("Opcion1Tipo"),
 						getProperties().getProperty("Opcion2Tipo"), getProperties().getProperty("Opcion3Tipo"),
 						getProperties().getProperty("Opcion4Tipo"), getProperties().getProperty("EstadoOpcion"),getProperties().getProperty("Evidencia"));
+		*/
+		
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
+		
+		recording.stopRecording();
 
 		// FillFormulary(folderPath, "CodigoBodeg", "oficinaBodeg", "Propietario",
 		// "Ubicacion", "NumeroTelefonico");
@@ -101,9 +109,12 @@ public class Bodegas extends BaseTest {
 		@Description("Validar que Permita la creación de la información de bodegas pertenecientes a Almaviva y/o particulares autorizadas")
 		@Story("Validar que Permita la creación de la información de bodegas pertenecientes a Almaviva y/o particulares autorizadas")
 		public void AlmavivaBodegasScav() throws Exception {
+			
+			
 			//VALIDAR ESTOS PASOS EN EXPEDIR TEST EN EL METODO CREAR EXPEDIR
 			File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderBodega"),
 					getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+			
 			
 			recording.startRecording("grabando", folderPath);
 			

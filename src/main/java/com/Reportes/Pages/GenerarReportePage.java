@@ -3,6 +3,9 @@ package com.Reportes.Pages;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import com.Reportes.Maps.GenerarReporteMap;
+
+import static org.testng.Assert.assertTrue;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -71,6 +74,9 @@ public class GenerarReportePage extends GenerarReporteMap {
 		fechaI = timeStamp;
 		fechaF = timeStamp;
 
+		// OBTENER EL NOMBRE DEL M�TODO A EJECUTAR
+		String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();
+		
 		//Seleccion y descarga de los 3 tipos de reporte existentes
 		selectElementList(lblTipoReporte, TipoReporte1, folderPath, "seleccionar elemento random de lista",Evidencia);
 		writeText(lblFechaInicio, fechaI, folderPath, "Se ingresa fecha inicial",Evidencia);
@@ -84,10 +90,17 @@ public class GenerarReportePage extends GenerarReporteMap {
 		writeText(lblFechaInicio, fechaI, folderPath, "Se ingresa fecha inicial",Evidencia);
 		writeText(lblFechaFin, fechaF, folderPath, "Se ingresa fecha final",Evidencia);
 		click(btnDescargar, folderPath, "Se da click sobre descargar",Evidencia);
-		//Se valida la alerta de descarga de reporte exitoso
-		boolean alertaexito = validarElemento(AlertaExitoso, 10);
 		
-		ValidacionObjeto(alertaexito, "casos exitosos", folderPath,Evidencia);
+		ValidacionObjeto2(validarElemento(AlertaExitoso, 6), nomTest, folderPath, Evidencia);
+		
+		
+		assertTrue(validarElemento(AlertaExitoso, 6), "Estado del caso: Fallido");
+		
+        
+		//Se valida la alerta de descarga de reporte exitoso
+		//boolean alertaexito = validarElemento(AlertaExitoso, 10);
+		
+		//ValidacionObjeto(alertaexito, "casos exitosos", folderPath,Evidencia);
 		
 		screenshot(folderPath ,"Estos son los casos: " + CP05);
 		

@@ -1647,6 +1647,44 @@ public class BasePage {
 		
 			
 	}
+	
+public void ValidacionObjeto2(boolean valor1, String caso, File folderPath,String Evidencia ) throws IOException, DocumentException 
+	
+	{
+		
+		if(Evidencia.equals("SI")) 
+		{
+		//Si el objeto booleano es verdadero imprimira en evidencias caso exitoso
+		if(valor1 == true  ) 
+			
+		{
+			screenshot(folderPath ,"La validacion es exitosa  para el caso " + caso );			
+		}
+		//En caso contrario imprimira otro mensaje
+		else 
+		{
+			screenshot(folderPath ,"La validacion no es exitosa el elemento a validar no esta presente " );
+			
+			GenerarReportePdf.closeTemplate(caso, Evidencia);
+					
+		}
+		} else if(valor1 == true  ) 
+		{
+			
+			System.out.println("Validacion exitosa");
+			
+			
+		}
+		else 
+		{
+			System.out.println("Validacion no exitosa");
+		}
+		
+			
+	}
+	
+	
+	//try {
 	//Metodo de recargar pagina
 	
 	/**

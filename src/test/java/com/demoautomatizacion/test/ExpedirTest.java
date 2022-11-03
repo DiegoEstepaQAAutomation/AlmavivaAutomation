@@ -175,117 +175,6 @@ public class ExpedirTest extends BaseTest {
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 	
-	/**
-	 * Lpn dtlnum 1.
-	 *
-	 * @throws Exception the exception
-	 */
-	//Ejecucion de test con base de datos
-	@Test(priority = 1, description = "BaseDatos")
-    @Severity(SeverityLevel.NORMAL)
-    @Description("BaseDatos")
-    @Story("BaseDatos")
-    public void LpnDtlnum1() throws Exception {
-		
-		String stringDatabeseQuery = "";
-		
-		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
-		
-        //CONSULTA DE BASE DE DATOS GENERADA EN UN ARRAY LIST
-        ArrayList<Object> databaseQuery = consultaBD("SELECT "
-                +getProperties().getProperty("campoIv.lodnum")+","
-                +getProperties().getProperty("campoIh.dtlnum")+","
-                +getProperties().getProperty("campoIv.prtnum")+","
-                +getProperties().getProperty("campoIv.untqty")
-                +" FROM "+getProperties().getProperty("tablaInvhld")
-                +" INNER JOIN "+getProperties().getProperty("tablaInventory_view")+" on "+getProperties().getProperty("tablaIh.dtlnum")
-                +" = "+getProperties().getProperty("campoIv.dtlnum")
-                +" INNER JOIN "+getProperties().getProperty("tablaClient_grp_client")+" on "+getProperties().getProperty("tablaIv.prt_client_id")
-                +" = "+getProperties().getProperty("campoCgc.client_id")
-                +" WHERE "+getProperties().getProperty("campoIh.wh_id")+" = '"+getProperties().getProperty("num1")+"'"
-                +" AND "+getProperties().getProperty("campoIh.hldnum")+" = '"+getProperties().getProperty("num2")+"'"
-                +" AND "+getProperties().getProperty("campoCgc.client_grp")+" = '"+getProperties().getProperty("num3")+"'"
-                           
-				);
-		
-        
-        //SE GUARDAN LOS RESULADOS EN UNA VARIABLE DE TIPO STRING Y SE CONVIERTE A STRING MEDIANTE EL TO STRING 
-		stringDatabeseQuery = databaseQuery.toString();
-		 
-		System.out.print(stringDatabeseQuery);
-				
-		/*
-		ArrayList<Object> consultaPruebaBD2 = consultaBD2("SELECT "
-				+" FROM "+getProperties().getProperty("tbl_Mercancias_wms")
-				+" WHERE "+getProperties().getProperty("campoMwms_id_titulo")+" = '"+getProperties().getProperty("num4")+"'"
-				
-				);
-		
-		String dataBDD2 = consultaPruebaBD2.toString();
-		
-		System.out.print(dataBDD2);
-		*/
-		
-
-        login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
-                getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
-        
-        //METODO DE INGRESO A MODULO Y SUBMODULO
-        home.modulo(
-        		folderPath, 
-        		getProperties().getProperty("ModuloT"), 
-        		getProperties().getProperty("SubModuloExpedir"),
-        		getProperties().getProperty("Evidencia"));
-        
-        //EJECUCION DE CASOS
-        expedir.LpnDtlnumCoincidan1(
-        		folderPath, 
-        		getProperties().getProperty("TipoDeBodega"), 
-        		getProperties().getProperty("estadoA"),
-        		getProperties().getProperty("Mercancias"),
-        		getProperties().getProperty("Lista"),getProperties().getProperty("Lpm"),
-        		stringDatabeseQuery + " Datos LPN de la base de datos",
-        		getProperties().getProperty("SubModuloExpedir"),//dataBDD2 + " Datos LPN de la base de datos",
-        		getProperties().getProperty("Lista1"),
-        		getProperties().getProperty("Evidencia"));
-
-        ArrayList<String> response = new ArrayList<String>();
-        
-        // Get grid columm by index
-        ArrayList<String> selectedColunmGrid = base.SelectedColunmGrid(3);
-        // Print total of recors of database.
-        base.screenshot(folderPath, "Total de registros en base de datos por consulta: "  + databaseQuery.size());
-        // Print total grid records.
-        base.screenshot(folderPath, "Total de registros en la grilla: "  + selectedColunmGrid.size());
-
-        base.screenshot(folderPath, "Comparacion base de datos/grid:");
-
-        for (int i=selectedColunmGrid.size(); i>=0; i--){ 
-
-        	//System.out.println(i);  
-            
-            if(stringDatabeseQuery.contains(selectedColunmGrid.get(i))) 
-            {
-            	response.add(selectedColunmGrid.get(i) + " ✔️ |" );
-            }
-            else
-            {
-            	response.add(selectedColunmGrid.get(i) + " ❌ |" );            	
-            }
-        } 
-
-        base.screenshot(folderPath, "Total de registros comparacion: " + response.size());
-
-        base.screenshot(folderPath, "Resultado: " + response.toString());
-        
-        GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
-
-	}
-	
-	
-	
 	
 	/**
 	 * Modificar expedir.
@@ -1162,6 +1051,165 @@ public class ExpedirTest extends BaseTest {
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Lpn dtlnum 1.
+	 *
+	 * @throws Exception the exception
+	 */
+		
+	
+	
+	
+
+	//Ejecucion de test con base de datos
+	@Test(priority = 1, description = "BaseDatos")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("BaseDatos")
+    @Story("BaseDatos")
+    public void LpnDtlnum1() throws Exception {
+		
+		String stringDatabeseQuery = "";
+		
+		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+		
+        //CONSULTA DE BASE DE DATOS GENERADA EN UN ARRAY LIST
+        ArrayList<Object> databaseQuery = consultaBD("SELECT "
+                +getProperties().getProperty("campoIv.lodnum")+","
+                +getProperties().getProperty("campoIh.dtlnum")+","
+                +getProperties().getProperty("campoIv.prtnum")+","
+                +getProperties().getProperty("campoIv.untqty")
+                +" FROM "+getProperties().getProperty("tablaInvhld")
+                +" INNER JOIN "+getProperties().getProperty("tablaInventory_view")+" on "+getProperties().getProperty("tablaIh.dtlnum")
+                +" = "+getProperties().getProperty("campoIv.dtlnum")
+                +" INNER JOIN "+getProperties().getProperty("tablaClient_grp_client")+" on "+getProperties().getProperty("tablaIv.prt_client_id")
+                +" = "+getProperties().getProperty("campoCgc.client_id")
+                +" WHERE "+getProperties().getProperty("campoIh.wh_id")+" = '"+getProperties().getProperty("num1")+"'"
+                +" AND "+getProperties().getProperty("campoIh.hldnum")+" = '"+getProperties().getProperty("num2")+"'"
+                +" AND "+getProperties().getProperty("campoCgc.client_grp")+" = '"+getProperties().getProperty("num3")+"'"
+                           
+				);
+		
+        
+        //SE GUARDAN LOS RESULADOS EN UNA VARIABLE DE TIPO STRING Y SE CONVIERTE A STRING MEDIANTE EL TO STRING 
+		stringDatabeseQuery = databaseQuery.toString();
+		 
+		System.out.print(stringDatabeseQuery);
+				
+		/*
+		ArrayList<Object> consultaPruebaBD2 = consultaBD2("SELECT "
+				+" FROM "+getProperties().getProperty("tbl_Mercancias_wms")
+				+" WHERE "+getProperties().getProperty("campoMwms_id_titulo")+" = '"+getProperties().getProperty("num4")+"'"
+				
+				);
+		
+		String dataBDD2 = consultaPruebaBD2.toString();
+		
+		System.out.print(dataBDD2);
+		*/
+		
+
+        login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+                getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+        
+        //METODO DE INGRESO A MODULO Y SUBMODULO
+        home.modulo(
+        		folderPath, 
+        		getProperties().getProperty("ModuloT"), 
+        		getProperties().getProperty("SubModuloExpedir"),
+        		getProperties().getProperty("Evidencia"));
+        
+        //EJECUCION DE CASOS
+        expedir.LpnDtlnumCoincidan1(
+        		folderPath, 
+        		getProperties().getProperty("TipoDeBodega"), 
+        		getProperties().getProperty("estadoA"),
+        		getProperties().getProperty("Mercancias"),
+        		getProperties().getProperty("Lista"),getProperties().getProperty("Lpm"),
+        		stringDatabeseQuery + " Datos LPN de la base de datos",
+        		getProperties().getProperty("SubModuloExpedir"),//dataBDD2 + " Datos LPN de la base de datos",
+        		getProperties().getProperty("Lista1"),
+        		getProperties().getProperty("Evidencia"));
+
+        ArrayList<String> response = new ArrayList<String>();
+        
+        // Get grid columm by index
+        ArrayList<String> selectedColunmGrid = base.SelectedColunmGrid(3);
+        // Print total of recors of database.
+        base.screenshot(folderPath, "Total de registros en base de datos por consulta: "  + databaseQuery.size());
+        // Print total grid records.
+        base.screenshot(folderPath, "Total de registros en la grilla: "  + selectedColunmGrid.size());
+
+        base.screenshot(folderPath, "Comparacion base de datos/grid:");
+
+        for (int i=selectedColunmGrid.size(); i>=0; i--){ 
+
+        	//System.out.println(i);  
+            
+            if(stringDatabeseQuery.contains(selectedColunmGrid.get(i))) 
+            {
+            	response.add(selectedColunmGrid.get(i) + " ✔️ |" );
+            }
+            else
+            {
+            	response.add(selectedColunmGrid.get(i) + " ❌ |" );            	
+            }
+        } 
+
+        base.screenshot(folderPath, "Total de registros comparacion: " + response.size());
+
+        base.screenshot(folderPath, "Resultado: " + response.toString());
+        
+        GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+
+	}
+
+	
 
 	
 	

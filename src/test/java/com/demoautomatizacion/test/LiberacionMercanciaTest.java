@@ -17,6 +17,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import utilities.GenerarReportePdf;
+import utilities.MyScreenRecorder;
 
 @Listeners({ TestListener.class })
 @Epic("Liberaci�n")
@@ -30,6 +31,10 @@ public class LiberacionMercanciaTest extends BaseTest {
 		fileprops.load(new FileInputStream(new File("src/test/resources/Titulo.properties").getAbsolutePath()));
 		return fileprops;
 	}
+	
+	/** The recording. */
+	//INSTANCIA DE MY SCREEN RECORDER(GRABACION DE PANTALLA)
+	MyScreenRecorder recording;
 
 	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 
@@ -51,6 +56,7 @@ public class LiberacionMercanciaTest extends BaseTest {
 				folderPath,getProperties().getProperty("Evidencia"));
 	}
 
+	@SuppressWarnings("static-access")
 	@Test(priority = 0, description = "")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("M�dulo Liberaci�n")
@@ -59,16 +65,52 @@ public class LiberacionMercanciaTest extends BaseTest {
 
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderL"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+		
+		recording.startRecording("grabacion de pantalla o screen recording ", folderPath);
 
 		login(getProperties().getProperty("nameTestLiberacion"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
+		
+		
 		liberacion.consultarLiberacion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		
 		liberacion.consultarLiberacion_554083(folderPath,getProperties().getProperty("Evidencia"));
+		
+		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
+		
+		recording.stopRecording();
 
 		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	@Test(priority = 0, description = "")
+	@Severity(SeverityLevel.NORMAL)
+	@Description("M�dulo Liberaci�n")
+	@Story("")
+	public void liberacion2() throws Exception {
+
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderL"),
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia2"));
+
+		login(getProperties().getProperty("nameTestLiberacion"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
+
+		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia2"));
+		liberacion.consultarLiberacion(folderPath,getProperties().getProperty("Evidencia2"));
+		
+		
+		//liberacion.consultarLiberacion_554083(folderPath,getProperties().getProperty("Evidencia"));
+
+		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia2"));
 	}
 }

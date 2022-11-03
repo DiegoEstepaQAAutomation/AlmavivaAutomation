@@ -1,5 +1,7 @@
 package com.Parametrizacion.pages;
 
+import static org.testng.Assert.assertTrue;
+
 import java.io.File;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -100,12 +102,19 @@ public class BodegasPage extends BodegaMap {
 		{
 			
 			
+			
+			
+			//PASO A PASO DE VALIDACION DE SCAV EN BODEGAS
 			searchElementGrid(GridConsecutivo, "283", folderPath, Evidencia, Evidencia);
 			scrollElementH(folderPath, btnVisualizar, Evidencia, Evidencia);
 			click(btnVisualizar, folderPath, Evidencia, Evidencia);
 			time(2);
-			boolean alertaConsultaBodega = validarElemento(AlertaBusqueda, 6);
-			ValidacionObjeto(alertaConsultaBodega, Evidencia, folderPath, Evidencia);
+			
+			assertTrue(validarElemento(AlertaBusqueda, 5), "Caso fallo no logro comprobarlo 595720");
+			
+			ValidacionObjeto(validarElemento(AlertaBusqueda, 5), "Caso certificados de afiliacion", folderPath, Evidencia);
+			
+			//Se necesito usar scrolls de coordenada ya que scroll por localizador fallaba porque la pagina cambia de tamaño a veces
 			scrollDown();
 			scrollDown();
 			scrollDown();
@@ -114,16 +123,12 @@ public class BodegasPage extends BodegaMap {
 			scrollDown();
 			searchElementGrid(GridScav, ValorFecha2, folderPath, Evidencia, Evidencia);
 			
-			
+			//OBTENCION DE TEXTO PARA VALIDACION
 			String Confirmacion = readText(txtScavConsecutive, folderPath, "Obtenemos el consecutivo", Evidencia);
 			
 			isEnabled(txtScavConsecutive, folderPath,"El consecutivo es"+ Confirmacion, Evidencia);
 			
 			click(btnScav, folderPath, "Click en scav", Evidencia);
-			
-			
-			//GridConsecutivo
-			
 			
 			
 			return this;

@@ -38,29 +38,34 @@ public class GenerarReporteTest extends BaseTest {
 	//INSTANCIA DE LA CLASE GRABAR PANTALLA
 	MyScreenRecorder recording;
 
+	
+	
+	
 	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
-	public void login(String nameTest, String usuario, String contrasena) throws Exception {
+		public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
+		{
 
-		//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
-		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
-				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+			//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
+			GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
+			//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
+			File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
+					getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
+			GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
+					getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.setImgContador(0);
+			GenerarReportePdf.setImgContador(0);
 
-		//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
-		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp();
-		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp();
-		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-				folderPath,getProperties().getProperty("Evidencia"));
-	}
+			//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
+			home.irPortal(getProperties().getProperty("urlPrivada"));
+			login.privacidadIp();
+			home.irPortal(getProperties().getProperty("url"));
+			login.privacidadIp();
+			home.irPortal(getProperties().getProperty("urlPrivada"));
+			login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
+					folderPath,getProperties().getProperty("Evidencia"));
+		}
+
 
 	@SuppressWarnings("static-access")
 	@Test(priority = 0, description = "Reportes")
@@ -77,8 +82,8 @@ public class GenerarReporteTest extends BaseTest {
 		recording.startRecording("inicio de grabacion", folderPath);
 
 		//METODO DE LOGIN(CREDENCIALES)
-		login(getProperties().getProperty("nameTestGenerarReporte"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestGenerarReporte"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"), getProperties().getProperty("Evidencia"));
 
 		//INGRESO A MODULO Y SUBMODULO 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), 
@@ -87,20 +92,22 @@ public class GenerarReporteTest extends BaseTest {
 		//INSTANCIA DE METODOS DE GENERAR REPORTE EN ALMAVIVA
 		generarReporte
 		
-		.reportes(folderPath, getProperties().getProperty("FechaI"),
-				getProperties().getProperty("FechaF"),getProperties().getProperty("Evidencia")); 
+		//.reportes(folderPath, getProperties().getProperty("FechaI"),
+			//	getProperties().getProperty("FechaF"),getProperties().getProperty("Evidencia")) 
 		
-		/*
+		
 		.reportesCP05(folderPath, getProperties().getProperty("fechaI"), 
 						getProperties().getProperty("fechaF"), 
 						getProperties().getProperty("TipoReporte1"), 
 						getProperties().getProperty("TipoReporte2"), 
 						getProperties().getProperty("TipoReporte3"),
 						getProperties().getProperty("Evidencia")) ;
-		*/
+		
 		// CERRAR SESION,PLANTILLA Y PARAR GRABACION
 		
 		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
+		
+		GenerarReportePdf.closeTemplate("Cierra la plantilla",getProperties().getProperty("Evidencia2"));
 		
 		recording.stopRecording();
 		
@@ -116,18 +123,19 @@ public class GenerarReporteTest extends BaseTest {
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Reportes")
 	@Story("Opciones reportes")
-	public void generarReporte2() throws Exception {
+	public void generarReporte2() throws Exception 
+	{
 
 		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia2"));
 		
 		//INSTANCIA DE GRABAR PANTALLA(INICIA GRABACION)
-		recording.startRecording("inicio de grabacion", folderPath);
+		//recording.startRecording("inicio de grabacion", folderPath);
 
 		//METODO DE LOGIN(CREDENCIALES)
-		login(getProperties().getProperty("nameTestGenerarReporte"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestGenerarReporte"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia2"));
 
 		//INGRESO A MODULO Y SUBMODULO 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), 
@@ -151,7 +159,7 @@ public class GenerarReporteTest extends BaseTest {
 		
 		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia2"));
 		
-		recording.stopRecording();
+		//recording.stopRecording();
 		
 
 		GenerarReportePdf.closeTemplate("Cierra la plantilla",getProperties().getProperty("Evidencia2"));

@@ -39,7 +39,8 @@ public class GenerarReportePdf {
 
 	static DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 	static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
-	static Document documento = new Document();// INSTANCIAR DOCUMENTO
+	
+	static Document documento = new Document(); // INSTANCIAR DOCUMENTO
 	static String horaSinFormato = BasePage.horaSistema();
 	static String fecha = BasePage.fechaPdf();
 	static Date horaI = new Date();
@@ -56,7 +57,7 @@ public class GenerarReportePdf {
 	}
 
 	public static void createTemplate(File folderPath, String nameTest, String analyst, String url,String Evidencia) {
-		
+		//documento = new Document();
 		if(Evidencia.equals("SI")) {
 		try {
 			font.setColor(BaseColor.GRAY);
