@@ -93,7 +93,6 @@ public class GenerarReportePage extends GenerarReporteMap {
 		
 		ValidacionObjeto2(validarElemento(AlertaExitoso, 6), nomTest, folderPath, Evidencia);
 		
-		
 		assertTrue(validarElemento(AlertaExitoso, 6), "Estado del caso: Fallido");
 		
         

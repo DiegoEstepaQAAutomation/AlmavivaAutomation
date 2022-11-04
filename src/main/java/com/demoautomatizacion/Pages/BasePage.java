@@ -1663,12 +1663,14 @@ public void ValidacionObjeto2(boolean valor1, String caso, File folderPath,Strin
 		//En caso contrario imprimira otro mensaje
 		else 
 		{
+			
 			screenshot(folderPath ,"La validacion no es exitosa el elemento a validar no esta presente " );
 			
 			GenerarReportePdf.closeTemplate(caso, Evidencia);
 					
 		}
-		} else if(valor1 == true  ) 
+		} 
+		else if(valor1 == true  ) 
 		{
 			
 			System.out.println("Validacion exitosa");
