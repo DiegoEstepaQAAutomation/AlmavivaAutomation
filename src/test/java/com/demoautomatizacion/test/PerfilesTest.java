@@ -35,11 +35,14 @@ public class PerfilesTest extends BaseTest {
 		return fileprops;
 	}
 
-	//METODO DE LOGIN A PORTAL DE ALMAVIVA, INGRESO DE CREDENCIALES
-	public void login(String nameTest, String usuario, String contrasena) throws Exception {
+	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
+	public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
+	{
 
+		//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
+		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
@@ -47,13 +50,14 @@ public class PerfilesTest extends BaseTest {
 
 		GenerarReportePdf.setImgContador(0);
 
-		//LLAMADO DE URL Y CREDENCIALES
+		//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"), folderPath,getProperties().getProperty("Evidencia"));
+		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
+				folderPath,getProperties().getProperty("Evidencia"));
 	}
 
 	@Test(priority = 0, description = "Crear perfil")
@@ -66,8 +70,8 @@ public class PerfilesTest extends BaseTest {
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login(getProperties().getProperty("nameTestCrearPerfil"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestCrearPerfil"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"),getProperties().getProperty("Evidencia"));
 
@@ -101,8 +105,8 @@ public class PerfilesTest extends BaseTest {
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login(getProperties().getProperty("nameTestModificarPerfil"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestModificarPerfil"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"),getProperties().getProperty("Evidencia"));
 
@@ -125,8 +129,8 @@ public class PerfilesTest extends BaseTest {
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login(getProperties().getProperty("nameTestVerPerfil"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestVerPerfil"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"),getProperties().getProperty("Evidencia"));
 
@@ -146,8 +150,8 @@ public class PerfilesTest extends BaseTest {
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login(getProperties().getProperty("nameTestConsultarPerfil"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestConsultarPerfil"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"),getProperties().getProperty("Evidencia"));

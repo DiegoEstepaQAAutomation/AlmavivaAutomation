@@ -39,18 +39,22 @@ public class Bodegas extends BaseTest {
 	/** The recording. */
 	//INSTANCIA DE MY SCREEN RECORDER(GRABACION DE PANTALLA)
 	MyScreenRecorder recording;
-	//LOGIN DE PAGINA ALMAVIVA
-	public void login(String nameTest, String usuario, String contrasena) throws Exception {
+	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
+	public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
+	{
+
+		//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderBodega"),
+		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
-		
-		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista1"),
-				getProperties().getProperty("url"),getProperties().getProperty("Evidencia"));
+
+		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
+
 		GenerarReportePdf.setImgContador(0);
-		
-		//Evidencia
-		
+
+		//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
@@ -73,8 +77,8 @@ public class Bodegas extends BaseTest {
 		
 		recording.startRecording("grabando", folderPath);
 
-		login(getProperties().getProperty("nameTestBodega"), getProperties().getProperty("usuario"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestBodega"), getProperties().getProperty("usuario"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloP"), getProperties().getProperty("SubModuloB"),getProperties().getProperty("Evidencia"));
 
@@ -118,8 +122,8 @@ public class Bodegas extends BaseTest {
 			
 			recording.startRecording("grabando", folderPath);
 			
-			login(getProperties().getProperty("nameTestBodega"), getProperties().getProperty("usuario"),
-					getProperties().getProperty("password"));
+			login2(getProperties().getProperty("nameTestBodega"), getProperties().getProperty("usuario"),
+					getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 			home.modulo(folderPath, getProperties().getProperty("ModuloP"), getProperties().getProperty("SubModuloB"),getProperties().getProperty("Evidencia"));
 

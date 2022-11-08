@@ -34,30 +34,30 @@ public class UsuariosTest extends BaseTest {
 		return fileprops;
 	}
 
-	//METODO LOGIN A LA PAGINA DE ALMAVIVA
-	public void login(String nameTest, String usuario, String contrasena) throws Exception {
+	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
+		public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
+		{
 
-		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		
-		//INSTANCIA DE RUTA DE DONDE SE GUARDA LOS INFORMES DE EJECUCION
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
-				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+			//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
+			GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
+			//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
+			File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
+					getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		//INSTANCIAS METODOS  DE GENERAR PDF 
-		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
+			GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
+					getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.setImgContador(0);
+			GenerarReportePdf.setImgContador(0);
 
-		//INSTANCIA DE URL Y CREDENCIALES
-		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp();
-		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp();
-		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-				folderPath,getProperties().getProperty("Evidencia"));
-	}
+			//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
+			home.irPortal(getProperties().getProperty("urlPrivada"));
+			login.privacidadIp();
+			home.irPortal(getProperties().getProperty("url"));
+			login.privacidadIp();
+			home.irPortal(getProperties().getProperty("urlPrivada"));
+			login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
+					folderPath,getProperties().getProperty("Evidencia"));
+		}
 
 	@Test(priority = 0, description = "Crear usuario")
 	@Severity(SeverityLevel.NORMAL)
@@ -69,8 +69,8 @@ public class UsuariosTest extends BaseTest {
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login(getProperties().getProperty("nameTestCrearUsuario"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestCrearUsuario"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"),
 				getProperties().getProperty("SubModuloU"),getProperties().getProperty("Evidencia"));
@@ -108,8 +108,8 @@ public class UsuariosTest extends BaseTest {
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login(getProperties().getProperty("nameTestModificarUsuario"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestModificarUsuario"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"),
 				getProperties().getProperty("SubModuloU"),getProperties().getProperty("Evidencia"));
@@ -138,8 +138,8 @@ public class UsuariosTest extends BaseTest {
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login(getProperties().getProperty("nameTestVerUsuario"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestVerUsuario"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"),
 				getProperties().getProperty("SubModuloU"),getProperties().getProperty("Evidencia"));
@@ -160,8 +160,8 @@ public class UsuariosTest extends BaseTest {
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderU"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login(getProperties().getProperty("nameTestConsultarUsuario"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestConsultarUsuario"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"),
 				getProperties().getProperty("SubModuloU"),getProperties().getProperty("Evidencia"));

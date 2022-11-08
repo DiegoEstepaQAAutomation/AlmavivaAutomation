@@ -39,21 +39,22 @@ public class NotificacionesTest extends BaseTest {
 		return fileprops;
 	}
 	
-	//METODO PARA LOGIN A PORTAL DE ALMAVIVA
-	public void login(String nameTest, String usuario, String contrasena) throws Exception {
+	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
+	public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
+	{
 
+		//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		//INSTANCIA DE RUTA DONDE GUARDAMOS NUESTRO INFORME
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
+		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		//LLAMADO DE LOS METODOS DE CREAR INFORME PDF
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
 				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 
-		//LLAMADO DE CREDENCIALES Y URL DE ALMAVIVA
+		//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
@@ -61,9 +62,6 @@ public class NotificacionesTest extends BaseTest {
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
 				folderPath,getProperties().getProperty("Evidencia"));
-		
-		
-		
 	}
 
 	
@@ -85,8 +83,8 @@ public class NotificacionesTest extends BaseTest {
 		//INSTANCIA DEL METODO GRABAR PANTALLA Y DE LOGIN
 		recording.startRecording("inicio de grabacion", folderPath);
 
-		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloN"), getProperties().getProperty("submoduloN"),getProperties().getProperty("Evidencia"));
 		

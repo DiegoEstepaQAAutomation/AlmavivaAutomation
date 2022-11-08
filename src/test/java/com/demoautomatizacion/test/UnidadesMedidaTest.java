@@ -30,19 +30,22 @@ public class UnidadesMedidaTest extends BaseTest{
         return fileprops;
     }
 	
-	public void login(String nameTest, String usuario, String contrasena) throws Exception {
-		
+	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
+	public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
+	{
+
+		//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderUnidad"),
+		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
-		//INSTANCIA DE METODOS DE CREACION DE INFORME PDF
-		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista1"),
-				getProperties().getProperty("url"),getProperties().getProperty("Evidencia"));
+
+		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
+
 		GenerarReportePdf.setImgContador(0);
 
-		
-		//METODOS DE INGRESO A PORTAL ALMAVIVA E INGRESO DE CREDENCIALES 
+		//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
@@ -62,8 +65,8 @@ public class UnidadesMedidaTest extends BaseTest{
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderUnidad"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login(getProperties().getProperty("nameTestUnidad"), getProperties().getProperty("usuario"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestUnidad"), getProperties().getProperty("usuario"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 		//INGRESO A MODULO,VALIDACIONES Y CIERRE DE PLANTILLA
 		home.modulo(folderPath, getProperties().getProperty("ModuloP"),
 				getProperties().getProperty("SubModuloU"),getProperties().getProperty("Evidencia"));

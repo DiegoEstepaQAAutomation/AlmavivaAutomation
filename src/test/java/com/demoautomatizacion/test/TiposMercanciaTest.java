@@ -31,19 +31,22 @@ public class TiposMercanciaTest extends BaseTest {
 		return fileprops;
 	}
 
-	//METODO PARA LOGIN EN EL PORTAL DE ALMAVIVA
-	public void login(String nameTest, String usuario, String contrasena) throws Exception {
-		//INSTANCIA DE METODOS GENERAR REPORTE PDF
+	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
+	public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
+	{
+
+		//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		
-		//INSTANCIA DE RUTA DONDE GUARDAMOS INFORME PDF DE EJECUCION
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderMercancia"),
+		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
-		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista1"),
-				getProperties().getProperty("url"),getProperties().getProperty("Evidencia"));
+
+		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
+
 		GenerarReportePdf.setImgContador(0);
-		
-		//LLAMADO DE URL Y CREDENCIALES 
+
+		//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
@@ -52,7 +55,6 @@ public class TiposMercanciaTest extends BaseTest {
 		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
 				folderPath,getProperties().getProperty("Evidencia"));
 	}
-
 	@Test(priority = 0, description = "Caso 1")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Validar opción Paramétricas")
@@ -64,8 +66,8 @@ public class TiposMercanciaTest extends BaseTest {
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderBodega"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login(getProperties().getProperty("nameTestMercancia"), getProperties().getProperty("usuario"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestMercancia"), getProperties().getProperty("usuario"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		//INSTANCIA DE METODO DE INGRESO A MODULO Y SUBMODULO
 		home.modulo(folderPath, getProperties().getProperty("ModuloP"), getProperties().getProperty("SubModuloM"),getProperties().getProperty("Evidencia"));

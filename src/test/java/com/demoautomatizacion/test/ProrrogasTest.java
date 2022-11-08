@@ -32,26 +32,30 @@ public class ProrrogasTest extends BaseTest {
 		return fileprops;
 	}
 	
-	//METODO DE LOGIN AL PORTAL DE ALMAVIVA
-	public void login(String nameTest, String usuario, String contrasena) throws Exception {
-		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		//INSTANCIA DE RUTA EN DONDE SE GUARDAN LOS INFORMES PDF DE LA EJECUCION DE LA AUTOMATIZACION
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderProrroga"),
-				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
-		//INSTANCIA DE LOS METODOS DE GENERAR INFORME PDF
-		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista1"),
-				getProperties().getProperty("url"),getProperties().getProperty("Evidencia"));
-		GenerarReportePdf.setImgContador(0);
+	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
+		public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
+		{
 
-		//INSTANCIA DE INGRESO DE URL Y CREDENCIALES
-		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp();
-		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp();
-		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-				folderPath,getProperties().getProperty("Evidencia"));
-	}
+			//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
+			GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
+			//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
+			File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
+					getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+
+			GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
+					getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
+
+			GenerarReportePdf.setImgContador(0);
+
+			//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
+			home.irPortal(getProperties().getProperty("urlPrivada"));
+			login.privacidadIp();
+			home.irPortal(getProperties().getProperty("url"));
+			login.privacidadIp();
+			home.irPortal(getProperties().getProperty("urlPrivada"));
+			login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
+					folderPath,getProperties().getProperty("Evidencia"));
+		}
 
 	
 	//METODO DE BODEGAS 
@@ -65,8 +69,8 @@ public class ProrrogasTest extends BaseTest {
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//METODO DE LOGIN,MODULO Y PRORROGAS
-		login(getProperties().getProperty("nameTestProrroga"), getProperties().getProperty("usuario"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestProrroga"), getProperties().getProperty("usuario"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 		prorroga.prorrogas(folderPath,getProperties().getProperty("Evidencia"));	
@@ -88,8 +92,8 @@ public class ProrrogasTest extends BaseTest {
 		
 		//METODO DE LOGIN,MODULO Y PRORROGAS
 
-		login(getProperties().getProperty("nameTestProrroga"), getProperties().getProperty("usuario"),
-				getProperties().getProperty("password"));
+		login2(getProperties().getProperty("nameTestProrroga"), getProperties().getProperty("usuario"),
+				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 		prorroga.prorrogasHU24(folderPath,getProperties().getProperty("TituloModificarProrroga"),getProperties().getProperty("Evidencia"));	

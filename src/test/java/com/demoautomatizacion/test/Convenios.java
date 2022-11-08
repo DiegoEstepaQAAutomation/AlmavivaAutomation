@@ -67,33 +67,29 @@ public class Convenios extends BaseTest
 	 * @param Evidencia the evidencia
 	 * @throws Exception the exception
 	 */
-	//METODO UNIVERSAL DE LOGIN (APLICA PARA TODOS LOS TEST SIN IMPORTAR CUAL)
-	public void login(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception {
-		
-		//INSTANCIA DE GENERACION DE PDF
-		//CONDICIONAL DE GENERACION DE EVIDENCIA
-		 
+	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
+	public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
+	{
+
+		//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
+		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
 				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
-		
-		
-		//LLAMADO DE LA URL DE PAGINA
+
+		//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"), folderPath,
-				getProperties().getProperty("Evidencia"));
-		
-	
-		 
+		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
+				folderPath,getProperties().getProperty("Evidencia"));
 	}
 
 	
@@ -118,7 +114,7 @@ public class Convenios extends BaseTest
 		recording.startRecording("", folderPath);
 		
 		//METODO DE LOGIN DE LA PAGINA
-		login(getProperties().getProperty("nameTestModificarExpedir"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("nameTestModificarExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		//INGRESO A MODULO Y SUBMODULO EN ALMAVIVA

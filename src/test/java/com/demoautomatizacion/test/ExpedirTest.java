@@ -70,34 +70,30 @@ public class ExpedirTest extends BaseTest {
 	 * @throws Exception the exception
 	 */
 	//METODO UNIVERSAL DE LOGIN (APLICA PARA TODOS LOS TEST SIN IMPORTAR CUAL)
-	public void login(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception {
-		
-		//INSTANCIA DE GENERACION DE PDF
-		//CONDICIONAL DE GENERACION DE EVIDENCIA
-		 
-		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
+		public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
+		{
 
-		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
+			//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
+			GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
+			//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
+			File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
+					getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		GenerarReportePdf.setImgContador(0);
-		
-		
-		//LLAMADO DE LA URL DE PAGINA
-		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.privacidadIp();
-		home.irPortal(getProperties().getProperty("url"));
-		login.privacidadIp();
-		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"), folderPath,
-				getProperties().getProperty("Evidencia"));
-		
-	
-		 
-	}
-	
+			GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
+					getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
+
+			GenerarReportePdf.setImgContador(0);
+
+			//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
+			home.irPortal(getProperties().getProperty("urlPrivada"));
+			login.privacidadIp();
+			home.irPortal(getProperties().getProperty("url"));
+			login.privacidadIp();
+			home.irPortal(getProperties().getProperty("urlPrivada"));
+			login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
+					folderPath,getProperties().getProperty("Evidencia"));
+		}
 	//Creacion de titulo con las areas como poliza o bono 
 
 	/**
@@ -124,7 +120,7 @@ public class ExpedirTest extends BaseTest {
 		recording.startRecording("grabacion de pantalla o screen recording ", folderPath);
 		
 		//ESTE LOGIN IGUAL EN TODO TEST SE REPETIRA HASTA LA SACIEDAD EL LOGIN SE ENCARGA DE ENVIARLE LAS CREDENCIALES DE ACCESO DESDE EL PROPERTIES A LA PAGINA 
-		login(getProperties().getProperty("nameTestCrearExpedir"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("nameTestCrearExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		//IGUAL ESTE MECANISMO DE HOME LO QUE HACE ES LLAMAR EL MODULO Y SUBMODULO DE LA PAGINA QUE VAMOS A UTILIZAR 
@@ -193,7 +189,7 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//METODO DE LOGIN DE LA PAGINA
-		login(getProperties().getProperty("nameTestModificarExpedir"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("nameTestModificarExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
@@ -227,7 +223,7 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 
-		login(getProperties().getProperty("CargueBodegaPropio"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("CargueBodegaPropio"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloC"), getProperties().getProperty("SubmoduloC"),getProperties().getProperty("Evidencia"));
@@ -280,7 +276,7 @@ public class ExpedirTest extends BaseTest {
 				} else 
 				
 		
-		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloC"), getProperties().getProperty("SeccionG"),getProperties().getProperty("Evidencia"));
@@ -343,7 +339,7 @@ public class ExpedirTest extends BaseTest {
 
 		recording.startRecording("", folderPath);
 		
-		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
@@ -399,7 +395,7 @@ public class ExpedirTest extends BaseTest {
 
 		recording.startRecording("", folderPath);
 		
-		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloLiberacion"),getProperties().getProperty("Evidencia"));
@@ -462,7 +458,7 @@ public class ExpedirTest extends BaseTest {
 
 		recording.startRecording("", folderPath);
 		
-		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia2"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloLiberacion"),getProperties().getProperty("Evidencia2"));
@@ -514,7 +510,7 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//login a almaviva
-		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		//Ingreso a modulo y submodulo
@@ -548,7 +544,7 @@ public class ExpedirTest extends BaseTest {
 
 		recording.startRecording("", folderPath);
 
-		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
@@ -603,7 +599,7 @@ public class ExpedirTest extends BaseTest {
 		recording.startRecording("", folderPath);
 
 		//Login a la pagina de almaviva
-		login(getProperties().getProperty("nameTestConsultarExpedir"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("nameTestConsultarExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		//Instancia de metodo para interactuar con modulos
@@ -645,7 +641,7 @@ public class ExpedirTest extends BaseTest {
 		//Instancia de metodo de grabar video
 		recording.startRecording("", folderPath);
 
-		login(getProperties().getProperty("nameTestVerExpedir"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("nameTestVerExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),
@@ -682,7 +678,7 @@ public class ExpedirTest extends BaseTest {
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login(getProperties().getProperty("nameTestVerExpedir"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("nameTestVerExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("Prorroga"),
@@ -726,7 +722,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.startRecording("Inicia grabacion de pantalla", folderPath);
 
-		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),
@@ -783,7 +779,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.startRecording("", folderPath);
 
-		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), 
@@ -825,7 +821,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.startRecording("", folderPath);
 
-		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloReversarLiberacion"),getProperties().getProperty("Evidencia"));
@@ -927,7 +923,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.startRecording("", folderPath);
 
-		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
@@ -967,7 +963,7 @@ public class ExpedirTest extends BaseTest {
 
 		recording.startRecording("", folderPath);
 		
-		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloS"), getProperties().getProperty("SeccionA"),getProperties().getProperty("Evidencia"));
@@ -1004,7 +1000,7 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 
-		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloS"), getProperties().getProperty("SeccionA"),getProperties().getProperty("Evidencia"));
@@ -1034,7 +1030,7 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 
-		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloS"), getProperties().getProperty("SeccionA"),getProperties().getProperty("Evidencia"));
@@ -1154,7 +1150,7 @@ public class ExpedirTest extends BaseTest {
 		*/
 		
 
-        login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+        login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
                 getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
         
         //METODO DE INGRESO A MODULO Y SUBMODULO
