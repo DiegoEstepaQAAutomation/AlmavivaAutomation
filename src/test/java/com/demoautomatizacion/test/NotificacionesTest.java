@@ -6,6 +6,9 @@ import java.util.Properties;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.demoautomatizacion.BaseTest;
 import com.demoautomatizacion.Pages.BasePage;
 import com.demoautomatizacion.test.utils.Listeners.TestListener;
@@ -24,6 +27,11 @@ import utilities.MyScreenRecorder;
 @Feature("Notificaciones Test")
 
 public class NotificacionesTest extends BaseTest {
+
+    //OBTENER EL NOMBRE DE LA CLASE
+    String nomClass = Thread.currentThread().getStackTrace()[1].getFileName();
+
+	private static final Logger log = LogManager.getLogger(NotificacionesTest.class.getName());
 	public Properties fileprops = new Properties();
 
 	//INSTANCIAS DE PROPIEDADES(ARCHIVOS PLANOS)
@@ -39,22 +47,21 @@ public class NotificacionesTest extends BaseTest {
 		return fileprops;
 	}
 	
-	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
-	public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
-	{
+	//METODO PARA LOGIN A PORTAL DE ALMAVIVA
+	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 
-		//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
+		//INSTANCIA DE RUTA DONDE GUARDAMOS NUESTRO INFORME
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
+		//LLAMADO DE LOS METODOS DE CREAR INFORME PDF
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
 				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
 
-		//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
+		//LLAMADO DE CREDENCIALES Y URL DE ALMAVIVA
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
@@ -62,6 +69,9 @@ public class NotificacionesTest extends BaseTest {
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
 				folderPath,getProperties().getProperty("Evidencia"));
+		
+		
+		
 	}
 
 	
@@ -75,6 +85,15 @@ public class NotificacionesTest extends BaseTest {
 	@Description("Módulo Expedir")
 	@Story("Modificación de expedir")
 	public void ValidacionHU25() throws Exception {
+
+
+		System.setProperty("testname", nomClass);
+
+		log.info("INICIA LA EJECUCION DE LA CLASE "+nomClass);
+		
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		//INSTANCIA DE RUTA DE LA CARPETA DONDE GUARDAMOS EL INFORME PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
@@ -83,8 +102,8 @@ public class NotificacionesTest extends BaseTest {
 		//INSTANCIA DEL METODO GRABAR PANTALLA Y DE LOGIN
 		recording.startRecording("inicio de grabacion", folderPath);
 
-		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloN"), getProperties().getProperty("submoduloN"),getProperties().getProperty("Evidencia"));
 		
@@ -103,6 +122,8 @@ public class NotificacionesTest extends BaseTest {
 		recording.stopRecording();
 		
 		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
+
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 
 	

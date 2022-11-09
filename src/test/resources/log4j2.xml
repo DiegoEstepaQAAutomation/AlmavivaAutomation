@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Properties>
+		<Property name="filename">./log</Property>
+	</Properties>
+	<Appenders>
+		<RollingFile name="file" 
+					filePattern="${filename}/logEvidencias-%d{HH-mm-ss}.log">
+			<PatternLayout>
+				<pattern>%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n</pattern>
+			</PatternLayout>
+			<SizeBasedTriggeringPolicy size="10 MB" />
+		</RollingFile>
+
+	</Appenders>
+	<Loggers>        
+        <Logger name="com.demoautomatizacion.test.GenerarReporteTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>
+        <Logger name="com.demoautomatizacion.Pages.BasePage" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger> 
+        <Logger name="com.demoautomatizacion.test.AnularTituloTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>     
+        <Logger name="com.demoautomatizacion.test.ConsultarRegistroVisitaTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>     
+        <Logger name="com.demoautomatizacion.test.LoginTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>    
+        <Logger name="com.demoautomatizacion.test.UsuariosTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>    
+        <Logger name="com.demoautomatizacion.test.RolesTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>    
+        <Logger name="com.demoautomatizacion.test.PerfilesTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>    
+        <Logger name="com.demoautomatizacion.test.LogAuditoriaTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>    
+        <Logger name="com.demoautomatizacion.test.TiposMercanciaTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>    
+        <Logger name="com.demoautomatizacion.test.GestionTest"  level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>   
+        <Logger name="com.demoautomatizacion.test.CupoTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>   
+        <Logger name="com.demoautomatizacion.test.ExpedirTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>            
+        <Logger name="com.demoautomatizacion.test.ConvenioTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>          
+        <Logger name="com.demoautomatizacion.test.CRVisitasTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>         
+        <Logger name="com.demoautomatizacion.test.HomeTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>         
+        <Logger name="com.demoautomatizacion.test.LiberacionMercanciaTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>         
+        <Logger name="com.demoautomatizacion.test.NotificacionesTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>         
+        <Logger name="com.demoautomatizacion.test.ProgramarVistasTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>         
+        <Logger name="com.demoautomatizacion.test.RegistrarVisitasTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger>         
+        <Logger name="com.demoautomatizacion.test.UnidadesMedidaTest" level="info" additivity="false">
+            <AppenderRef ref="file" />
+        </Logger> 
+        <Root level="fatal">
+            <AppenderRef ref="file" />
+        </Root>
+    </Loggers>   
+</Configuration>

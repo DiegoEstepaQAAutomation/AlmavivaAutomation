@@ -6,6 +6,8 @@ import java.util.Properties;
 import io.qameta.allure.*;
 import utilities.GenerarReportePdf;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
@@ -22,6 +24,11 @@ import com.demoautomatizacion.test.utils.Listeners.TestListener;
 @Feature("Login Tests")
 
 public class LoginTest extends BaseTest {
+
+    //OBTENER EL NOMBRE DE LA CLASE
+    String nomClass = Thread.currentThread().getStackTrace()[1].getFileName();
+
+	private static final Logger log = LogManager.getLogger(LoginTest.class.getName());
 
 	/** The fileprops. */
 	public Properties fileprops = new Properties();
@@ -49,11 +56,19 @@ public class LoginTest extends BaseTest {
 	@Description("Ingresar Portal Almaviva")
 	@Story("Login")
 	public void ingresarPortalAlmaviva() throws Exception { 
+
+
+		System.setProperty("testname", nomClass.replace(".java", ""));
+		log.info("INICIA LA EJECUCION DE LA CLASE "+nomClass);
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		String Evidencia = getProperties().getProperty("Evidencia");
 		
 		if(Evidencia.equals("SI")) 
 		{
+		log.info("SE EMPIEZA A GENERAR EVIDENCIA");
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolder"),
 		        getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
@@ -73,6 +88,7 @@ public class LoginTest extends BaseTest {
 	    .cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 		
 		}else { 
 			
@@ -86,7 +102,8 @@ public class LoginTest extends BaseTest {
 			home.irPortal(getProperties().getProperty("urlPrivada"));
 			login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),folderPath, getProperties().getProperty("Evidencia"))
 		    .cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));	
-		
+
+			log.info("FINALIZA LA EJECUCION DEL TEST");
 		}
 	
 	

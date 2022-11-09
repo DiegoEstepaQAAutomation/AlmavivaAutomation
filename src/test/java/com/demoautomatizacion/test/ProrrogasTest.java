@@ -6,6 +6,9 @@ import java.util.Properties;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.demoautomatizacion.BaseTest;
 import com.demoautomatizacion.Pages.BasePage;
 import com.demoautomatizacion.test.utils.Listeners.TestListener;
@@ -23,6 +26,11 @@ import utilities.GenerarReportePdf;
 @Feature("Prorrogas Test")
 
 public class ProrrogasTest extends BaseTest {
+
+    //OBTENER EL NOMBRE DE LA CLASE
+    String nomClass = Thread.currentThread().getStackTrace()[1].getFileName();
+
+	private static final Logger log = LogManager.getLogger(ProrrogasTest.class.getName());
 	//INSTANCIA DE PROPIEDADES Y RUTA EN DONDE SE ENCUENTRAN DETERMINADAS PROPIEDADES
 	public Properties fileprops = new Properties();
 
@@ -32,30 +40,26 @@ public class ProrrogasTest extends BaseTest {
 		return fileprops;
 	}
 	
-	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
-		public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
-		{
+	//METODO DE LOGIN AL PORTAL DE ALMAVIVA
+	public void login(String nameTest, String usuario, String contrasena) throws Exception {
+		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
+		//INSTANCIA DE RUTA EN DONDE SE GUARDAN LOS INFORMES PDF DE LA EJECUCION DE LA AUTOMATIZACION
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderProrroga"),
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+		//INSTANCIA DE LOS METODOS DE GENERAR INFORME PDF
+		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista1"),
+				getProperties().getProperty("url"),getProperties().getProperty("Evidencia"));
+		GenerarReportePdf.setImgContador(0);
 
-			//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
-			GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-			//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
-			File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
-					getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
-
-			GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-					getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
-
-			GenerarReportePdf.setImgContador(0);
-
-			//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
-			home.irPortal(getProperties().getProperty("urlPrivada"));
-			login.privacidadIp();
-			home.irPortal(getProperties().getProperty("url"));
-			login.privacidadIp();
-			home.irPortal(getProperties().getProperty("urlPrivada"));
-			login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-					folderPath,getProperties().getProperty("Evidencia"));
-		}
+		//INSTANCIA DE INGRESO DE URL Y CREDENCIALES
+		home.irPortal(getProperties().getProperty("urlPrivada"));
+		login.privacidadIp();
+		home.irPortal(getProperties().getProperty("url"));
+		login.privacidadIp();
+		home.irPortal(getProperties().getProperty("urlPrivada"));
+		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
+				folderPath,getProperties().getProperty("Evidencia"));
+	}
 
 	
 	//METODO DE BODEGAS 
@@ -64,18 +68,30 @@ public class ProrrogasTest extends BaseTest {
 	@Description("Validar que Permita la creación de la información de bodegas pertenecientes a Almaviva y/o particulares autorizadas")
 	@Story("Validar que Permita la creación de la información de bodegas pertenecientes a Almaviva y/o particulares autorizadas")
 	public void AlmavivaBodegas1() throws Exception {
+
+
+		System.setProperty("testname", nomClass);
+
+		log.info("INICIA LA EJECUCION DE LA CLASE "+nomClass);
+		
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+		
 		//INSTANCIA DE RUTA EN DONDE SE GUARDAN LOS INFORMES PDF DE LA EJECUCION DE LA AUTOMATIZACION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderProrroga"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//METODO DE LOGIN,MODULO Y PRORROGAS
-		login2(getProperties().getProperty("nameTestProrroga"), getProperties().getProperty("usuario"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestProrroga"), getProperties().getProperty("usuario"),
+				getProperties().getProperty("password"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 		prorroga.prorrogas(folderPath,getProperties().getProperty("Evidencia"));	
 		
 		GenerarReportePdf.closeTemplate("Cerrar plantilla",getProperties().getProperty("Evidencia"));
+
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 	
 	
@@ -86,19 +102,26 @@ public class ProrrogasTest extends BaseTest {
 	@Description("Validar que Permita la creación de la información de bodegas pertenecientes a Almaviva y/o particulares autorizadas")
 	@Story("Validar que Permita la creación de la información de bodegas pertenecientes a Almaviva y/o particulares autorizadas")
 	public void AlmavivaProrrogas() throws Exception {
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+		
 		//INSTANCIA DE RUTA EN DONDE SE GUARDAN LOS INFORMES PDF DE LA EJECUCION DE LA AUTOMATIZACION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderProrroga"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 		
 		//METODO DE LOGIN,MODULO Y PRORROGAS
 
-		login2(getProperties().getProperty("nameTestProrroga"), getProperties().getProperty("usuario"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestProrroga"), getProperties().getProperty("usuario"),
+				getProperties().getProperty("password"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
 		prorroga.prorrogasHU24(folderPath,getProperties().getProperty("TituloModificarProrroga"),getProperties().getProperty("Evidencia"));	
 		
 		GenerarReportePdf.closeTemplate("Cerrar plantilla",getProperties().getProperty("Evidencia"));
+
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 
 	

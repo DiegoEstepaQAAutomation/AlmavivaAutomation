@@ -6,6 +6,9 @@ import java.util.Properties;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.demoautomatizacion.BaseTest;
 import com.demoautomatizacion.Pages.BasePage;
 import com.demoautomatizacion.test.utils.Listeners.TestListener;
@@ -22,6 +25,11 @@ import utilities.GenerarReportePdf;
 @Feature("Unidades de Medida Test")
 
 public class UnidadesMedidaTest extends BaseTest{
+
+    //OBTENER EL NOMBRE DE LA CLASE
+    String nomClass = Thread.currentThread().getStackTrace()[1].getFileName();
+
+	private static final Logger log = LogManager.getLogger(UnidadesMedidaTest.class.getName());
 	public Properties fileprops = new Properties();
 	
 	//INSTANCIA DE PROPIEDADES(ARCHIVO PLANO CON PROPERTIES)
@@ -30,22 +38,19 @@ public class UnidadesMedidaTest extends BaseTest{
         return fileprops;
     }
 	
-	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
-	public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
-	{
-
-		//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
+	public void login(String nameTest, String usuario, String contrasena) throws Exception {
+		
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
+		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderUnidad"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
-
-		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
-
+		//INSTANCIA DE METODOS DE CREACION DE INFORME PDF
+		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista1"),
+				getProperties().getProperty("url"),getProperties().getProperty("Evidencia"));
 		GenerarReportePdf.setImgContador(0);
 
-		//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
+		
+		//METODOS DE INGRESO A PORTAL ALMAVIVA E INGRESO DE CREDENCIALES 
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
@@ -60,13 +65,22 @@ public class UnidadesMedidaTest extends BaseTest{
     @Description("Unidades de Medida")
     @Story("Unidades de Medida")
     public void ingresarPortalAlmaviva () throws Exception {
+
+
+		System.setProperty("testname", nomClass);
+
+		log.info("INICIA LA EJECUCION DE LA CLASE "+nomClass);
+		
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderUnidad"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login2(getProperties().getProperty("nameTestUnidad"), getProperties().getProperty("usuario"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestUnidad"), getProperties().getProperty("usuario"),
+				getProperties().getProperty("password"));
 		//INGRESO A MODULO,VALIDACIONES Y CIERRE DE PLANTILLA
 		home.modulo(folderPath, getProperties().getProperty("ModuloP"),
 				getProperties().getProperty("SubModuloU"),getProperties().getProperty("Evidencia"));
@@ -83,5 +97,7 @@ public class UnidadesMedidaTest extends BaseTest{
 		getProperties().getProperty("Evidencia"));
 		
 		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
+
+		log.info("FINALIZA LA EJECUCION DEL TEST");
     }
 }

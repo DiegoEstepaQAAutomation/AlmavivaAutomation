@@ -6,6 +6,9 @@ import java.util.Properties;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.demoautomatizacion.BaseTest;
 import com.demoautomatizacion.Pages.BasePage;
 import com.demoautomatizacion.test.utils.Listeners.TestListener;
@@ -24,6 +27,11 @@ import utilities.MyScreenRecorder;
 @Feature("Generar Reporte Test")
 
 public class GenerarReporteTest extends BaseTest {
+
+    //OBTENER EL NOMBRE DE LA CLASE
+    String nomClass = Thread.currentThread().getStackTrace()[1].getFileName();
+
+	private static final Logger log = LogManager.getLogger(GenerarReporteTest.class.getName());
 
 	public Properties fileprops = new Properties();
 
@@ -74,6 +82,12 @@ public class GenerarReporteTest extends BaseTest {
 	@Story("Opciones reportes")
 	public void generarReporte() throws Exception {
 
+		System.setProperty("testname", nomClass.replace(".java", ""));
+		log.info("INICIA LA EJECUCION DE LA CLASE "+nomClass);
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+
 		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
@@ -114,6 +128,9 @@ public class GenerarReporteTest extends BaseTest {
 		//COMENTARIAR ESTA LINEA DEPENDIENDO SI NECESITA EJECUTAR TODOS AL TIEMPO
 
 		//GenerarReportePdf.closeTemplate("Cierra la plantilla",getProperties().getProperty("Evidencia"));
+
+		log.info("FINALIZA LA EJECUCION DEL TEST");
+		
 	}
 	
 	
@@ -126,6 +143,10 @@ public class GenerarReporteTest extends BaseTest {
 	public void generarReporte2() throws Exception 
 	{
 
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+		
 		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia2"));
@@ -163,5 +184,8 @@ public class GenerarReporteTest extends BaseTest {
 		
 
 		GenerarReportePdf.closeTemplate("Cierra la plantilla",getProperties().getProperty("Evidencia2"));
+
+		log.info("FINALIZA LA EJECUCION DEL TEST");
+		
 	}
 }

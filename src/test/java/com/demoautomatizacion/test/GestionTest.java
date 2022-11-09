@@ -10,6 +10,9 @@ import com.demoautomatizacion.BaseTest;
 import com.demoautomatizacion.Pages.BasePage;
 import com.demoautomatizacion.test.utils.Listeners.TestListener;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -24,6 +27,12 @@ import utilities.MyScreenRecorder;
 @Feature("Gestion Test")
 
 public class GestionTest extends BaseTest {
+
+
+    //OBTENER EL NOMBRE DE LA CLASE
+    String nomClass = Thread.currentThread().getStackTrace()[1].getFileName();
+	private static final Logger log = LogManager.getLogger(GestionTest.class.getName());
+	
 	public Properties fileprops = new Properties();
 
 	public Properties getProperties() throws Exception {
@@ -34,14 +43,11 @@ public class GestionTest extends BaseTest {
 	}
 	MyScreenRecorder recording;
 
-	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
-	public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
-	{
+	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 
-		//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
+		//INSTANCIAS DE INFORME PDF
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
@@ -49,7 +55,7 @@ public class GestionTest extends BaseTest {
 
 		GenerarReportePdf.setImgContador(0);
 
-		//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
+		//METODO PARA INGRESO A PORTAL DE ALMAVIVA ASI COMO URL DE ALMAVIVA
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
@@ -59,7 +65,6 @@ public class GestionTest extends BaseTest {
 				folderPath,getProperties().getProperty("Evidencia"));
 	}
 
-
 	//METODO PARA LA CREACION DE CLIENTE
 	@Test(priority = 0, description = "Crear gestión")
 	@Severity(SeverityLevel.NORMAL)
@@ -67,13 +72,17 @@ public class GestionTest extends BaseTest {
 	@Story("Creación de gestion")
 	public void crearCliente() throws Exception {
 
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+
 		//INSTANCIA DE LA RUTA DONDE QUEDA NUESTRO INFORME DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//METODO PARA LOGUEARSE A LA PAGINA DE ALMAVIVA Y INGRESO A MODULO
-		login2(getProperties().getProperty("nameTestCrearCliente"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestCrearCliente"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"),
 				getProperties().getProperty("SubModuloC"),getProperties().getProperty("Evidencia"));
@@ -110,6 +119,8 @@ public class GestionTest extends BaseTest {
 		
 		//CIERRE DE PLANTILLA
 		GenerarReportePdf.closeTemplate("cierre de plantilla",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 
 	//METODOS PARA MODIFICAR LOS DATOS DE UN CLIENTE YA EXISTENTE
@@ -120,6 +131,10 @@ public class GestionTest extends BaseTest {
 	@Story("Modificación de gestión")
 	public void modificarCliente() throws Exception {
 
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+
 		//INSTANCIA DE RUTA DONDE QUEDARA EL INFORME
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
@@ -128,8 +143,8 @@ public class GestionTest extends BaseTest {
 		recording.startRecording("", folderPath);
 		
 		//METODO LOGIN
-		login2(getProperties().getProperty("nameTestModificarCliente"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestModificarCliente"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
 
 		//INSTANCIA DE METODOS RELACIONADOS A MODIFICACION DE DATOS COMO ANEXOS, DATOS DE CONTACTO,POLIZAS Y CLIENTE
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"),getProperties().getProperty("Evidencia"));
@@ -168,6 +183,8 @@ public class GestionTest extends BaseTest {
 				
 		//cierre de plantilla
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 	
 	//METODO PARA VISUALIZAR DATOS DE CLIENTE
@@ -177,13 +194,17 @@ public class GestionTest extends BaseTest {
 	@Story("Detalle de gestión")
 	public void verCliente() throws Exception {
 
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+
 		//INSTANCIA DE RUTA DONDE QUEDARA GUARDADO EL INFORME DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//METODO DE LOGIN A PAGINA DE ALMAVIVA
-		login2(getProperties().getProperty("nameTestVerCliente"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestVerCliente"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
 
 		//METODO DE INGRESO A MODULO
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"),getProperties().getProperty("Evidencia"));
@@ -193,6 +214,8 @@ public class GestionTest extends BaseTest {
 		
 		//CIERRE DE PLANTILLA
 		GenerarReportePdf.closeTemplate("cierre de plantilla",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 	
 	//METODO PARA CONSULTAR A UN CLIENTE
@@ -202,12 +225,16 @@ public class GestionTest extends BaseTest {
 	@Story("Consulta de gestión")
 	public void consultarCliente() throws Exception {
 
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+
 		//INSTANCIA DE RUTA DONDE QUEDA  GUARDADO NUESTRO INFORME
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 		//INSTANCIA DE METODO QUE NOS LOGUEA A LA PAGINA DE ALMAVIVA
-		login2(getProperties().getProperty("nameTestConsultarCliente"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestConsultarCliente"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
 		//INGRESO A MODULOS DE ALMAVIVA
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloC"),getProperties().getProperty("Evidencia"));
 
@@ -216,5 +243,7 @@ public class GestionTest extends BaseTest {
 		
 		//CIERRE DE PLANTILLA PDF
 		GenerarReportePdf.closeTemplate("cierre de plantilla pdf",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 }

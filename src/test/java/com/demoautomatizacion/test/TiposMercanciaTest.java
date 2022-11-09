@@ -6,6 +6,9 @@ import java.util.Properties;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.demoautomatizacion.BaseTest;
 import com.demoautomatizacion.Pages.BasePage;
 import com.demoautomatizacion.test.utils.Listeners.TestListener;
@@ -22,6 +25,13 @@ import utilities.GenerarReportePdf;
 @Feature("Tipos de mercancías Test")
 
 public class TiposMercanciaTest extends BaseTest {
+
+
+    //OBTENER EL NOMBRE DE LA CLASE
+    String nomClass = Thread.currentThread().getStackTrace()[1].getFileName();
+
+	private static final Logger log = LogManager.getLogger(TiposMercanciaTest.class.getName());
+	
 	public Properties fileprops = new Properties();
 
 	//INSTANCIA DE PROPIEDADES(ARCHIVO PLANO CON PROPERTIES QUE UTILIZAREMOS)
@@ -31,22 +41,19 @@ public class TiposMercanciaTest extends BaseTest {
 		return fileprops;
 	}
 
-	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
-	public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
-	{
-
-		//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
+	//METODO PARA LOGIN EN EL PORTAL DE ALMAVIVA
+	public void login(String nameTest, String usuario, String contrasena) throws Exception {
+		//INSTANCIA DE METODOS GENERAR REPORTE PDF
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
+		
+		//INSTANCIA DE RUTA DONDE GUARDAMOS INFORME PDF DE EJECUCION
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderMercancia"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
-
-		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
-
+		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista1"),
+				getProperties().getProperty("url"),getProperties().getProperty("Evidencia"));
 		GenerarReportePdf.setImgContador(0);
-
-		//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
+		
+		//LLAMADO DE URL Y CREDENCIALES 
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
@@ -55,19 +62,27 @@ public class TiposMercanciaTest extends BaseTest {
 		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
 				folderPath,getProperties().getProperty("Evidencia"));
 	}
+
 	@Test(priority = 0, description = "Caso 1")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Validar opción Paramétricas")
 	@Story("Tipos de Mercancias Funcionalidad Opciones Menú")
 	public void TipoMercancia() throws Exception {
 
+		System.setProperty("testname", nomClass);
+		log.info("INICIA LA EJECUCION DE LA CLASE "+nomClass);
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+
 		
 		//INSTANCIA DE RUTA DONDE GUARDAMOS INFORME PDF DE EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderBodega"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login2(getProperties().getProperty("nameTestMercancia"), getProperties().getProperty("usuario"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestMercancia"), getProperties().getProperty("usuario"),
+				getProperties().getProperty("password"));
 
 		//INSTANCIA DE METODO DE INGRESO A MODULO Y SUBMODULO
 		home.modulo(folderPath, getProperties().getProperty("ModuloP"), getProperties().getProperty("SubModuloM"),getProperties().getProperty("Evidencia"));
@@ -83,5 +98,7 @@ public class TiposMercanciaTest extends BaseTest {
 
 		//CIERRE DE PLANTILLA
 		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 }

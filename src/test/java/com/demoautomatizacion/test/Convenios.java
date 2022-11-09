@@ -25,11 +25,18 @@ import java.util.Properties;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @Listeners({ TestListener.class })
 @Epic("Consultar Registro Visita")
 @Feature("Consultar Registro Visita Test")
 public class Convenios extends BaseTest 
 {
+    //OBTENER EL NOMBRE DE LA CLASE
+    String nomClass = Thread.currentThread().getStackTrace()[1].getFileName();
+
+	private static final Logger log = LogManager.getLogger(Convenios.class.getName());
 
 	/** The fileprops. */
 	public Properties fileprops = new Properties();
@@ -67,29 +74,33 @@ public class Convenios extends BaseTest
 	 * @param Evidencia the evidencia
 	 * @throws Exception the exception
 	 */
-	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
-	public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
-	{
-
-		//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
+	//METODO UNIVERSAL DE LOGIN (APLICA PARA TODOS LOS TEST SIN IMPORTAR CUAL)
+	public void login(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception {
+		
+		//INSTANCIA DE GENERACION DE PDF
+		//CONDICIONAL DE GENERACION DE EVIDENCIA
+		 
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
 				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.setImgContador(0);
-
-		//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
+		
+		
+		//LLAMADO DE LA URL DE PAGINA
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-				folderPath,getProperties().getProperty("Evidencia"));
+		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"), folderPath,
+				getProperties().getProperty("Evidencia"));
+		
+	
+		 
 	}
 
 	
@@ -105,6 +116,15 @@ public class Convenios extends BaseTest
 	@Story("Creación de expedir")
 	  public void Ejecucion() throws Exception 
 	{
+
+
+		System.setProperty("testname", nomClass);
+
+		log.info("INICIA LA EJECUCION DE LA CLASE "+nomClass);
+		
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		//INSTANCIA DE LA RUTA DONDE SE GUARDA LA EVIDENCIA
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderC"),
@@ -114,7 +134,7 @@ public class Convenios extends BaseTest
 		recording.startRecording("", folderPath);
 		
 		//METODO DE LOGIN DE LA PAGINA
-		login2(getProperties().getProperty("nameTestModificarExpedir"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("nameTestModificarExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		//INGRESO A MODULO Y SUBMODULO EN ALMAVIVA
@@ -156,6 +176,8 @@ public class Convenios extends BaseTest
 		recording.stopRecording();
 		
 		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
+
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 		
 		
 	}

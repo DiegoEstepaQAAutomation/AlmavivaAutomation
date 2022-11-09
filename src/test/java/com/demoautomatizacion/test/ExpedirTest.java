@@ -11,6 +11,9 @@ import java.util.Properties;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.demoautomatizacion.BaseTest;
 import com.demoautomatizacion.Pages.BasePage;
 import com.demoautomatizacion.test.utils.Listeners.TestListener;
@@ -35,6 +38,11 @@ import utilities.MyScreenRecorder;
 @Feature("Expedir Test")
 
 public class ExpedirTest extends BaseTest {
+
+
+    //OBTENER EL NOMBRE DE LA CLASE
+    String nomClass = Thread.currentThread().getStackTrace()[1].getFileName();
+	private static final Logger log = LogManager.getLogger(ExpedirTest.class.getName());
 	
 	/** The fileprops. */
 	public Properties fileprops = new Properties();
@@ -70,30 +78,34 @@ public class ExpedirTest extends BaseTest {
 	 * @throws Exception the exception
 	 */
 	//METODO UNIVERSAL DE LOGIN (APLICA PARA TODOS LOS TEST SIN IMPORTAR CUAL)
-	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
-		public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
-		{
+	public void login(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception {
+		
+		//INSTANCIA DE GENERACION DE PDF
+		//CONDICIONAL DE GENERACION DE EVIDENCIA
+		 
+		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-			//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
-			GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-			//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
-			File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
-					getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
+				getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
 
-			GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
-					getProperties().getProperty("urlPrivada"),getProperties().getProperty("Evidencia"));
-
-			GenerarReportePdf.setImgContador(0);
-
-			//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
-			home.irPortal(getProperties().getProperty("urlPrivada"));
-			login.privacidadIp();
-			home.irPortal(getProperties().getProperty("url"));
-			login.privacidadIp();
-			home.irPortal(getProperties().getProperty("urlPrivada"));
-			login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-					folderPath,getProperties().getProperty("Evidencia"));
-		}
+		GenerarReportePdf.setImgContador(0);
+		
+		
+		//LLAMADO DE LA URL DE PAGINA
+		home.irPortal(getProperties().getProperty("urlPrivada"));
+		login.privacidadIp();
+		home.irPortal(getProperties().getProperty("url"));
+		login.privacidadIp();
+		home.irPortal(getProperties().getProperty("urlPrivada"));
+		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"), folderPath,
+				getProperties().getProperty("Evidencia"));
+		
+	
+		 
+	}
+	
 	//Creacion de titulo con las areas como poliza o bono 
 
 	/**
@@ -107,6 +119,13 @@ public class ExpedirTest extends BaseTest {
 	@Description("Módulo Expedir")
 	@Story("Creación de expedir")
 	public void crearExpedir() throws Exception {
+
+		System.setProperty("testname", nomClass);
+		log.info("INICIA LA EJECUCION DE LA CLASE "+nomClass);
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		String Evidencia = getProperties().getProperty("Evidencia");
 		
@@ -120,7 +139,7 @@ public class ExpedirTest extends BaseTest {
 		recording.startRecording("grabacion de pantalla o screen recording ", folderPath);
 		
 		//ESTE LOGIN IGUAL EN TODO TEST SE REPETIRA HASTA LA SACIEDAD EL LOGIN SE ENCARGA DE ENVIARLE LAS CREDENCIALES DE ACCESO DESDE EL PROPERTIES A LA PAGINA 
-		login2(getProperties().getProperty("nameTestCrearExpedir"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("nameTestCrearExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		//IGUAL ESTE MECANISMO DE HOME LO QUE HACE ES LLAMAR EL MODULO Y SUBMODULO DE LA PAGINA QUE VAMOS A UTILIZAR 
@@ -169,7 +188,126 @@ public class ExpedirTest extends BaseTest {
 		//AL IGUAL QUE EN LOS DEMAS TEST ESTE CIERRA EL PDF O REPORTE 
 				
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+	
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
+	
+	/**
+	 * Lpn dtlnum 1.
+	 *
+	 * @throws Exception the exception
+	 */
+	//Ejecucion de test con base de datos
+	@Test(priority = 1, description = "BaseDatos")
+    @Severity(SeverityLevel.NORMAL)
+    @Description("BaseDatos")
+    @Story("BaseDatos")
+    public void LpnDtlnum1() throws Exception {
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+		
+		String stringDatabeseQuery = "";
+		
+		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
+				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
+		
+        //CONSULTA DE BASE DE DATOS GENERADA EN UN ARRAY LIST
+        ArrayList<Object> databaseQuery = consultaBD("SELECT "
+                +getProperties().getProperty("campoIv.lodnum")+","
+                +getProperties().getProperty("campoIh.dtlnum")+","
+                +getProperties().getProperty("campoIv.prtnum")+","
+                +getProperties().getProperty("campoIv.untqty")
+                +" FROM "+getProperties().getProperty("tablaInvhld")
+                +" INNER JOIN "+getProperties().getProperty("tablaInventory_view")+" on "+getProperties().getProperty("tablaIh.dtlnum")
+                +" = "+getProperties().getProperty("campoIv.dtlnum")
+                +" INNER JOIN "+getProperties().getProperty("tablaClient_grp_client")+" on "+getProperties().getProperty("tablaIv.prt_client_id")
+                +" = "+getProperties().getProperty("campoCgc.client_id")
+                +" WHERE "+getProperties().getProperty("campoIh.wh_id")+" = '"+getProperties().getProperty("num1")+"'"
+                +" AND "+getProperties().getProperty("campoIh.hldnum")+" = '"+getProperties().getProperty("num2")+"'"
+                +" AND "+getProperties().getProperty("campoCgc.client_grp")+" = '"+getProperties().getProperty("num3")+"'"
+                           
+				);
+		
+        
+        //SE GUARDAN LOS RESULADOS EN UNA VARIABLE DE TIPO STRING Y SE CONVIERTE A STRING MEDIANTE EL TO STRING 
+		stringDatabeseQuery = databaseQuery.toString();
+		 
+		System.out.print(stringDatabeseQuery);
+				
+		/*
+		ArrayList<Object> consultaPruebaBD2 = consultaBD2("SELECT "
+				+" FROM "+getProperties().getProperty("tbl_Mercancias_wms")
+				+" WHERE "+getProperties().getProperty("campoMwms_id_titulo")+" = '"+getProperties().getProperty("num4")+"'"
+				
+				);
+		
+		String dataBDD2 = consultaPruebaBD2.toString();
+		
+		System.out.print(dataBDD2);
+		*/
+		
+
+        login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+                getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+        
+        //METODO DE INGRESO A MODULO Y SUBMODULO
+        home.modulo(
+        		folderPath, 
+        		getProperties().getProperty("ModuloT"), 
+        		getProperties().getProperty("SubModuloExpedir"),
+        		getProperties().getProperty("Evidencia"));
+        
+        //EJECUCION DE CASOS
+        expedir.LpnDtlnumCoincidan1(
+        		folderPath, 
+        		getProperties().getProperty("TipoDeBodega"), 
+        		getProperties().getProperty("estadoA"),
+        		getProperties().getProperty("Mercancias"),
+        		getProperties().getProperty("Lista"),getProperties().getProperty("Lpm"),
+        		stringDatabeseQuery + " Datos LPN de la base de datos",
+        		getProperties().getProperty("SubModuloExpedir"),//dataBDD2 + " Datos LPN de la base de datos",
+        		getProperties().getProperty("Lista1"),
+        		getProperties().getProperty("Evidencia"));
+
+        ArrayList<String> response = new ArrayList<String>();
+        
+        // Get grid columm by index
+        ArrayList<String> selectedColunmGrid = base.SelectedColunmGrid(3);
+        // Print total of recors of database.
+        base.screenshot(folderPath, "Total de registros en base de datos por consulta: "  + databaseQuery.size());
+        // Print total grid records.
+        base.screenshot(folderPath, "Total de registros en la grilla: "  + selectedColunmGrid.size());
+
+        base.screenshot(folderPath, "Comparacion base de datos/grid:");
+
+        for (int i=selectedColunmGrid.size(); i>=0; i--){ 
+
+        	//System.out.println(i);  
+            
+            if(stringDatabeseQuery.contains(selectedColunmGrid.get(i))) 
+            {
+            	response.add(selectedColunmGrid.get(i) + " ✔️ |" );
+            }
+            else
+            {
+            	response.add(selectedColunmGrid.get(i) + " ❌ |" );            	
+            }
+        } 
+
+        base.screenshot(folderPath, "Total de registros comparacion: " + response.size());
+
+        base.screenshot(folderPath, "Resultado: " + response.toString());
+        
+        GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+        
+		log.info("FINALIZA LA EJECUCION DEL TEST");
+
+	}
+	
+	
 	
 	
 	/**
@@ -183,13 +321,18 @@ public class ExpedirTest extends BaseTest {
 	@Description("Módulo Expedir")
 	@Story("Modificación de expedir")
 	public void modificarExpedir() throws Exception {
+		
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 
 		//INSTANCIA DE LA RUTA DONDE SE GUARDA LA EVIDENCIA
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//METODO DE LOGIN DE LA PAGINA
-		login2(getProperties().getProperty("nameTestModificarExpedir"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("nameTestModificarExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
@@ -204,6 +347,8 @@ public class ExpedirTest extends BaseTest {
 				getProperties().getProperty("Evidencia"));
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 	
 	/**
@@ -212,18 +357,23 @@ public class ExpedirTest extends BaseTest {
 	 * @throws Exception the exception
 	 */
 	//Se ejecuta el metodo de bodega de cargue 
-	@Test(priority = 1, description = "Validacion")
+	
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Expedir,cargue de archivo")
 	@Story("Modificación de expedir")
+	@Test(priority = 1, description = "Validacion")	
 	public void CargueBodega() throws Exception {
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		//INSTANCIA DE LA RUTA DONDE SE GUARDA LA EVIDENCIA
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 
-		login2(getProperties().getProperty("CargueBodegaPropio"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("CargueBodegaPropio"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloC"), getProperties().getProperty("SubmoduloC"),getProperties().getProperty("Evidencia"));
@@ -237,6 +387,8 @@ public class ExpedirTest extends BaseTest {
 		login.cerrarSesion(folderPath,getProperties().getProperty("Evidencia"));
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 		
 	}
 	
@@ -257,6 +409,11 @@ public class ExpedirTest extends BaseTest {
 	@Story("Modificación de expedir")
 	public void CargueValidacion(String Video,String Evidencia) throws Exception {
 		
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+		
 		
 		//Evidencia
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
@@ -276,7 +433,7 @@ public class ExpedirTest extends BaseTest {
 				} else 
 				
 		
-		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloC"), getProperties().getProperty("SeccionG"),getProperties().getProperty("Evidencia"));
@@ -298,6 +455,8 @@ public class ExpedirTest extends BaseTest {
 		recording.stopRecording();
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+	
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 
 		}
 
@@ -332,14 +491,18 @@ public class ExpedirTest extends BaseTest {
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Expedir")
 	@Story("Validacion de titulos cancelados")
-	public void ValidacionCancelado() throws Exception {
+	public void ValidacionCancelado() throws Exception {		
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		recording.startRecording("", folderPath);
 		
-		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
@@ -373,6 +536,8 @@ public class ExpedirTest extends BaseTest {
 		recording.stopRecording();
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 	
 	
@@ -388,6 +553,10 @@ public class ExpedirTest extends BaseTest {
 	@Description("Módulo Expedir")
 	@Story("Validacion de liberacion")
 	public void ValidacionLiberado() throws Exception {
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
@@ -395,7 +564,7 @@ public class ExpedirTest extends BaseTest {
 
 		recording.startRecording("", folderPath);
 		
-		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloLiberacion"),getProperties().getProperty("Evidencia"));
@@ -434,6 +603,8 @@ public class ExpedirTest extends BaseTest {
 		recording.stopRecording();
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 	
 	
@@ -450,7 +621,11 @@ public class ExpedirTest extends BaseTest {
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Expedir")
 	@Story("Validacion de liberacion")
-	public void ValidacionLiberadoScav() throws Exception {
+	public void ValidacionLiberadoScav() throws Exception {		
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia2"));
@@ -458,7 +633,7 @@ public class ExpedirTest extends BaseTest {
 
 		recording.startRecording("", folderPath);
 		
-		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia2"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloLiberacion"),getProperties().getProperty("Evidencia2"));
@@ -484,6 +659,8 @@ public class ExpedirTest extends BaseTest {
 		recording.stopRecording();
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia2"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 
 	
@@ -504,13 +681,17 @@ public class ExpedirTest extends BaseTest {
 	@Description("Validacion de mercancias liberadas")
 	@Story("Validacion de mercancias liberadas")
 	public void ValidacionMercanciaLiberada() throws Exception {
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		//Instancia de ruta de carpeta
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//login a almaviva
-		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		//Ingreso a modulo y submodulo
@@ -523,6 +704,7 @@ public class ExpedirTest extends BaseTest {
 
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 	
 
@@ -538,13 +720,17 @@ public class ExpedirTest extends BaseTest {
 	@Description("Validaciones de un titulo liberado")
 	@Story("Validaciones de un titulo liberado")
 	public void ValidacionTituloLiberado() throws Exception {
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		recording.startRecording("", folderPath);
 
-		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
@@ -571,6 +757,8 @@ public class ExpedirTest extends BaseTest {
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
 		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
+		
 	}
 	
 	
@@ -589,7 +777,11 @@ public class ExpedirTest extends BaseTest {
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Expedir")
 	@Story("Consulta de expedir")
-	public void busquedaExpedir() throws Exception {
+	public void busquedaExpedir() throws Exception {		
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 
 		//Instancia de metodo de crear carpeta o folder de destino de evidencias
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
@@ -599,7 +791,7 @@ public class ExpedirTest extends BaseTest {
 		recording.startRecording("", folderPath);
 
 		//Login a la pagina de almaviva
-		login2(getProperties().getProperty("nameTestConsultarExpedir"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("nameTestConsultarExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		//Instancia de metodo para interactuar con modulos
@@ -619,6 +811,8 @@ public class ExpedirTest extends BaseTest {
 		//expedir.imprimir(folderPath, getProperties().getProperty("tituloBuscar"),getProperties().getProperty("Evidencia"));
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 	
 	/**
@@ -633,6 +827,9 @@ public class ExpedirTest extends BaseTest {
 	@Story("Detalle de expedir")
 	public void verExpedir() throws Exception {
 
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
@@ -641,7 +838,7 @@ public class ExpedirTest extends BaseTest {
 		//Instancia de metodo de grabar video
 		recording.startRecording("", folderPath);
 
-		login2(getProperties().getProperty("nameTestVerExpedir"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("nameTestVerExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),
@@ -658,7 +855,10 @@ public class ExpedirTest extends BaseTest {
 		// Validaciones de historico de liberaciones 
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
+	
 	
 	
 	
@@ -673,12 +873,15 @@ public class ExpedirTest extends BaseTest {
 	@Story("Detalle de expedir")
 	public void ProrrogaScav() throws Exception {
 
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login2(getProperties().getProperty("nameTestVerExpedir"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("nameTestVerExpedir"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("Prorroga"),
@@ -697,6 +900,8 @@ public class ExpedirTest extends BaseTest {
 		// Validaciones de historico de liberaciones 
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 
 	
@@ -713,7 +918,10 @@ public class ExpedirTest extends BaseTest {
 	@Description("Módulo Expedir")
 	@Story("Modificación de expedir")
 	public void ValidacionHistorticoLiberacion() throws Exception {
-		
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
@@ -722,7 +930,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.startRecording("Inicia grabacion de pantalla", folderPath);
 
-		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),
@@ -749,6 +957,8 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.stopRecording();
 		GenerarReportePdf.closeTemplate("Cierre reporte pdf",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 	
 	
@@ -772,6 +982,10 @@ public class ExpedirTest extends BaseTest {
 	@Description("Módulo Expedir")
 	@Story("Modificación de prorroga y validacion")
 	public void ValidacionModificacionProrroga() throws Exception {
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
@@ -779,7 +993,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.startRecording("", folderPath);
 
-		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), 
@@ -797,6 +1011,8 @@ public class ExpedirTest extends BaseTest {
 		recording.stopRecording();
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 	
 	
@@ -813,7 +1029,11 @@ public class ExpedirTest extends BaseTest {
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Módulo Expedir")
 	@Story("Modificación de expedir")
-	public void Reversiondetitulos() throws Exception {
+	public void Reversiondetitulos() throws Exception {		
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
@@ -821,7 +1041,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.startRecording("", folderPath);
 
-		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloReversarLiberacion"),getProperties().getProperty("Evidencia"));
@@ -898,6 +1118,8 @@ public class ExpedirTest extends BaseTest {
 		recording.stopRecording();
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 
 
@@ -916,6 +1138,10 @@ public class ExpedirTest extends BaseTest {
 	@Description("Módulo Expedir")
 	@Story("Modificación de expedir")
 	public void ValidacionHU25() throws Exception {
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
@@ -923,7 +1149,7 @@ public class ExpedirTest extends BaseTest {
 		
 		recording.startRecording("", folderPath);
 
-		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloT"), getProperties().getProperty("SubModuloExpedir"),getProperties().getProperty("Evidencia"));
@@ -941,6 +1167,8 @@ public class ExpedirTest extends BaseTest {
 		recording.stopRecording();
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 
 	
@@ -958,12 +1186,17 @@ public class ExpedirTest extends BaseTest {
 	@Description("Módulo Expedir")
 	@Story("Modificación de expedir")
 	public void ValidacionModificacionusuarioadmin() throws Exception {
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		recording.startRecording("", folderPath);
 		
-		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloS"), getProperties().getProperty("SeccionA"),getProperties().getProperty("Evidencia"));
@@ -981,6 +1214,8 @@ public class ExpedirTest extends BaseTest {
 		recording.stopRecording();
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 
 	
@@ -995,12 +1230,16 @@ public class ExpedirTest extends BaseTest {
 	@Description("Módulo Expedir")
 	@Story("Modificación de expedir")
 	public void RunCP05() throws Exception {
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 
-		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloS"), getProperties().getProperty("SeccionA"),getProperties().getProperty("Evidencia"));
@@ -1013,6 +1252,8 @@ public class ExpedirTest extends BaseTest {
 		
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 
 	/**
@@ -1025,12 +1266,16 @@ public class ExpedirTest extends BaseTest {
 	@Description("Módulo Expedir")
 	@Story("Modificación de expedir")
 	public void RunCP08() throws Exception {
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 
-		login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
+		login(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
 				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
 
 		home.modulo(folderPath, getProperties().getProperty("ModuloS"), getProperties().getProperty("SeccionA"),getProperties().getProperty("Evidencia"));
@@ -1045,167 +1290,10 @@ public class ExpedirTest extends BaseTest {
 		
 		
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/**
-	 * Lpn dtlnum 1.
-	 *
-	 * @throws Exception the exception
-	 */
-		
-	
-	
-	
-
-	//Ejecucion de test con base de datos
-	@Test(priority = 1, description = "BaseDatos")
-    @Severity(SeverityLevel.NORMAL)
-    @Description("BaseDatos")
-    @Story("BaseDatos")
-    public void LpnDtlnum1() throws Exception {
-		
-		String stringDatabeseQuery = "";
-		
-		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderE"),
-				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
-		
-        //CONSULTA DE BASE DE DATOS GENERADA EN UN ARRAY LIST
-        ArrayList<Object> databaseQuery = consultaBD("SELECT "
-                +getProperties().getProperty("campoIv.lodnum")+","
-                +getProperties().getProperty("campoIh.dtlnum")+","
-                +getProperties().getProperty("campoIv.prtnum")+","
-                +getProperties().getProperty("campoIv.untqty")
-                +" FROM "+getProperties().getProperty("tablaInvhld")
-                +" INNER JOIN "+getProperties().getProperty("tablaInventory_view")+" on "+getProperties().getProperty("tablaIh.dtlnum")
-                +" = "+getProperties().getProperty("campoIv.dtlnum")
-                +" INNER JOIN "+getProperties().getProperty("tablaClient_grp_client")+" on "+getProperties().getProperty("tablaIv.prt_client_id")
-                +" = "+getProperties().getProperty("campoCgc.client_id")
-                +" WHERE "+getProperties().getProperty("campoIh.wh_id")+" = '"+getProperties().getProperty("num1")+"'"
-                +" AND "+getProperties().getProperty("campoIh.hldnum")+" = '"+getProperties().getProperty("num2")+"'"
-                +" AND "+getProperties().getProperty("campoCgc.client_grp")+" = '"+getProperties().getProperty("num3")+"'"
-                           
-				);
-		
-        
-        //SE GUARDAN LOS RESULADOS EN UNA VARIABLE DE TIPO STRING Y SE CONVIERTE A STRING MEDIANTE EL TO STRING 
-		stringDatabeseQuery = databaseQuery.toString();
-		 
-		System.out.print(stringDatabeseQuery);
-				
-		/*
-		ArrayList<Object> consultaPruebaBD2 = consultaBD2("SELECT "
-				+" FROM "+getProperties().getProperty("tbl_Mercancias_wms")
-				+" WHERE "+getProperties().getProperty("campoMwms_id_titulo")+" = '"+getProperties().getProperty("num4")+"'"
-				
-				);
-		
-		String dataBDD2 = consultaPruebaBD2.toString();
-		
-		System.out.print(dataBDD2);
-		*/
-		
-
-        login2(getProperties().getProperty("TestCargue"), getProperties().getProperty("usuario2"),
-                getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
-        
-        //METODO DE INGRESO A MODULO Y SUBMODULO
-        home.modulo(
-        		folderPath, 
-        		getProperties().getProperty("ModuloT"), 
-        		getProperties().getProperty("SubModuloExpedir"),
-        		getProperties().getProperty("Evidencia"));
-        
-        //EJECUCION DE CASOS
-        expedir.LpnDtlnumCoincidan1(
-        		folderPath, 
-        		getProperties().getProperty("TipoDeBodega"), 
-        		getProperties().getProperty("estadoA"),
-        		getProperties().getProperty("Mercancias"),
-        		getProperties().getProperty("Lista"),getProperties().getProperty("Lpm"),
-        		stringDatabeseQuery + " Datos LPN de la base de datos",
-        		getProperties().getProperty("SubModuloExpedir"),//dataBDD2 + " Datos LPN de la base de datos",
-        		getProperties().getProperty("Lista1"),
-        		getProperties().getProperty("Evidencia"));
-
-        ArrayList<String> response = new ArrayList<String>();
-        
-        // Get grid columm by index
-        ArrayList<String> selectedColunmGrid = base.SelectedColunmGrid(3);
-        // Print total of recors of database.
-        base.screenshot(folderPath, "Total de registros en base de datos por consulta: "  + databaseQuery.size());
-        // Print total grid records.
-        base.screenshot(folderPath, "Total de registros en la grilla: "  + selectedColunmGrid.size());
-
-        base.screenshot(folderPath, "Comparacion base de datos/grid:");
-
-        for (int i=selectedColunmGrid.size(); i>=0; i--){ 
-
-        	//System.out.println(i);  
-            
-            if(stringDatabeseQuery.contains(selectedColunmGrid.get(i))) 
-            {
-            	response.add(selectedColunmGrid.get(i) + " ✔️ |" );
-            }
-            else
-            {
-            	response.add(selectedColunmGrid.get(i) + " ❌ |" );            	
-            }
-        } 
-
-        base.screenshot(folderPath, "Total de registros comparacion: " + response.size());
-
-        base.screenshot(folderPath, "Resultado: " + response.toString());
-        
-        GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
-
-	}
-
-	
 
 	
 	

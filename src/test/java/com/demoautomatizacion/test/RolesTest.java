@@ -11,6 +11,8 @@ import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import utilities.GenerarReportePdf;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
@@ -23,6 +25,11 @@ import com.demoautomatizacion.test.utils.Listeners.TestListener;
 @Feature("Roles Test")
 
 public class RolesTest extends BaseTest{
+
+    //OBTENER EL NOMBRE DE LA CLASE
+    String nomClass = Thread.currentThread().getStackTrace()[1].getFileName();
+
+	private static final Logger log = LogManager.getLogger(RolesTest.class.getName());
 	
 	public Properties fileprops = new Properties();
 	
@@ -36,14 +43,13 @@ public class RolesTest extends BaseTest{
     }
 	
 	
-	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
-	public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
-	{
+	//METODO PARA LOGUEO A PORTAL DE ALMAVIVA
+	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 
-		//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
+		//INSTANCIAS DE METODOS DE GENERAR REPORTE
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
+		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION 
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderR"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
@@ -51,16 +57,15 @@ public class RolesTest extends BaseTest{
 
 		GenerarReportePdf.setImgContador(0);
 
-		//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
+		//INSTANCIAS DE CREDENCIALES Y URLs
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-				folderPath,getProperties().getProperty("Evidencia"));
+		login.ingresarCredenciales(getProperties().getProperty("usuario2"), 
+				getProperties().getProperty("password"), folderPath,getProperties().getProperty("Evidencia"));
 	}
-
 	
 	
     //METODO DE CREACION DE ROL
@@ -70,12 +75,19 @@ public class RolesTest extends BaseTest{
 	@Story("Creación de rol")
 	public void crearRol() throws Exception {
 
+		System.setProperty("testname", nomClass);
+		log.info("INICIA LA EJECUCION DE LA CLASE "+nomClass);
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+
 		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION 
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderR"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login2(getProperties().getProperty("nameTestCrearRol"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestCrearRol"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloR"),getProperties().getProperty("Evidencia"));
 
@@ -96,6 +108,8 @@ public class RolesTest extends BaseTest{
 		 //.aceptarUsuario(folderPath);
 
 		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}  
 	
 	@Test(priority = 1, description = "Modificar rol")
@@ -104,13 +118,17 @@ public class RolesTest extends BaseTest{
 	@Story("Modificación de rol")
 	public void modificarRol() throws Exception {
 
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+
 		
 		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderR"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login2(getProperties().getProperty("nameTestModificarRol"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestModificarRol"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
 
 		//METODO PARA INGRESAR A  MODULO Y SUBMODULO
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloR"),getProperties().getProperty("Evidencia"));
@@ -122,6 +140,8 @@ public class RolesTest extends BaseTest{
 		 //.aceptarUsuario(folderPath);
 
 		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 
 	@Test(priority = 2, description = "Ver rol")
@@ -130,13 +150,17 @@ public class RolesTest extends BaseTest{
 	@Story("Detalle de rol")
 	public void verRol() throws Exception {
 
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+
 		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderR"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//METODO DE LOGIN
-		login2(getProperties().getProperty("nameTestVerRol"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestVerRol"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
 
 		//METODO DE INGRESAR A MODULO Y SUBMODULO
 		home.modulo(folderPath, getProperties().getProperty("Modulo"),
@@ -146,6 +170,8 @@ public class RolesTest extends BaseTest{
 		roles.verRol(folderPath,getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 	
 	@Test(priority = 3, description = "Consultar rol")
@@ -153,6 +179,10 @@ public class RolesTest extends BaseTest{
 	@Description("Módulo Roles")
 	@Story("Consulta de rol")
 	public void consultarUsuario() throws Exception {
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 		
 
 		//INSTANCIA DE RUTA DONDE GUARDAMOS EL INFORME PDF DE LA EJECUCION
@@ -160,8 +190,8 @@ public class RolesTest extends BaseTest{
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		//METODO DE LOGIN A PORTAL DE ALMAVIVA
-		login2(getProperties().getProperty("nameTestConsultarRol"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestConsultarRol"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
 
 		//METODO DE INGRESO A MODULOS Y BOTONES DE ROL
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), 
@@ -173,5 +203,7 @@ public class RolesTest extends BaseTest{
 
 		//CIERRE DE PLANTILLA
 		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 }

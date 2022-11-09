@@ -3,6 +3,9 @@ package com.demoautomatizacion.test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
@@ -23,6 +26,12 @@ import utilities.GenerarReportePdf;
 @Feature("Perfiles Tests")
 
 public class PerfilesTest extends BaseTest {
+
+
+    //OBTENER EL NOMBRE DE LA CLASE
+    String nomClass = Thread.currentThread().getStackTrace()[1].getFileName();
+
+	private static final Logger log = LogManager.getLogger(PerfilesTest.class.getName());
 	
 	public Properties fileprops = new Properties();
 
@@ -35,14 +44,11 @@ public class PerfilesTest extends BaseTest {
 		return fileprops;
 	}
 
-	//METODO PARA LOGUEARSE AL PORTAL DE ALMAVIVA
-	public void login2(String nameTest, String usuario, String contrasena,String Evidencia) throws Exception 
-	{
+	//METODO DE LOGIN A PORTAL DE ALMAVIVA, INGRESO DE CREDENCIALES
+	public void login(String nameTest, String usuario, String contrasena) throws Exception {
 
-		//INSTANCIA DEL METODO DE GENERAR EL REPORTE PDF
 		GenerarReportePdf.setRutaImagen(getProperties().getProperty("routeImageReport"));
-		//INSTANCIA DE LA RUTA DONDE GUARDAMOS EL PDF
-		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderG"),
+		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.createTemplate(folderPath, nameTest, getProperties().getProperty("analista"),
@@ -50,14 +56,13 @@ public class PerfilesTest extends BaseTest {
 
 		GenerarReportePdf.setImgContador(0);
 
-		//LLAMADO DE CREDENCIALES Y LA RUTA URL DEL PORTAL DE ALMAVIVA
+		//LLAMADO DE URL Y CREDENCIALES
 		home.irPortal(getProperties().getProperty("urlPrivada"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("url"));
 		login.privacidadIp();
 		home.irPortal(getProperties().getProperty("urlPrivada"));
-		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"),
-				folderPath,getProperties().getProperty("Evidencia"));
+		login.ingresarCredenciales(getProperties().getProperty("usuario2"), getProperties().getProperty("password"), folderPath,getProperties().getProperty("Evidencia"));
 	}
 
 	@Test(priority = 0, description = "Crear perfil")
@@ -66,12 +71,19 @@ public class PerfilesTest extends BaseTest {
 	@Story("Creación de perfil")
 	public void crearPerfil() throws Exception {
 
+		System.setProperty("testname", nomClass);
+		log.info("INICIA LA EJECUCION DE LA CLASE "+nomClass);
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+
 		//RUTA EN DONDE SE VA A GUARDAR LOS INFORMES DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login2(getProperties().getProperty("nameTestCrearPerfil"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestCrearPerfil"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"),getProperties().getProperty("Evidencia"));
 
@@ -92,6 +104,8 @@ public class PerfilesTest extends BaseTest {
 		 //.aceptarUsuario(folderPath);
 
 		GenerarReportePdf.closeTemplate("",getProperties().getProperty("Evidencia"));
+	
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}  
 	
 	//METODO PARA MODIFICAR PERFIL DE USUARIO
@@ -101,12 +115,16 @@ public class PerfilesTest extends BaseTest {
 	@Story("Modificación de perfil")
 	public void modificarPerfil() throws Exception {
 
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
+
 		//RUTA EN DONDE SE VA A GUARDAR LOS INFORMES DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login2(getProperties().getProperty("nameTestModificarPerfil"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestModificarPerfil"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"),getProperties().getProperty("Evidencia"));
 
@@ -116,6 +134,8 @@ public class PerfilesTest extends BaseTest {
 		 //.aceptarUsuario(folderPath);
 
 		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
+		log.info("FINALIZA LA CREACION DE EVIDENCIA");
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 	
 	//METODO DE VER PERFIL
@@ -124,13 +144,18 @@ public class PerfilesTest extends BaseTest {
 	@Description("Módulo Perfiles")
 	@Story("Detalle de perfil")
 	public void verPerfil() throws Exception {
+		
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 
 		//RUTA EN DONDE SE VA A GUARDAR LOS INFORMES DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login2(getProperties().getProperty("nameTestVerPerfil"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestVerPerfil"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
 
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"),getProperties().getProperty("Evidencia"));
 
@@ -138,6 +163,8 @@ public class PerfilesTest extends BaseTest {
 		perfiles.verPerfil(folderPath,getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 	
 	@Test(priority = 3, description = "Consultar perfil")
@@ -145,13 +172,18 @@ public class PerfilesTest extends BaseTest {
 	@Description("Módulo Perfiles")
 	@Story("Consulta de perfil")
 	public void consultarUsuario() throws Exception {
+		
+
+		//OBTENER EL NOMBRE DEL METODO A EJECUTAR
+        String nomTest = Thread.currentThread().getStackTrace()[1].getMethodName();		
+		log.info("SE INICIA LA EJECUCION DEL TEST "+nomTest);
 
 		//RUTA EN DONDE SE VA A GUARDAR LOS INFORMES DE PDF
 		File folderPath = BasePage.createFolder(getProperties().getProperty("nameFolderP"),
 				getProperties().getProperty("path"),getProperties().getProperty("Evidencia"));
 
-		login2(getProperties().getProperty("nameTestConsultarPerfil"), getProperties().getProperty("usuario2"),
-				getProperties().getProperty("password"),getProperties().getProperty("Evidencia"));
+		login(getProperties().getProperty("nameTestConsultarPerfil"), getProperties().getProperty("usuario2"),
+				getProperties().getProperty("password"));
 
 		
 		home.modulo(folderPath, getProperties().getProperty("Modulo"), getProperties().getProperty("SubModuloP"),getProperties().getProperty("Evidencia"));
@@ -162,5 +194,7 @@ public class PerfilesTest extends BaseTest {
 		.consultaPerfil(folderPath, getProperties().getProperty("nom50"), getProperties().getProperty("nombrePerfil"),getProperties().getProperty("Evidencia"));
 
 		GenerarReportePdf.closeTemplate("Cierre de plantilla",getProperties().getProperty("Evidencia"));
+		
+		log.info("FINALIZA LA EJECUCION DEL TEST");
 	}
 }

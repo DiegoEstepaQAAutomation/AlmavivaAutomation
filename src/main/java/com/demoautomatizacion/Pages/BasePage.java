@@ -1,5 +1,6 @@
 
 package com.demoautomatizacion.Pages;
+import org.apache.logging.log4j.LogManager;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;
@@ -17,7 +18,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -26,18 +26,26 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+
 import com.itextpdf.text.DocumentException;
 
 import io.qameta.allure.Attachment;
 import utilities.GenerarReportePdf;
 import utilities.WriteExcelFile;
 
+import org.apache.logging.log4j.Logger;
+
+
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class BasePage.
  */
 public class BasePage {
-
+	
+	private static Logger log = LogManager.getLogger(BasePage.class.getName());
+	
 	/** The driver. */
 	public static WebDriver driver;
 	
@@ -227,6 +235,9 @@ public class BasePage {
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
+			log.error("*** NO SE PUDO LEER EL MSJ DEL LOCALIZADOR ***\n "+elementLocation);
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();
 		}
 		return readText;
 	}
@@ -267,6 +278,9 @@ public class BasePage {
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
+			log.error("*** NO SE PUDO ESCRIBIR EL MSJ EN EL LOCALIZADOR ***\n "+elementLocation);
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();
 		} }else { 
 			driver.findElement(elementLocation).sendKeys(text);
 			waitInMs(2000);
@@ -340,8 +354,10 @@ public class BasePage {
 			return element;
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
-		}
-		return element; 
+			log.error("*** NO SE PUDO ESCRIBIR EL MSJ EN EL LOCALIZADOR ***\n "+elementLocation);
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();
+		} 
 		} else 
 		{
 			visibilityOfElementLocated(elementLocation);
@@ -370,6 +386,9 @@ public class BasePage {
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
+			log.error("*** NO SE PUDO DAR CLICK EN EL LOCALIZADOR ***\n"+elementLocation);
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();
 		}  
 		
 		} else {	
@@ -426,6 +445,9 @@ public class BasePage {
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
+			log.error("*** NO SE PUDO ENVIAR EL MSJ DEL LOCALIZADOR ***\n"+elementLocation);
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();
 		} 
 		} else { 
 			
@@ -459,6 +481,9 @@ public class BasePage {
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
+			log.error("*** NO SE PUDO BORRAR LO QUE HABIA EN EL LOCALIZADOR ***\n "+elementLocation);
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();
 		} } else { 
 			
 			try {
@@ -483,6 +508,7 @@ public class BasePage {
 		waitInMs(2000);
 		driver.findElement(elemento).sendKeys(Keys.CONTROL + "a");
 		driver.findElement(elemento).sendKeys(Keys.DELETE);
+		log.info("SE BORRA LO QUE SE ENCUENTRA EN CUADRO DE TEXTO DEL LOCALIZADOR: "+elemento);
 		waitInMs(2000);
 	}
 
@@ -507,16 +533,21 @@ public class BasePage {
 			return displayed;
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
-		}
-		return false; } else 
+			log.error("*** EL ELEMENTO NO ES VISIBLE***\n "+elementLocation);
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();
+		} } else 
 		{ try {
 			visibilityOfElementLocated(elementLocation);
 			boolean displayed = driver.findElement(elementLocation).isDisplayed();
 			waitInMs(2000);
 			
 			return displayed;
-		} catch (Exception e) {System.out.print(e);} 
-		return false;} 
+		} catch (Exception e) {
+			System.out.print(e);
+			log.error("*** EL ELEMENTO NO ES VISIBLE***\n "+elementLocation);
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();}} 
 	}
 
 	/**
@@ -533,9 +564,11 @@ public class BasePage {
 			boolean display = driver.findElement(elementLocation).isDisplayed();
 			waitInMs(2000);
 			return display;
-		} catch (Exception e) {System.out.print(e);}
-		
-		return false;
+		} catch (Exception e) {
+			System.out.print(e);
+			log.error("*** EL ELEMENTO NO ES VISIBLE***\n "+elementLocation);
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();}
 	}
 
 	/**
@@ -560,6 +593,9 @@ public class BasePage {
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
 			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
+			log.error("*** EL ELEMENTO DE LA LISTA NO EXISTE***\n "+elementLocation);
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();
 		} 
 		
 		}else 
@@ -749,9 +785,10 @@ public class BasePage {
 	 * @param steps the steps
 	 * @param Evidencia the evidencia
 	 * @throws DocumentException the document exception
+	 * @throws InterruptedException 
 	 */
 	// METODO DE SCROLL HACIA UN LOCALIZADOR VERTICAL
-	public void scrollElementV(File folderPath, By locator, String steps,String Evidencia) throws DocumentException {
+	public void scrollElementV(File folderPath, By locator, String steps,String Evidencia) throws DocumentException, InterruptedException {
 		if(Evidencia.equals("SI")) {
 		try {
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
@@ -760,8 +797,10 @@ public class BasePage {
 			waitInMs(2000);
 			captureScreen(folderPath, steps,Evidencia);
 		} catch (Exception e) {
-
 			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
+			log.error("*** NO ES POSIBLE GENERAR EL SCROLL ***\n "+locator);
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();
 		}} else { 
 			
 			
@@ -770,8 +809,14 @@ public class BasePage {
 				WebElement element = driver.findElement(locator);
 				executor.executeScript("arguments[0].scrollIntoView(true);", element);
 				waitInMs(2000);
+				log.info("SCROLL PARA LOCALIZAR EL ELEMENTO: "+locator);
 				
-			} catch (Exception e) {System.out.print(e);			}
+			} catch (Exception e) {
+				GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
+				log.error("*** NO ES POSIBLE GENERAR EL SCROLL ***\n "+locator);
+				System.out.print("TEST FALLIDO");
+	            throw new InterruptedException();
+				}
 			
 			
 		}
@@ -784,9 +829,10 @@ public class BasePage {
 	 * @param locator the locator
 	 * @param steps the steps
 	 * @throws DocumentException the document exception
+	 * @throws InterruptedException 
 	 */
 	// METODO DE SCROLL HACIA UN LOCALIZADOR VERTICAL
-	public void scrollElementV2( By locator, String steps,String Evidencia) throws DocumentException {
+	public void scrollElementV2( By locator, String steps,String Evidencia) throws DocumentException, InterruptedException {
 		try {
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			WebElement element = driver.findElement(locator);
@@ -796,6 +842,9 @@ public class BasePage {
 		} catch (Exception e) {
 
 			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
+			log.error("*** NO ES POSIBLE GENERAR EL SCROLL ***\n "+locator);
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();
 		}
 	}
 
@@ -807,18 +856,23 @@ public class BasePage {
 	 * @param steps the steps
 	 * @param Evidencia the evidencia
 	 * @throws DocumentException the document exception
+	 * @throws InterruptedException 
 	 */
 	// METODO DE SCROLL HACIA UN LOCALIZADOR HORIZONTAL
-	public void scrollElementH(File folderPath, By locator, String steps,String Evidencia) throws DocumentException {
+	public void scrollElementH(File folderPath, By locator, String steps,String Evidencia) throws DocumentException, InterruptedException {
 		if(Evidencia.equals("SI")) {
 		try {
 			WebElement element = driver.findElement(locator);
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollLeft = arguments[0].offsetWidth", element);
 			waitInMs(2000);
 			captureScreen(folderPath, steps,Evidencia);
+
 		} catch (Exception e) {
 
 			GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
+			log.error("*** NO ES POSIBLE GENERAR EL SCROLL ***\n "+locator);
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();
 		}
 		
 		} else {  
@@ -826,8 +880,14 @@ public class BasePage {
 			WebElement element = driver.findElement(locator);
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollLeft = arguments[0].offsetWidth", element);
 			waitInMs(2000);
+			log.info("SCROLL PARA LOCALIZAR EL ELEMENTO: "+locator);
 			} 
-			catch (Exception e) {System.out.print(e);			}
+			catch (Exception e) {
+				GenerarReportePdf.closeTemplate(e.toString(), Evidencia);
+				log.error("*** NO ES POSIBLE GENERAR EL SCROLL ***\n "+locator);
+				System.out.print("TEST FALLIDO");
+	            throw new InterruptedException();
+			}
 		}
 	}
 	
@@ -969,12 +1029,19 @@ public class BasePage {
 	 */
 	// CAPTURA DE PANTALLA
 	public static void captureScreenA(File folderPath, String steps) throws Exception {
-		String hora = horaSistema();
-		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(scrFile, new File(folderPath + "\\" + hora + ".png"));
-		String imagePath = new File(folderPath + "\\" + hora + ".png").toString();
-		GenerarReportePdf.createBody(steps, imagePath);// INSTALAR LOCALIZADOR DE IMAGEN PDF
-		deleteFileA(imagePath);// ELIMNAR IMAGEN CREADA
+		try {
+			String hora = horaSistema();
+			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			FileUtils.copyFile(scrFile, new File(folderPath + "\\" + hora + ".png"));
+			String imagePath = new File(folderPath + "\\" + hora + ".png").toString();
+			GenerarReportePdf.createBody(steps, imagePath);// INSTALAR LOCALIZADOR DE IMAGEN PDF
+			deleteFileA(imagePath);// ELIMNAR IMAGEN CREADA
+			
+		} catch (Exception e) {
+			log.error("*** NO ES POSIBLE TOMAR EL CAPTURE DE PANTALLA *** ");
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();
+		}
 	}
 	
 	
@@ -999,13 +1066,19 @@ public class BasePage {
 	 */
 	// CAPTURA DE PANTALLA ERROR
 	public void captureError(File rutaCarpeta, String texto, String Evidencia, String mensajeError) throws Exception {
-		 
+		try{
+			log.info("SE TOMA CAPTURA DE PANTALLA");		 
 			String hora = horaSistema();
 			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 			FileUtils.copyFile(scrFile, new File(rutaCarpeta + "\\" + hora + ".png"));
 			String rutaImagen = new File(rutaCarpeta + "\\" + hora + ".png").toString();
 			GenerarReportePdf.createErrorBody(texto, rutaImagen, mensajeError);// INSTALAR LOCALIZADOR DE IMAGEN PDF
 			deleteFile(rutaImagen);// ELIMNAR IMAGEN CREADA
+		}catch (Exception e) {
+			log.error("*** NO ES POSIBLE TOMAR EL CAPTURE DE PANTALLA *** ");
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();
+		}
 		
 	}
 
@@ -1018,6 +1091,8 @@ public class BasePage {
 	 */
 	// METODO CAPTURA PDF
 	public void captureScreenPdf(File rutaCarpeta, String funcion) throws Exception {
+		try {
+		log.info("SE TOMA CAPTURA DE PANTALLA");
 		String hora = horaSistema();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Rectangle screenRectangle = new Rectangle(screenSize);
@@ -1025,8 +1100,15 @@ public class BasePage {
 		BufferedImage image = robot.createScreenCapture(screenRectangle);
 		ImageIO.write(image, "png", new File(rutaCarpeta + "/" + hora + ".jpg"));
 		String rutaImagen = rutaCarpeta + "/" + hora + ".jpg";
+		log.info("SE ANEXA LA CAPTURA AL PDF");
 		GenerarReportePdf.createBody(funcion, rutaImagen);
+		log.info("SE ELIMINA LA CAPTURA DE PANTALLA");
 		deleteFile(rutaImagen);
+		}catch (Exception e){
+			log.error("*** NO ES POSIBLE TOMAR EL CAPTURE DE PANTALLA *** ");
+			System.out.print("TEST FALLIDO");
+            throw new InterruptedException();
+		}
 	}
 
 	/**
@@ -1647,46 +1729,6 @@ public class BasePage {
 		
 			
 	}
-	
-public void ValidacionObjeto2(boolean valor1, String caso, File folderPath,String Evidencia ) throws IOException, DocumentException 
-	
-	{
-		
-		if(Evidencia.equals("SI")) 
-		{
-		//Si el objeto booleano es verdadero imprimira en evidencias caso exitoso
-		if(valor1 == true  ) 
-			
-		{
-			screenshot(folderPath ,"La validacion es exitosa  para el caso " + caso );			
-		}
-		//En caso contrario imprimira otro mensaje
-		else 
-		{
-			
-			screenshot(folderPath ,"La validacion no es exitosa el elemento a validar no esta presente " );
-			
-			GenerarReportePdf.closeTemplate(caso, Evidencia);
-					
-		}
-		} 
-		else if(valor1 == true  ) 
-		{
-			
-			System.out.println("Validacion exitosa");
-			
-			
-		}
-		else 
-		{
-			System.out.println("Validacion no exitosa");
-		}
-		
-			
-	}
-	
-	
-	//try {
 	//Metodo de recargar pagina
 	
 	/**
